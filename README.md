@@ -13,6 +13,14 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `out` folder by default.
 
+## Important Libraries: Download .jar and .dylib files into lib folder.
+
+> - `JavaFX 19 SDK:` https://gluonhq.com/products/javafx/
+
+## Important Documentation for JavaFX Non-modular from IntelliJ.
+
+> - `JavaFX IntelliJ:` https://openjfx.io/openjfx-docs/
+
 ## Important Notes
 
 > - `Photos Application Requirements`: https://www.cs.rutgers.edu/courses/213/classes/fall_2022_venugopal/photos/photos.html
