@@ -1,6 +1,6 @@
 package model;
 
 public class Tag {
-    public String tag;
+    public String name;
     public String value;
 }
