@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
-public class Album {
+public final class Album {
     public ArrayList<Photo> photos;
+
+    public Album() {
+        this.photos = new ArrayList<>();
+    }
 }

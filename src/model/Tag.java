@@ -1,6 +1,11 @@
 package model;
 
-public class Tag {
+public final class Tag {
     public String name;
     public String value;
+
+    public Tag(String name) {
+        this.name = name;
+        this.value = "";
+    }
 }
