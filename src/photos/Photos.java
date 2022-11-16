@@ -10,14 +10,17 @@ import model.Model;
 public final class Photos extends Application {
     private static Stage primaryStage;
 
+    public static Stage getPrimaryStage() {
+        return Photos.primaryStage;
+    }
+
     private static void setPrimaryStage(Stage primaryStage) {
         Photos.primaryStage = primaryStage;
     }
 
-    public static Stage getPrimaryStage() {
-        return Photos.primaryStage;
+    public static void main(String[] args) {
+        launch(args);
     }
-    public static void main(String[] args) {launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws Exception {

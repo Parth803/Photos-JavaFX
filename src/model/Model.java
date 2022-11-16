@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 public final class Model {
     public static ArrayList<User> users;
-    private Model() {}
+
+    private Model() {
+    }
+
     public static void initializeModel() {
         // if (users.txt isEmpty) ->
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
         // else ->
         // users = readSerializedArrayListOfTypeUser();
     }

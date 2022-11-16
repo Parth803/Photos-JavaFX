@@ -5,11 +5,11 @@ import java.io.Serial;
 public final class Tag implements java.io.Serializable {
     @Serial
     private static final long serialVersionUID = -6115814363901437624L;
-    public String name;
-    public String value;
+    public String tagType;
+    public String tagValue;
 
-    public Tag(String name) {
-        this.name = name;
-        this.value = "";
+    public Tag(String tagType) {
+        this.tagType = tagType;
+        this.tagValue = "";
     }
 }
