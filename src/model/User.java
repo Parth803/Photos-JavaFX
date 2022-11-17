@@ -1,12 +1,8 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Serial;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 
 public final class User implements java.io.Serializable {
     @Serial
@@ -35,10 +31,13 @@ public final class User implements java.io.Serializable {
         }
 
         // we have a new user, so we don't fetch anything.
-        return;
     }
 
     public void createAlbum(String albumName) {
+
+    }
+
+    public void createAlbum(ArrayList<Photo> searchResults) {
 
     }
 
