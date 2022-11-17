@@ -50,7 +50,12 @@ public final class User implements java.io.Serializable {
     }
 
     public int getAlbumIndex(String albumName) {
-
+        for (int i = 0; i < this.albums.size(); i++) {
+            if (this.albums.get(i) != null && this.albums.get(i).albumName.compareTo(albumName) == 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
