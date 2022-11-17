@@ -9,6 +9,7 @@ public final class User implements java.io.Serializable {
     private static final long serialVersionUID = -379318737058451008L;
     public String username;
     public ArrayList<Album> albums;
+    public ArrayList<Photo> allPhotos;
 
     public User(String username) {
         this.username = username;
@@ -16,21 +17,29 @@ public final class User implements java.io.Serializable {
             return;
         }
         this.albums = new ArrayList<>();
-        fetchAlbums();
+        this.allPhotos = new ArrayList<>();
+        fetchData();
     }
 
-    public void fetchAlbums() {
+    public void fetchData() {
         if (this.username.equals("stock")) {
             // get stock album which stores the stock photos
+            fetchPhotosFromAlbums();
             return;
         }
 
         if (Model.getUserIndex(this.username) != -1) {
             // get albums that belong to the existing user and store them in albums arraylist
-            return;
+            fetchPhotosFromAlbums();
         }
 
         // we have a new user, so we don't fetch anything.
+    }
+
+    public void fetchPhotosFromAlbums() {
+        for (Album a: this.albums) {
+            this.allPhotos.addAll(a.photos);
+        }
     }
 
     public void createAlbum(String albumName) throws Exception {
@@ -71,14 +80,32 @@ public final class User implements java.io.Serializable {
     }
 
     public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
-        ArrayList<Photo> allPhotos = new ArrayList<Photo>();
-        for (Album x: albums) {
-            allPhotos.addAll(x);
+        /// not sure if this works, but it looks cooler so test it and if it does use this
+        // return (ArrayList<Photo>) this.allPhotos.stream().filter(p -> p.tags.stream().filter(tag -> tag.equals(new Tag(tagType, tagValue))).count() > 0);
+        /// alternative way with more words
+        ArrayList<Photo> filteredList = new ArrayList<>();
+        for (Photo p: allPhotos) {
+            for (Tag t: p.tags) {
+                if (t.equals(new Tag(tagType, tagValue))) {
+                    filteredList.add(p);
+                    break;
+                }
+            }
         }
+        return filteredList;
     }
 
     public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
-
+        /// This one most probably works but still test it in case it doesn't
+        // return (ArrayList<Photo>) this.allPhotos.stream().filter(p -> p.dateTaken.equals(start) || p.dateTaken.equals(end) || (p.dateTaken.after(start) && p.dateTaken.before(end)));
+        /// alternative way with more words
+        ArrayList<Photo> filteredList = new ArrayList<>();
+        for (Photo p: allPhotos) {
+            if (p.dateTaken.equals(start) && p.dateTaken.equals(end) || (p.dateTaken.after(start) && p.dateTaken.before(end))) {
+                filteredList.add(p);
+            }
+        }
+        return filteredList;
     }
 }
 
