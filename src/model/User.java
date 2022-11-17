@@ -3,7 +3,9 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serial;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public final class User implements java.io.Serializable {
@@ -22,24 +24,42 @@ public final class User implements java.io.Serializable {
     }
 
     public void fetchAlbums() {
-        boolean isExistingUser = false;
-
-        try (Scanner scan = new Scanner(new File("users.txt"))) {
-            while (scan.hasNextLine()) {
-                String currentLine = scan.nextLine();
-                if (currentLine.contains(this.username)) {
-                    isExistingUser = true;
-                    break;
-                }
-            }
-        } catch (FileNotFoundException err) {
-            System.out.println("File Not Found");
+        if (this.username.equals("stock")) {
+            // get stock album which stores the stock photos
+            return;
         }
 
-        if (!isExistingUser) {
-            // handle new user
+        if (Model.getUserIndex(this.username) != -1) {
+            // get albums that belong to the existing user and store them in albums arraylist
+            return;
         }
-        // get albums that belong to the existing user and store them in albums arraylist
+
+        // we have a new user, so we don't fetch anything.
+        return;
+    }
+
+    public void createAlbum(String albumName) {
+
+    }
+
+    public void deleteAlbum(String albumName) {
+
+    }
+
+    public void renameAlbum(String oldAlbumName, String newAlbumName) {
+
+    }
+
+    public int getAlbumIndex(String albumName) {
+
+    }
+
+    public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
+
+    }
+
+    public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
+    
     }
 }
 

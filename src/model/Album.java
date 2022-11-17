@@ -32,7 +32,7 @@ public final class Album implements java.io.Serializable {
 
     public int getPhotoIndex(String file) {
         for (int i = 0; i < this.photos.size(); i++) {
-            if (photos.get(i) != null && photos.get(i).path.compareTo(file) == 0) {
+            if (this.photos.get(i) != null && this.photos.get(i).path.compareTo(file) == 0) {
                 return i;
             }
         }

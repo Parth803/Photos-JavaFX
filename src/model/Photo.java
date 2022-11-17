@@ -23,14 +23,14 @@ public final class Photo implements java.io.Serializable {
 
     public void addTag(String tagType, String tagValue) throws Exception {
         if (this.getTagIndex(tagType, tagValue) != -1) {
-            throw new Exception("Tag is already in album");
+            throw new Exception("Photo Already Has This Tag");
         }
         tags.add(new Tag(tagType, tagValue));
     }
 
     public void removeTag(String tagType, String tagValue) throws Exception {
         if (this.getTagIndex(tagType, tagValue) == -1) {
-            throw new Exception("Tag not in album");
+            throw new Exception("Photo Does Not Have This Tag");
         }
         tags.remove(this.getTagIndex(tagType, tagValue));
     }
