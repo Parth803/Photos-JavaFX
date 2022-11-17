@@ -14,6 +14,11 @@ public final class Album implements java.io.Serializable {
         this.photos = new ArrayList<>();
     }
 
+    public Album(String albumName, ArrayList<Photo> photos) {
+        this.albumName = albumName;
+        this.photos = photos;
+    }
+
     public void addPhoto(String file, String caption) throws Exception {
         // add error handling for if photo already in album
         if (this.getPhotoIndex(file) != -1) {

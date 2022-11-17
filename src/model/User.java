@@ -33,20 +33,32 @@ public final class User implements java.io.Serializable {
         // we have a new user, so we don't fetch anything.
     }
 
-    public void createAlbum(String albumName) {
-
+    public void createAlbum(String albumName) throws Exception {
+        if (this.getAlbumIndex(albumName) != -1) {
+            throw new Exception("Album Already Exists");
+        }
+        albums.add(new Album(albumName));
     }
 
-    public void createAlbum(ArrayList<Photo> searchResults) {
-
+    public void createAlbum(String albumName, ArrayList<Photo> searchResults) throws Exception {
+        if (this.getAlbumIndex(albumName) != -1) {
+            throw new Exception("Album Already Exists");
+        }
+        albums.add(new Album(albumName, searchResults));
     }
 
-    public void deleteAlbum(String albumName) {
-
+    public void deleteAlbum(String albumName) throws Exception {
+        if (this.getAlbumIndex(albumName) == -1) {
+            throw new Exception("Album Not Found");
+        }
+        albums.remove(this.getAlbumIndex(albumName));
     }
 
-    public void renameAlbum(String oldAlbumName, String newAlbumName) {
-
+    public void renameAlbum(String oldAlbumName, String newAlbumName) throws Exception {
+        if (this.getAlbumIndex(oldAlbumName) == -1) {
+            throw new Exception("Album Not Found");
+        }
+        albums.get(this.getAlbumIndex(oldAlbumName)).albumName = newAlbumName;
     }
 
     public int getAlbumIndex(String albumName) {
@@ -59,7 +71,10 @@ public final class User implements java.io.Serializable {
     }
 
     public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
-
+        ArrayList<Photo> allPhotos = new ArrayList<Photo>();
+        for (Album x: albums) {
+            allPhotos.addAll(x);
+        }
     }
 
     public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
