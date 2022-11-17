@@ -59,7 +59,7 @@ public final class User implements java.io.Serializable {
     }
 
     public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
-    
+
     }
 }
 
