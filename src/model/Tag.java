@@ -8,8 +8,21 @@ public final class Tag implements java.io.Serializable {
     public String tagType;
     public String tagValue;
 
-    public Tag(String tagType) {
+    public Tag(String tagType, String tagValue) {
         this.tagType = tagType;
-        this.tagValue = "";
+        this.tagValue = tagValue;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Tag)) {
+            return false;
+        }
+        return this.tagType.compareTo(((Tag) obj).tagType) == 0 && this.tagType.compareTo(((Tag) obj).tagValue) == 0;
+    }
+
+    @Override
+    public String toString() {
+        return tagType + ": " + tagValue;
     }
 }
