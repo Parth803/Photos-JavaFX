@@ -37,7 +37,7 @@ public final class Photo implements java.io.Serializable {
 
     public int getTagIndex(String tagType, String tagValue) {
         for (int i = 0; i < this.tags.size(); i++) {
-            if (tags.get(i) != null && tags.get(i).tagType.compareTo(tagType) == 0 && tags.get(i).tagValue.compareTo(tagValue) == 0) {
+            if (tags.get(i) != null && tags.get(i).equals(new Tag(tagType, tagValue))) {
                 return i;
             }
         }

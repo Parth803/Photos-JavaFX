@@ -81,15 +81,12 @@ public final class User implements java.io.Serializable {
 
     public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
         /// not sure if this works, but it looks cooler so test it and if it does use this
-        // return (ArrayList<Photo>) this.allPhotos.stream().filter(p -> p.tags.stream().filter(tag -> tag.equals(new Tag(tagType, tagValue))).count() > 0);
+        // return (ArrayList<Photo>) this.allPhotos.stream().filter(p -> p.getTagIndex(tagType, tagValue) != -1);
         /// alternative way with more words
         ArrayList<Photo> filteredList = new ArrayList<>();
         for (Photo p: allPhotos) {
-            for (Tag t: p.tags) {
-                if (t.equals(new Tag(tagType, tagValue))) {
-                    filteredList.add(p);
-                    break;
-                }
+            if (p.getTagIndex(tagType, tagValue) != -1) {
+                filteredList.add(p);
             }
         }
         return filteredList;
