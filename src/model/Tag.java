@@ -23,6 +23,6 @@ public final class Tag implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return tagType + ": " + tagValue;
+        return "(\"" + tagType + "\",\"" + tagValue + "\")";
     }
 }
