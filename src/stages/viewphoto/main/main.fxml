@@ -55,7 +55,7 @@
             <Text layoutX="358.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
             <ImageView fitHeight="250.0" fitWidth="334.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../var/folders/7t/2zn8qx1d3pn2k4w2gjtw79r80000gn/T/TemporaryItems/NSIRD_screencaptureui_LVcRlU/Screenshot%202022-11-22%20at%2012.28.31%20PM.png" />
+                  <Image url="https://assets.pokemon.com/assets/cms2/img/misc/countries/au/country_detail_pokemon.png" />
                </image>
             </ImageView>
          </children>
