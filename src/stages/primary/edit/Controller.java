@@ -1,4 +1,4 @@
-package stages.primary.add;
+package stages.primary.edit;
 
 public class Controller {
 }
