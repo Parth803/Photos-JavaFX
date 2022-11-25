@@ -56,7 +56,7 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         if (this.tags.contains(new Tag(type, value))) {
             throw new Exception("Photo Already Has This Tag");
         }
-        // needs fixing
+        // needs to be fixed
 
         this.tags.add(new Tag(type, value));
     }
