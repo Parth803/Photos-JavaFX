@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public final class Album implements java.io.Serializable {
+public final class Album implements java.io.Serializable, Comparable<Album> {
     @Serial
     private static final long serialVersionUID = -2523531824640650719L;
     public String name;
@@ -49,6 +49,17 @@ public final class Album implements java.io.Serializable {
             return false;
         }
         return this.name.equals(other.name);
+    }
+
+    public int compareTo(Album other) {
+        if (this.equals(other)) {
+            return 0;
+        }
+        if (this.name.compareToIgnoreCase(other.name) < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public void addPhoto(String path, String caption) throws Exception {

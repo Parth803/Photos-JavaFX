@@ -5,7 +5,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public final class Photo implements java.io.Serializable {
+public final class Photo implements java.io.Serializable, Comparable<Photo> {
     @Serial
     private static final long serialVersionUID = -1207060131086150206L;
     public String path;
@@ -39,6 +39,17 @@ public final class Photo implements java.io.Serializable {
             return false;
         }
         return this.path.equals(other.path);
+    }
+
+    public int compareTo(Photo other) {
+        if (this.equals(other)) {
+            return 0;
+        }
+        if (this.path.compareToIgnoreCase(other.path) < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public void addTag(String type, String value) throws Exception {

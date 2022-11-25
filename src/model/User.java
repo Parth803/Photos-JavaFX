@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-public final class User implements java.io.Serializable {
+public final class User implements java.io.Serializable, Comparable<User> {
     @Serial
     private static final long serialVersionUID = -379318737058451008L;
     public String username;
@@ -29,6 +29,17 @@ public final class User implements java.io.Serializable {
             return false;
         }
         return this.username.equals(other.username);
+    }
+
+    public int compareTo(User other) {
+        if (this.equals(other)) {
+            return 0;
+        }
+        if (this.username.compareToIgnoreCase(other.username) < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public void addToTagPreset(String type, boolean isSingle) throws Exception {
