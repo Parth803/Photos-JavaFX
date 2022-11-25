@@ -42,6 +42,16 @@ public final class Model {
         }
     }
 
+    public static void setCurrentUser(String username) throws Exception {
+        for (User user : Model.users) {
+            if (user.username.equals(username)) {
+                Model.currentUser = user;
+                return;
+            }
+        }
+        throw new Exception("username does not exist");
+    }
+
     public static void addUser(String newUsername) throws Exception {
         if (getUserIndex(newUsername) != -1) {
             throw new Exception("User Already Exists");
