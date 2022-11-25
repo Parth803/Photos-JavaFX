@@ -1,5 +1,7 @@
 package model;
 
+import javafx.util.Pair;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,15 +13,13 @@ public final class User implements java.io.Serializable {
     private static final long serialVersionUID = -379318737058451008L;
     public String username;
     public ArrayList<Album> albums;
-    public ArrayList<String> singleValueTagTypes;
-    public ArrayList<String> multiValueTagTypes;
+    public ArrayList<Pair<String, String>> tagPreset;
     public HashMap<String, Photo> uniquePhotos;
 
     public User(String username) {
         this.username = username;
         this.albums = new ArrayList<>();
-        this.singleValueTagTypes = new ArrayList<>();
-        this.multiValueTagTypes = new ArrayList<>();
+        this.tagPreset = new ArrayList<>();
         this.uniquePhotos = new HashMap<>();
     }
 

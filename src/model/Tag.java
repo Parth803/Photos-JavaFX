@@ -1,6 +1,9 @@
 package model;
 
+import javafx.util.Pair;
+
 import java.io.Serial;
+import java.util.ArrayList;
 
 public final class Tag implements java.io.Serializable {
     @Serial
@@ -11,6 +14,15 @@ public final class Tag implements java.io.Serializable {
     public Tag(String type, String value) {
         this.type = type;
         this.value = value;
+    }
+
+    public Tag(String type, String value, boolean isSingle) {
+        String property = isSingle ? "single" : "multiple";
+        ArrayList<Pair<String, String>> tagPreset = Model.currentUser.tagPreset;
+        for (Pair<String, String> p : tagPreset) {
+            //
+        }
+
     }
 
     @Override
