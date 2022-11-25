@@ -22,12 +22,26 @@ public final class Album implements java.io.Serializable {
     }
 
     public Album(String name, ArrayList<Photo> photos) {
-        this(name);
-        if (!photos.isEmpty()) {
-            this.photos = photos;
-            this.start = photos.stream().min(Comparator.comparing(Photo::getDateTaken)).get().dateTaken;
-            this.end = photos.stream().max(Comparator.comparing(Photo::getDateTaken)).get().dateTaken;
+        this.name = name;
+        this.photos = photos;
+        if (photos.isEmpty()) {
+            this.start = Calendar.getInstance();
+            this.start.set(Calendar.MILLISECOND, 0);
+            this.end = this.start;
+            return;
         }
+        Calendar minCal = photos.get(0).dateTaken;
+        Calendar maxCal = photos.get(0).dateTaken;
+        for (Photo image : photos) {
+            if (image.dateTaken.compareTo(minCal) < 0) {
+                minCal = image.dateTaken;
+            }
+            if (image.dateTaken.compareTo(maxCal) > 0) {
+                maxCal = image.dateTaken;
+            }
+        }
+        this.start = minCal;
+        this.end = maxCal;
     }
 
     public void addPhoto(String file, String caption) throws Exception {
@@ -53,3 +67,6 @@ public final class Album implements java.io.Serializable {
         return -1;
     }
 }
+
+
+
