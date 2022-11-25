@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
          <menus>
@@ -29,49 +29,48 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="696.0" prefWidth="1280.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="24.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="299.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="335.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="276.0" />
-            <Text layoutX="23.0" layoutY="52.0" opacity="0.69" strokeType="OUTSIDE" strokeWidth="0.0" text="Album: cool" textAlignment="CENTER" wrappingWidth="588.6137237548828">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="194.0" layoutY="255.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="299.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="825.0" layoutY="255.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="276.0" />
+            <Text layoutX="339.0" layoutY="82.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album: cool" textAlignment="CENTER" wrappingWidth="605.8287401199341">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="414.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Form / Basic Infomation" />
-            <Line endX="221.0" endY="7.62939453125E-6" layoutX="389.0" layoutY="95.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
-            <Text layoutX="358.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
-            <Text layoutX="358.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
-            <Text layoutX="441.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cool pic" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
-            <Text layoutX="453.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cool" textAlignment="CENTER" wrappingWidth="157.56462724421272" />
-            <Text layoutX="444.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 - 01:01 " textAlignment="CENTER" wrappingWidth="156.40535600397834">
+            <Text layoutX="906.0" layoutY="152.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Form / Basic Infomation" />
+            <Line endX="221.0" endY="7.62939453125E-6" layoutX="879.0" layoutY="170.0" scaleX="2.0" scaleY="2.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
+            <Text layoutX="756.0" layoutY="490.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
+            <Text layoutX="748.0" layoutY="540.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+            <Text layoutX="981.0" layoutY="489.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cool pic" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
+            <Text layoutX="984.0" layoutY="537.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 - 01:01 " textAlignment="CENTER" wrappingWidth="156.40535600397834">
                <font>
                   <Font size="7.0" />
                </font>
             </Text>
-            <ListView layoutX="29.0" layoutY="98.0" prefHeight="237.0" prefWidth="290.0" />
-            <Text layoutX="358.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo path:" />
-            <TextField layoutX="436.0" layoutY="107.0" prefHeight="26.0" prefWidth="159.0" />
-            <Text fill="RED" layoutX="336.0" layoutY="149.0" opacity="0.69" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo already exists in album." textAlignment="CENTER" wrappingWidth="275.03221130371094">
+            <ListView layoutX="199.0" layoutY="308.0" prefHeight="233.0" prefWidth="290.0" scaleX="2.0" scaleY="2.0" />
+            <Text layoutX="750.0" layoutY="233.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo path:" />
+            <TextField layoutX="976.0" layoutY="217.0" prefHeight="26.0" prefWidth="159.0" scaleX="2.0" scaleY="2.0" />
+            <Text fill="RED" layoutX="825.0" layoutY="328.0" opacity="0.69" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo already exists in album." textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button defaultButton="true" layoutX="391.0" layoutY="158.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" text="Add">
+            <Button defaultButton="true" layoutX="886.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" text="Add">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Line endX="221.0" endY="7.62939453125E-6" layoutX="389.0" layoutY="195.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
-            <Button defaultButton="true" layoutX="29.0" layoutY="67.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" text="Delete" />
-            <Button defaultButton="true" layoutX="264.0" layoutY="67.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" text="Add" />
-            <Text layoutX="149.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" />
-            <Button defaultButton="true" layoutX="501.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Display">
+            <Line endX="221.0" endY="7.62939453125E-6" layoutX="881.0" layoutY="425.0" scaleX="2.0" scaleY="2.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
+            <Button defaultButton="true" layoutX="81.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" text="Delete" />
+            <Button defaultButton="true" layoutX="551.0" layoutY="141.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" text="Add" />
+            <Text layoutX="324.0" layoutY="160.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos" />
+            <Button defaultButton="true" layoutX="1053.0" layoutY="597.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" scaleX="2.0" scaleY="2.0" text="Display">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button defaultButton="true" layoutX="351.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Edit">
+            <Button defaultButton="true" layoutX="781.0" layoutY="599.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" scaleX="2.0" scaleY="2.0" text="Edit">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
