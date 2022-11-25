@@ -16,15 +16,6 @@ public final class Tag implements java.io.Serializable {
         this.value = value;
     }
 
-    public Tag(String type, String value, boolean isSingle) {
-        String property = isSingle ? "single" : "multiple";
-        ArrayList<Pair<String, String>> tagPreset = Model.currentUser.tagPreset;
-        for (Pair<String, String> p : tagPreset) {
-            //
-        }
-
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Tag other)) {

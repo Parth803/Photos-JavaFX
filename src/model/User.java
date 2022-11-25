@@ -23,6 +23,17 @@ public final class User implements java.io.Serializable {
         this.uniquePhotos = new HashMap<>();
     }
 
+    public static void addToTagPreset(String type, boolean isSingle) throws Exception {
+        String property = isSingle ? "single" : "multiple";
+        ArrayList<Pair<String, String>> tagPreset = Model.currentUser.tagPreset;
+        for (Pair<String, String> p : tagPreset) {
+            if (p.getKey().equals(type)) {
+                throw new Exception("tag already exists in preset");
+            }
+        }
+        tagPreset.add(new Pair<String, String>(type, property));
+    }
+
     public void createAlbum(String albumName) throws Exception {
         if (this.getAlbumIndex(albumName) != -1) {
             throw new Exception("Album Already Exists");
