@@ -17,9 +17,19 @@ public final class Model {
             users.add(new User("admin"));
             User stock = new User("stock");
             users.add(stock);
-            // manually add stock photos in album for stock user
-
-
+            Album stockAlbum = new Album("stock");
+            stock.albums.add(stockAlbum);
+            try {
+                stockAlbum.addPhoto("data/stock/one.jpeg", "first");
+                stockAlbum.addPhoto("data/stock/two.jpeg", "second");
+                stockAlbum.addPhoto("data/stock/three.jpeg", "third");
+                stockAlbum.addPhoto("data/stock/four.jpeg", "fourth");
+                stockAlbum.addPhoto("data/stock/five.jpeg", "fifth");
+                stockAlbum.addPhoto("data/stock/six.jpeg", "sixth");
+                stockAlbum.addPhoto("data/stock/seven.jpeg", "seventh");
+            } catch (Exception e) {
+                throw new RuntimeException("stock photos could not be added");
+            }
         }
         else {
             try {
@@ -29,7 +39,7 @@ public final class Model {
                 input.close();
                 file.close();
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("could not read serialized object");
             }
         }
     }
@@ -42,7 +52,7 @@ public final class Model {
             output.close();
             file.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("could not serialize the object");
         }
     }
 
