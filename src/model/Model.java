@@ -15,7 +15,11 @@ public final class Model {
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
             users.add(new User("admin"));
-            users.add(new User("stock"));
+            User stock = new User("stock");
+            users.add(stock);
+            // manually add stock photos in album for stock user
+
+
         }
         else {
             try {
