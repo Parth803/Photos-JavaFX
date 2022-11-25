@@ -1,9 +1,6 @@
 package model;
 
-import javafx.util.Pair;
-
 import java.io.Serial;
-import java.util.ArrayList;
 
 public final class Tag implements java.io.Serializable {
     @Serial
@@ -21,7 +18,7 @@ public final class Tag implements java.io.Serializable {
         if (!(obj instanceof Tag other)) {
             return false;
         }
-        return this.type.compareTo(other.type) == 0 && this.value.compareTo(other.value) == 0;
+        return this.type.equals(other.type) && this.value.equals(other.value);
     }
 
     @Override

@@ -23,6 +23,14 @@ public final class User implements java.io.Serializable {
         this.uniquePhotos = new HashMap<>();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User other)) {
+            return false;
+        }
+        return this.username.equals(other.username);
+    }
+
     public void addToTagPreset(String type, boolean isSingle) throws Exception {
         String property = isSingle ? "single" : "multiple";
         for (Pair<String, String> p : this.tagPreset) {
@@ -30,7 +38,7 @@ public final class User implements java.io.Serializable {
                 throw new Exception("tag already exists in preset");
             }
         }
-        this.tagPreset.add(new Pair<String, String>(type, property));
+        this.tagPreset.add(new Pair<>(type, property));
     }
 
     public void createAlbum(String albumName) throws Exception {
@@ -71,7 +79,7 @@ public final class User implements java.io.Serializable {
     }
 
     public ArrayList<Photo> getAllPhotos() {
-        return new ArrayList<Photo>(this.uniquePhotos.values());
+        return new ArrayList<>(this.uniquePhotos.values());
     }
 
     public ArrayList<Photo> getPhotos(Predicate<? super Photo> predicate) {

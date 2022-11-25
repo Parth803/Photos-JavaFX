@@ -66,14 +66,14 @@ public final class Model {
         throw new Exception("username does not exist");
     }
 
-    public static void addUser(String newUsername) throws Exception {
-        if (getUserIndex(newUsername) != -1) {
+    public static void addUser(String username) throws Exception {
+        if (getUserIndex(username) != -1) {
             throw new Exception("User Already Exists");
         }
     }
 
-    public static void deleteUser(String deleteUsername) throws Exception {
-        if (getUserIndex(deleteUsername) == -1) {
+    public static void deleteUser(String username) throws Exception {
+        if (getUserIndex(username) == -1) {
             throw new Exception("User Does Not Exist");
         }
     }

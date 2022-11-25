@@ -33,6 +33,14 @@ public final class Photo implements java.io.Serializable {
         this.tags = new ArrayList<>();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Photo other)) {
+            return false;
+        }
+        return this.path.equals(other.path);
+    }
+
     public void addTag(String type, String value) throws Exception {
         if (this.getTagIndex(type, value) != -1) {
             throw new Exception("Photo Already Has This Tag");

@@ -43,23 +43,31 @@ public final class Album implements java.io.Serializable {
         this.end = maxCal;
     }
 
-    public void addPhoto(String file, String caption) throws Exception {
-        if (this.getPhotoIndex(file) != -1) {
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Album other)) {
+            return false;
+        }
+        return this.name.equals(other.name);
+    }
+
+    public void addPhoto(String path, String caption) throws Exception {
+        if (this.getPhotoIndex(path) != -1) {
             throw new Exception("Photo is already in album");
         }
-        photos.add(new Photo(file, caption));
+        photos.add(new Photo(path, caption));
     }
 
-    public void removePhoto(String file) throws Exception {
-        if (this.getPhotoIndex(file) == -1) {
+    public void removePhoto(String path) throws Exception {
+        if (this.getPhotoIndex(path) == -1) {
             throw new Exception("Photo not in album");
         }
-        photos.remove(this.getPhotoIndex(file));
+        photos.remove(this.getPhotoIndex(path));
     }
 
-    public int getPhotoIndex(String file) {
+    public int getPhotoIndex(String path) {
         for (int i = 0; i < this.photos.size(); i++) {
-            if (this.photos.get(i) != null && this.photos.get(i).path.compareTo(file) == 0) {
+            if (this.photos.get(i) != null && this.photos.get(i).path.compareTo(path) == 0) {
                 return i;
             }
         }
