@@ -55,4 +55,8 @@ public final class Photo implements java.io.Serializable {
         }
         return -1;
     }
+
+    public Calendar getDateTaken(){
+        return this.dateTaken;
+    }
 }
