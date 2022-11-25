@@ -79,7 +79,7 @@ public final class Photos extends Application {
         primaryStage.setTitle("Photos Application");
         primaryStage.setResizable(false);
         primaryStage.setWidth(1280);
-        primaryStage.setHeight(720);
+        primaryStage.setHeight(800);
         primaryStage.show();
         setPrimaryShowing(true);
     }
