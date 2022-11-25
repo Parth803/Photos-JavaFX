@@ -67,26 +67,16 @@ public final class Model {
     }
 
     public static void addUser(String username) throws Exception {
-        if (getUserIndex(username) != -1) {
+        if (users.contains(new User(username))) {
             throw new Exception("User Already Exists");
         }
     }
 
     public static void deleteUser(String username) throws Exception {
-        if (getUserIndex(username) == -1) {
+        if (!users.contains(new User(username))) {
             throw new Exception("User Does Not Exist");
         }
     }
-
-    public static int getUserIndex(String username) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i) != null && users.get(i).username.compareTo(username) == 0) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }
-
 
 

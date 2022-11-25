@@ -62,27 +62,27 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         }
     }
 
-    public void addPhoto(String path, String caption) throws Exception {
-        if (this.getPhotoIndex(path) != -1) {
+    public void addPhoto(String path) throws Exception {
+        if (this.photos.contains(new Photo(path))) {
             throw new Exception("Photo is already in album");
         }
-        photos.add(new Photo(path, caption));
+        Model.currentUser.uniquePhotos.putIfAbsent(path, new Photo(path));
+        this.photos.add(Model.currentUser.uniquePhotos.get(path));
+    }
+
+    public void addPhoto(String path, String caption) throws Exception {
+        if (this.photos.contains(new Photo(path))) {
+            throw new Exception("Photo is already in album");
+        }
+        Model.currentUser.uniquePhotos.putIfAbsent(path, new Photo(path, caption));
+        this.photos.add(Model.currentUser.uniquePhotos.get(path));
     }
 
     public void removePhoto(String path) throws Exception {
-        if (this.getPhotoIndex(path) == -1) {
+        if (!this.photos.contains(new Photo(path))) {
             throw new Exception("Photo not in album");
         }
-        photos.remove(this.getPhotoIndex(path));
-    }
-
-    public int getPhotoIndex(String path) {
-        for (int i = 0; i < this.photos.size(); i++) {
-            if (this.photos.get(i) != null && this.photos.get(i).path.compareTo(path) == 0) {
-                return i;
-            }
-        }
-        return -1;
+        this.photos.remove(new Photo(path));
     }
 }
 

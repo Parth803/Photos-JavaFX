@@ -53,29 +53,21 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     public void addTag(String type, String value) throws Exception {
-        if (this.getTagIndex(type, value) != -1) {
+        if (this.tags.contains(new Tag(type, value))) {
             throw new Exception("Photo Already Has This Tag");
         }
-        tags.add(new Tag(type, value));
+        // needs fixing
+
+        this.tags.add(new Tag(type, value));
     }
 
     public void removeTag(String type, String value) throws Exception {
-        if (this.getTagIndex(type, value) == -1) {
+        if (!this.tags.contains(new Tag(type, value))) {
             throw new Exception("Photo Does Not Have This Tag");
         }
-        tags.remove(this.getTagIndex(type, value));
-    }
-
-    public int getTagIndex(String type, String value) {
-        for (int i = 0; i < this.tags.size(); i++) {
-            if (tags.get(i) != null && tags.get(i).equals(new Tag(type, value))) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Calendar getDateTaken(){
-        return this.dateTaken;
+        this.tags.remove(new Tag(type, value));
     }
 }
+
+
+
