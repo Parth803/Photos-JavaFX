@@ -70,4 +70,3 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
 }
 
 
-

@@ -31,11 +31,6 @@ public final class Tag implements java.io.Serializable, Comparable<Tag> {
             return 1;
         }
     }
-
-    @Override
-    public String toString() {
-        return this.type + "   :   " + this.value;
-    }
 }
 
 

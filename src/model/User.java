@@ -52,41 +52,32 @@ public final class User implements java.io.Serializable, Comparable<User> {
         this.tagPreset.add(new Pair<>(type, property));
     }
 
-    public void createAlbum(String albumName) throws Exception {
-        if (this.getAlbumIndex(albumName) != -1) {
+    public void createAlbum(String name) throws Exception {
+        if (this.albums.contains(new Album(name))) {
             throw new Exception("Album Already Exists");
         }
-        albums.add(new Album(albumName));
+        this.albums.add(new Album(name));
     }
 
-    public void createAlbum(String albumName, ArrayList<Photo> searchResults) throws Exception {
-        if (this.getAlbumIndex(albumName) != -1) {
+    public void createAlbum(String name, ArrayList<Photo> photos) throws Exception {
+        if (this.albums.contains(new Album(name))) {
             throw new Exception("Album Already Exists");
         }
-        albums.add(new Album(albumName, searchResults));
+        this.albums.add(new Album(name, photos));
     }
 
-    public void deleteAlbum(String albumName) throws Exception {
-        if (this.getAlbumIndex(albumName) == -1) {
+    public void deleteAlbum(String name) throws Exception {
+        if (!this.albums.contains(new Album(name))) {
             throw new Exception("Album Not Found");
         }
-        albums.remove(this.getAlbumIndex(albumName));
+        this.albums.remove(new Album(name));
     }
 
-    public void renameAlbum(String oldAlbumName, String newAlbumName) throws Exception {
-        if (this.getAlbumIndex(oldAlbumName) == -1) {
+    public void renameAlbum(String oldName, String newName) throws Exception {
+        if (!this.albums.contains(new Album(oldName))) {
             throw new Exception("Album Not Found");
         }
-        albums.get(this.getAlbumIndex(oldAlbumName)).name = newAlbumName;
-    }
-
-    public int getAlbumIndex(String albumName) {
-        for (int i = 0; i < this.albums.size(); i++) {
-            if (this.albums.get(i) != null && this.albums.get(i).name.compareTo(albumName) == 0) {
-                return i;
-            }
-        }
-        return -1;
+        this.albums.get(this.albums.indexOf(new Album(oldName))).name = newName;
     }
 
     public ArrayList<Photo> getAllPhotos() {
