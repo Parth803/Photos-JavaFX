@@ -5,24 +5,26 @@ import java.io.Serial;
 public final class Tag implements java.io.Serializable {
     @Serial
     private static final long serialVersionUID = -6115814363901437624L;
-    public String tagType;
-    public String tagValue;
+    public String type;
+    public String value;
 
-    public Tag(String tagType, String tagValue) {
-        this.tagType = tagType;
-        this.tagValue = tagValue;
+    public Tag(String type, String value) {
+        this.type = type;
+        this.value = value;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Tag)) {
+        if (!(obj instanceof Tag other)) {
             return false;
         }
-        return this.tagType.compareTo(((Tag) obj).tagType) == 0 && this.tagType.compareTo(((Tag) obj).tagValue) == 0;
+        return this.type.compareTo(other.type) == 0 && this.value.compareTo(other.value) == 0;
     }
 
     @Override
     public String toString() {
-        return "(\"" + tagType + "\",\"" + tagValue + "\")";
+        return this.type + "   :   " + this.value;
     }
 }
+
+

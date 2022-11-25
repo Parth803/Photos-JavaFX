@@ -1,40 +1,46 @@
 package model;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public final class Model {
     public static ArrayList<User> users;
+    public static User currentUser;
 
-    private Model() {
-    }
+    private Model() {}
 
+    @SuppressWarnings("unchecked casting")
     public static void initializeModel() {
-        File userFile = new File("data/admin/users.txt");
-        if (userFile.length() == 0) {
+        File serializedUsers = new File("data/admin/users.txt");
+        if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
+            users.add(new User("admin"));
+            users.add(new User("stock"));
         }
         else {
-            try (Stream<String> stream = Files.lines(Paths.get("data/admin/users.txt"))) {
-                stream.forEach(line -> users.add(new User(line)));
-            } catch (IOException e) {
+            try {
+                FileInputStream file = new FileInputStream("data/admin/users.txt");
+                ObjectInputStream input = new ObjectInputStream(file);
+                users = (ArrayList<User>) input.readObject();
+                input.close();
+                file.close();
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
         }
-        // else ->
-        // users = readSerializedArrayListOfTypeUser();
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data/admin/users.txt"))) {
-                users = (ArrayList<User>) in.readObject();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
     }
-    // use java.io.ObjectOutputStream/java.io.ObjectInputStream classes to:
-    // create methods to store and retrieve the ArrayList of users in data/admin/users.txt
+
+    public static void persist() {
+        try {
+            FileOutputStream file = new FileOutputStream("data/admin/users.txt");
+            ObjectOutputStream output = new ObjectOutputStream(file);
+            output.writeObject(users);
+            output.close();
+            file.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void addUser(String newUsername) throws Exception {
         if (getUserIndex(newUsername) != -1) {
@@ -57,5 +63,6 @@ public final class Model {
         return -1;
     }
 }
+
 
 

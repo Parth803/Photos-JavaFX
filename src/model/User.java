@@ -1,38 +1,27 @@
 package model;
 
 import java.io.Serial;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.function.Predicate;
 
 public final class User implements java.io.Serializable {
     @Serial
     private static final long serialVersionUID = -379318737058451008L;
     public String username;
     public ArrayList<Album> albums;
+    public ArrayList<String> singleValueTagTypes;
+    public ArrayList<String> multiValueTagTypes;
+    public HashMap<String, Photo> uniquePhotos;
 
     public User(String username) {
         this.username = username;
-        if (username.equals("admin")) {
-            return;
-        }
         this.albums = new ArrayList<>();
-        fetchData();
+        this.singleValueTagTypes = new ArrayList<>();
+        this.multiValueTagTypes = new ArrayList<>();
+        this.uniquePhotos = new HashMap<>();
     }
-
-    public void fetchData() {
-        if (this.username.equals("stock")) {
-            // get stock album which stores the stock photos
-            return;
-        }
-
-        if (Model.getUserIndex(this.username) != -1) {
-            // get albums that belong to the existing user and store them in albums arraylist
-        }
-
-        // we have a new user, so we don't fetch anything.
-    }
-
 
     public void createAlbum(String albumName) throws Exception {
         if (this.getAlbumIndex(albumName) != -1) {
@@ -59,12 +48,12 @@ public final class User implements java.io.Serializable {
         if (this.getAlbumIndex(oldAlbumName) == -1) {
             throw new Exception("Album Not Found");
         }
-        albums.get(this.getAlbumIndex(oldAlbumName)).albumName = newAlbumName;
+        albums.get(this.getAlbumIndex(oldAlbumName)).name = newAlbumName;
     }
 
     public int getAlbumIndex(String albumName) {
         for (int i = 0; i < this.albums.size(); i++) {
-            if (this.albums.get(i) != null && this.albums.get(i).albumName.compareTo(albumName) == 0) {
+            if (this.albums.get(i) != null && this.albums.get(i).name.compareTo(albumName) == 0) {
                 return i;
             }
         }
@@ -72,16 +61,45 @@ public final class User implements java.io.Serializable {
     }
 
     public ArrayList<Photo> getAllPhotos() {
-        ArrayList<Photo> allPhotos = new ArrayList<>();
-        this.albums.forEach(a -> allPhotos.addAll(a.photos));
-        return allPhotos;
+        return new ArrayList<Photo>(this.uniquePhotos.values());
     }
-    public ArrayList<Photo> getPhotosByTag(String tagType, String tagValue) {
-        return (ArrayList<Photo>) getAllPhotos().stream().filter(p -> p.getTagIndex(tagType, tagValue) != -1).toList();
+
+    public ArrayList<Photo> getPhotos(Predicate<? super Photo> predicate) {
+        ArrayList<Photo> allPhotos = getAllPhotos();
+        ArrayList<Photo> result = new ArrayList<>();
+        for (Photo p : allPhotos) {
+            if (predicate.test(p)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Photo> getPhotosByTag(String type, String value) {
+        Predicate<Photo> containsTag = p -> p.tags.contains(new Tag(type, value));
+        return getPhotos(containsTag);
+    }
+
+    public ArrayList<Photo> getPhotosByTags(String type1, String value1, String type2, String value2, boolean isAND) {
+        Predicate<Photo> containsTag1 = p -> p.tags.contains(new Tag(type1, value1));
+        Predicate<Photo> containsTag2 = p -> p.tags.contains(new Tag(type2, value2));
+        Predicate<Photo> containsTags;
+        if (isAND) {
+            containsTags = containsTag1.and(containsTag2);
+        } else {
+            containsTags = containsTag1.or(containsTag2);
+        }
+        return getPhotos(containsTags);
+    }
+
+    public ArrayList<Photo> getPhotosAtTime(Calendar time) {
+        Predicate<Photo> atTime = p -> p.dateTaken.compareTo(time) == 0;
+        return getPhotos(atTime);
     }
 
     public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
-        return (ArrayList<Photo>) getAllPhotos().stream().filter(p -> p.dateTaken.equals(start) || p.dateTaken.equals(end) || (p.dateTaken.after(start) && p.dateTaken.before(end))).toList();
+        Predicate<Photo> inRange = p -> p.dateTaken.compareTo(start) >= 0 && p.dateTaken.compareTo(end) <= 0;
+        return getPhotos(inRange);
     }
 }
 

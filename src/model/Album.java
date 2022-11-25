@@ -2,21 +2,45 @@ package model;
 
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public final class Album implements java.io.Serializable {
     @Serial
     private static final long serialVersionUID = -2523531824640650719L;
-    public String albumName;
+    public String name;
     public ArrayList<Photo> photos;
+    public Calendar start;
+    public Calendar end;
 
-    public Album(String albumName) {
-        this.albumName = albumName;
+    public Album(String name) {
+        this.name = name;
         this.photos = new ArrayList<>();
+        this.start = Calendar.getInstance();
+        this.start.set(Calendar.MILLISECOND, 0);
+        this.end = this.start;
     }
 
-    public Album(String albumName, ArrayList<Photo> photos) {
-        this.albumName = albumName;
+    public Album(String name, ArrayList<Photo> photos) {
+        this.name = name;
         this.photos = photos;
+        if (photos.isEmpty()) {
+            this.start = Calendar.getInstance();
+            this.start.set(Calendar.MILLISECOND, 0);
+            this.end = this.start;
+            return;
+        }
+        Calendar minCal = photos.get(0).dateTaken;
+        Calendar maxCal = photos.get(0).dateTaken;
+        for (Photo image : photos) {
+            if (image.dateTaken.compareTo(minCal) < 0) {
+                minCal = image.dateTaken;
+            }
+            if (image.dateTaken.compareTo(maxCal) > 0) {
+                maxCal = image.dateTaken;
+            }
+        }
+        this.start = minCal;
+        this.end = maxCal;
     }
 
     public void addPhoto(String file, String caption) throws Exception {
