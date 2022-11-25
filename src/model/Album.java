@@ -3,7 +3,6 @@ package model;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 
 public final class Album implements java.io.Serializable {
     @Serial
