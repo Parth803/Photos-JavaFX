@@ -1,68 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
+      <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #202124;">
          <items>
-            <Button mnemonicParsing="false" text="Back" />
-            <Button mnemonicParsing="false" text="Log Out" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Back" textFill="#1a73e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Log Out" textFill="#1a73e8">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </items>
       </ToolBar>
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="698.0" prefWidth="1280.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="185.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="299.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="837.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="276.0" />
-            <Text fill="RED" layoutX="23.0" layoutY="52.0" opacity="0.69" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid input. Format: [MM/DD/YYYY - hh:mm TO MM/DD/YYYY - hh:mm] or [name=value AND/OR name=value]" textAlignment="CENTER" wrappingWidth="588.6137237548828">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="185.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #FFFFFF;" width="299.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="837.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="TRANSPARENT" strokeType="INSIDE" width="276.0" />
+            <Text fill="RED" layoutX="23.0" layoutY="52.0" opacity="0.69" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid input. Format: [MM/DD/YYYY hh:mm:ss TO MM/DD/YYYY hh:mm:ss] or [type=value AND/OR type=value]" textAlignment="CENTER" wrappingWidth="588.6137237548828">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Text layoutX="929.0" layoutY="156.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Form / Infomation" />
-            <TextField layoutX="275.0" layoutY="30.0" prefHeight="25.0" prefWidth="480.0" scaleX="2.0" scaleY="2.0" />
-            <Button defaultButton="true" layoutX="1089.0" layoutY="30.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" scaleX="2.0" scaleY="2.0" text="Search Photos" />
+            <Text layoutX="929.0" layoutY="156.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" />
+            <TextField layoutX="275.0" layoutY="30.0" prefHeight="25.0" prefWidth="480.0" promptText="Search..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #d3d3d3; -fx-border-radius: 20;" />
+            <Button defaultButton="true" layoutX="1089.0" layoutY="30.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8;" text="Search Photos" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Line endX="221.0" endY="7.62939453125E-6" layoutX="891.0" layoutY="176.0" scaleX="2.0" scaleY="2.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
             <Text layoutX="768.0" layoutY="225.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Album:" />
             <Text layoutX="775.0" layoutY="285.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Photos:" />
             <Text layoutX="757.0" layoutY="344.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range:" />
             <Text layoutX="1011.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
             <Text layoutX="1013.0" layoutY="224.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cool" textAlignment="CENTER" wrappingWidth="157.56462724421272" />
-            <Text layoutX="1014.0" layoutY="345.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 - 01:01 TO 11/11/2022 - 11:11" textAlignment="CENTER" wrappingWidth="156.40535600397834">
+            <Text layoutX="1017.0" layoutY="340.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 01:01:01 TO 11/11/2022 11:11:11" textAlignment="CENTER" wrappingWidth="147.4053566000248">
                <font>
-                  <Font size="7.0" />
+                  <Font size="11.0" />
                </font>
             </Text>
-            <Button defaultButton="true" layoutX="900.0" layoutY="396.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" text="Open">
+            <Button defaultButton="true" layoutX="899.0" layoutY="411.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8;" text="Open" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Text layoutX="768.0" layoutY="485.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Album:" />
-            <TextField layoutX="1012.0" layoutY="467.0" prefHeight="25.0" prefWidth="143.0" scaleX="2.0" scaleY="2.0" />
-            <Text fill="RED" layoutX="836.0" layoutY="541.0" opacity="0.69" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album name already exists." textAlignment="CENTER" wrappingWidth="275.03221130371094">
+            <Text layoutX="767.0" layoutY="512.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Album:" />
+            <TextField layoutX="1013.0" layoutY="494.0" prefHeight="25.0" prefWidth="143.0" promptText="Album..." scaleX="2.0" scaleY="2.0" style="-fx-border-color: #d3d3d3; -fx-background-color: #FFFFFF; -fx-border-radius: 20;" />
+            <Text fill="RED" layoutX="836.0" layoutY="564.0" opacity="0.69" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album name already exists." textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button defaultButton="true" layoutX="897.0" layoutY="588.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" text="Add">
+            <Button defaultButton="true" layoutX="897.0" layoutY="607.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #0F9D58;" text="Add" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <ListView layoutX="190.0" layoutY="305.0" prefHeight="237.0" prefWidth="290.0" scaleX="2.0" scaleY="2.0" />
-            <Button defaultButton="true" layoutX="72.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" text="Delete" />
-            <Button defaultButton="true" layoutX="542.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" text="Add" />
+            <Button defaultButton="true" layoutX="72.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437;" text="Delete" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button defaultButton="true" layoutX="542.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #0F9D58;" text="Add" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Text layoutX="313.0" layoutY="157.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Albums" />
+            <ScrollPane hbarPolicy="NEVER" layoutX="44.0" layoutY="190.0" prefHeight="476.0" prefWidth="581.0" style="-fx-background-color: #FFFFFF;">
+               <content>
+                  <TilePane prefHeight="475.0" prefWidth="565.0" style="-fx-background-color: #FFFFFF;" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
    </children>
