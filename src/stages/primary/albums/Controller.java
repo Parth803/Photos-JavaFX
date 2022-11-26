@@ -58,6 +58,7 @@ public class Controller {
             Model.currentUser.createAlbum(albumName.getText());
             promptAdd.setText("Add");
             newAlbumLabel.setOpacity(0);
+            albumName.clear();
             albumName.setOpacity(0);
             albumName.setDisable(true);
             warning.setOpacity(0);
