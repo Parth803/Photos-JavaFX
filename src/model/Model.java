@@ -75,12 +75,14 @@ public final class Model {
         if (users.contains(new User(username))) {
             throw new Exception("User Already Exists");
         }
+        users.add(new User(username));
     }
 
     public static void deleteUser(String username) throws Exception {
         if (!users.contains(new User(username))) {
             throw new Exception("User Does Not Exist");
         }
+        users.remove(new User(username));
     }
 }
 

@@ -37,6 +37,7 @@ public class Controller {
     public void addUser() {
         try {
             Model.addUser(username.getText());
+            this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             warning.setOpacity(0.69);
@@ -49,6 +50,7 @@ public class Controller {
         }
         try {
             Model.deleteUser(this.usersList.getSelectionModel().getSelectedItem());
+            this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
         }
