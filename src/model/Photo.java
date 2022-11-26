@@ -1,5 +1,7 @@
 package model;
 
+import javafx.util.Pair;
+
 import java.io.File;
 import java.io.Serial;
 import java.util.ArrayList;
@@ -53,12 +55,45 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     public void addTag(String type, String value) throws Exception {
+        boolean isSingle;
+        try {
+            isSingle = Model.currentUser.getTagProperty(type).equals("single");
+        } catch (Exception e) {
+            throw new Exception("you need to pick tag type from the preset");
+        }
         if (this.tags.contains(new Tag(type, value))) {
             throw new Exception("Photo Already Has This Tag");
         }
-        // needs to be fixed
-
+        boolean atLeastOnce = false;
+        for (Tag tag : this.tags) {
+            if (tag.type.equals(type)) {
+                atLeastOnce = true;
+                break;
+            }
+        }
+        if (atLeastOnce) {
+            if (!isSingle) {
+                this.tags.add(new Tag(type, value));
+                return;
+            } else {
+                throw new Exception("tag type can only have single value");
+            }
+        }
         this.tags.add(new Tag(type, value));
+    }
+
+    public void addTag(String type, String value, boolean isSingle) throws Exception {
+        String property = isSingle ? "single" : "multiple";
+        if (Model.currentUser.tagPreset.contains(new Pair<>(type, property))) {
+            this.addTag(type, value);
+            return;
+        }
+        try {
+            Model.currentUser.addToTagPreset(type, isSingle);
+            this.addTag(type, value);
+        } catch (Exception e) {
+            throw new Exception("you cannot change property of a tag type");
+        }
     }
 
     public void removeTag(String type, String value) throws Exception {
@@ -68,5 +103,6 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         this.tags.remove(new Tag(type, value));
     }
 }
+
 
 

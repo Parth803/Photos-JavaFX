@@ -52,6 +52,15 @@ public final class User implements java.io.Serializable, Comparable<User> {
         this.tagPreset.add(new Pair<>(type, property));
     }
 
+    public String getTagProperty(String type) throws Exception {
+        for (Pair<String, String> p : this.tagPreset) {
+            if (p.getKey().equals(type)) {
+                return p.getValue();
+            }
+        }
+        throw new Exception("could not get property because tag is not in preset");
+    }
+
     public void createAlbum(String name) throws Exception {
         if (this.albums.contains(new Album(name))) {
             throw new Exception("Album Already Exists");
@@ -122,5 +131,6 @@ public final class User implements java.io.Serializable, Comparable<User> {
         return getPhotos(inRange);
     }
 }
+
 
 
