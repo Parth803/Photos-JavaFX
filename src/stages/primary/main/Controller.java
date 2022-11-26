@@ -21,14 +21,11 @@ public class Controller {
     @FXML
     private Text warning;
     public void initialize() {
-        this.back.setOnAction(actionEvent -> goBack());
+        this.back.setOnAction(actionEvent -> {});
         this.logout.setOnAction(actionEvent -> logOut());
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 
-    public void goBack() {
-
-    }
     public void logOut() {
         Platform.exit();
     }
