@@ -9,6 +9,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Model;
 
+import java.io.IOException;
+
 public final class Photos extends Application {
     private static Stage primaryStage;
     private static Stage viewPhotoStage;
@@ -122,6 +124,22 @@ public final class Photos extends Application {
         Stage viewPhotoStage = Photos.getViewPhotoStage();
         viewPhotoStage.show();
         setViewPhotoShowing(true);
+    }
+
+    public static void logOut() {
+        try {
+            java.net.URL obj = Photos.class.getResource("/stages/primary/main/main.fxml");
+            if (obj == null) {
+                // handle this in GUI with alert dialog
+                System.out.println("FXML not found");
+                throw new NullPointerException();
+            }
+            Parent root = FXMLLoader.load(obj);
+            Scene scene = new Scene(root);
+            Photos.getPrimaryStage().setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

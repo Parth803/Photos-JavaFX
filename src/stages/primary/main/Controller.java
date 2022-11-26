@@ -22,14 +22,14 @@ public class Controller {
     private Text warning;
     public void initialize() {
         this.back.setOnAction(actionEvent -> goBack());
-        this.logout.setOnAction(actionEvent -> setLogout());
+        this.logout.setOnAction(actionEvent -> logOut());
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 
     public void goBack() {
 
     }
-    public void setLogout() {
+    public void logOut() {
         Platform.exit();
     }
     public void continueAction() {
