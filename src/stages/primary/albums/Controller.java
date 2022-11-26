@@ -1,6 +1,7 @@
 package stages.primary.albums;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -32,16 +33,17 @@ public class Controller {
     public void initialize() {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
-        this.back.setOnAction(actionEvent -> Photos.logOut());
-        this.logout.setOnAction(actionEvent -> Photos.logOut());
-        this.promptAdd.setOnAction(actionEvent -> promptAdd());
-        this.sendAdd.setOnAction(actionEvent -> addAlbum());
 
+        System.out.println(Model.currentUser.albums);
         for (Album i: Model.currentUser.albums) {
             ImageView imageView = new ImageView(new Image(i.photos.get(0).path));
             this.albumsPane.getChildren().add(imageView);
         }
 
+        this.back.setOnAction(actionEvent -> Photos.logOut());
+        this.logout.setOnAction(actionEvent -> Photos.logOut());
+        this.promptAdd.setOnAction(actionEvent -> promptAdd());
+        this.sendAdd.setOnAction(actionEvent -> addAlbum());
     }
 
     public void promptAdd() {
