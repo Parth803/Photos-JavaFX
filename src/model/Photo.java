@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public final class Photo implements java.io.Serializable, Comparable<Photo> {
+public final class Photo implements java.io.Serializable, Comparable<Photo>, Data {
     @Serial
     private static final long serialVersionUID = -1207060131086150206L;
     public String path;

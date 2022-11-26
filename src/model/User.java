@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-public final class User implements java.io.Serializable, Comparable<User> {
+public final class User implements java.io.Serializable, Comparable<User>, Data {
     @Serial
     private static final long serialVersionUID = -379318737058451008L;
     public String username;

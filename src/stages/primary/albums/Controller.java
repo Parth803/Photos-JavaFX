@@ -52,7 +52,7 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        Model.userData = searchField.getText();
+        Model.stringData = searchField.getText();
         Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
 

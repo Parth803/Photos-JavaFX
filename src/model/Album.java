@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public final class Album implements java.io.Serializable, Comparable<Album> {
+public final class Album implements java.io.Serializable, Comparable<Album>, Data {
     @Serial
     private static final long serialVersionUID = -2523531824640650719L;
     public String name;

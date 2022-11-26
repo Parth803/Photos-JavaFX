@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public final class Model {
     public static ArrayList<User> users;
     public static User currentUser;
-    public static String userData;
+    public static ArrayList<Data> data;
+    public static String stringData;
 
     private Model() {}
 
@@ -85,6 +86,5 @@ public final class Model {
         users.remove(new User(username));
     }
 }
-
 
 
