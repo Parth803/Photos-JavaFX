@@ -2,11 +2,19 @@ package stages.primary.albums;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import model.Album;
 import model.Model;
+import model.Photo;
 import photos.Photos;
+
+import java.text.SimpleDateFormat;
 
 public class Controller {
     @FXML
@@ -24,6 +32,14 @@ public class Controller {
     @FXML
     private Button promptAdd;
     @FXML
+    private Text nameOfAlbum;
+    @FXML
+    private Text numPhotos;
+    @FXML
+    private Text dateRange;
+    @FXML
+    private Button openAlbum;
+    @FXML
     private Text newAlbumLabel;
     @FXML
     private TextField albumName;
@@ -36,19 +52,23 @@ public class Controller {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
 
-        // THIS FOR LOOP NEEDS TO BE FIXED BECAUSE RIGHT NOW IT CAUSES THIS SCENE TO NOT LOAD PROPERLY
-        // WHICH IS WHY I COMMENTED IT OUT FOR NOW
-//        for (Album i: Model.currentUser.albums) {
-//            ImageView imageView = new ImageView(new Image(i.photos.get(0).path));
-//            this.albumsPane.getChildren().add(imageView);
-//        }
+        // ADD TilePane STUFF SO IT CAN CALL updateDetailDisplay when selecting a tile
 
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.search.setOnAction(actionEvent -> searchPhotos());
         this.delete.setOnAction(actionEvent -> deleteAlbum());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
+        this.openAlbum.setOnAction(actionEvent -> openAlbum());
         this.sendAdd.setOnAction(actionEvent -> addAlbum());
+    }
+
+    public void updateDetailDisplay() {
+        // NEEDS TO GET SELECTED ALBUM AND DISPLAY
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        this.nameOfAlbum.setText(""); // album.name
+        this.numPhotos.setText(""); // album.photos.size()
+        this.dateRange.setText(""); // formatter.format(album.start) + " to " + formatter.format(album.end);
     }
 
     public void searchPhotos() {
@@ -58,6 +78,7 @@ public class Controller {
 
     public void deleteAlbum() {
 //        this.albumsPane.getChildren()
+        System.out.println("Incomplete");
     }
 
     public void promptAdd() {
@@ -76,6 +97,10 @@ public class Controller {
             albumName.setDisable(true);
             sendAdd.setOpacity(0);
         }
+    }
+
+    public void openAlbum() {
+        Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 
     public void addAlbum() {
