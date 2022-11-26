@@ -35,8 +35,8 @@
       </ToolBar>
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="698.0" prefWidth="1280.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="185.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #FFFFFF;" width="299.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="837.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="TRANSPARENT" strokeType="INSIDE" width="276.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="185.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #FFFFFF;" width="299.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="837.0" layoutY="258.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="276.0" />
             <Text fill="RED" layoutX="23.0" layoutY="52.0" opacity="0.69" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid input. Format: [MM/DD/YYYY hh:mm:ss TO MM/DD/YYYY hh:mm:ss] or [type=value AND/OR type=value]" textAlignment="CENTER" wrappingWidth="588.6137237548828">
                <font>
                   <Font size="10.0" />
@@ -52,14 +52,14 @@
             <Text layoutX="768.0" layoutY="225.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Album:" />
             <Text layoutX="775.0" layoutY="285.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Photos:" />
             <Text layoutX="757.0" layoutY="344.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range:" />
-            <Text layoutX="1011.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
-            <Text layoutX="1013.0" layoutY="224.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cool" textAlignment="CENTER" wrappingWidth="157.56462724421272" />
-            <Text layoutX="1017.0" layoutY="340.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 01:01:01 TO 11/11/2022 11:11:11" textAlignment="CENTER" wrappingWidth="147.4053566000248">
+            <Text fx:id="numPhotos" layoutX="1011.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
+            <Text fx:id="nameOfAlbum" layoutX="1013.0" layoutY="224.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="157.56462724421272" />
+            <Text fx:id="dateRange" layoutX="1017.0" layoutY="340.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A to N/A" textAlignment="CENTER" wrappingWidth="147.4053566000248">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Button defaultButton="true" layoutX="899.0" layoutY="411.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8;" text="Open" textFill="WHITE">
+            <Button fx:id="openAlbum" defaultButton="true" layoutX="899.0" layoutY="411.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8;" text="Open" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
