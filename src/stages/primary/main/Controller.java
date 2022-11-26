@@ -32,26 +32,10 @@ public class Controller {
             warning.setOpacity(0);
 
             if (username.getText().equals("admin")) {
-                java.net.URL obj = Photos.class.getResource("/stages/primary/admin/admin.fxml");
-                if (obj == null) {
-                    // handle this in GUI with alert dialog
-                    System.out.println("FXML not found");
-                    throw new NullPointerException();
-                }
-                Parent root = FXMLLoader.load(obj);
-                Scene scene = new Scene(root);
-                Photos.getPrimaryStage().setScene(scene);
+                Photos.changeScene("/stages/primary/admin/admin.fxml");
             }
             else {
-                java.net.URL obj = Photos.class.getResource("/stages/primary/albums/albums.fxml");
-                if (obj == null) {
-                    // handle this in GUI with alert dialog
-                    System.out.println("FXML not found");
-                    throw new NullPointerException();
-                }
-                Parent root = FXMLLoader.load(obj);
-                Scene scene = new Scene(root);
-                Photos.getPrimaryStage().setScene(scene);
+                Photos.changeScene("/stages/primary/albums/albums.fxml");
             }
         } catch (Exception e) {
             warning.setOpacity(0.69);
