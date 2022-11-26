@@ -1,4 +1,5 @@
 package stages.primary.main;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,15 +11,27 @@ import photos.Photos;
 
 public class Controller {
     @FXML
+    private Button back;
+    @FXML
+    private Button logout;
+    @FXML
     private TextField username;
     @FXML
     private Button proceed;
     @FXML
     private Text warning;
     public void initialize() {
+        this.back.setOnAction(actionEvent -> goBack());
+        this.logout.setOnAction(actionEvent -> setLogout());
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 
+    public void goBack() {
+
+    }
+    public void setLogout() {
+        Platform.exit();
+    }
     public void continueAction() {
         try {
             Model.setCurrentUser(username.getText());
