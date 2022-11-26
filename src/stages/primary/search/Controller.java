@@ -1,10 +1,8 @@
 package stages.primary.search;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import model.Model;
 import photos.Photos;
 
 public class Controller {
@@ -14,7 +12,16 @@ public class Controller {
     private Button logout;
 
     public void initialize() {
-        this.back.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/albums/albums.fxml"));
-        this.logout.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
+        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
+        this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
+        String searchQuery = Model.userData;
+        // parse searchQuery and extract variables
+        // pass those variables into one of the methods below
+
+//        Model.currentUser.getPhotosByTags();
+//        Model.currentUser.getPhotosInRange();
+//        Model.currentUser.getPhotosByTag();
+//        Model.currentUser.getPhotosAtTime();
     }
+
 }

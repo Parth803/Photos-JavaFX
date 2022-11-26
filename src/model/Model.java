@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public final class Model {
     public static ArrayList<User> users;
     public static User currentUser;
+    public static String userData;
 
     private Model() {}
 
@@ -15,10 +16,15 @@ public final class Model {
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
             users.add(new User("admin"));
-            User stock = new User("stock");
-            users.add(stock);
+            users.add(new User("stock"));
+            userData = "";
+            try {
+                Model.setCurrentUser("stock");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             Album stockAlbum = new Album("stock");
-            stock.albums.add(stockAlbum);
+            Model.currentUser.albums.add(stockAlbum);
             try {
                 stockAlbum.addPhoto("data/stock/one.jpeg", "first");
                 stockAlbum.addPhoto("data/stock/two.jpeg", "second");

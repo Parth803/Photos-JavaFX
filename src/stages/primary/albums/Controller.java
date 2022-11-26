@@ -1,16 +1,10 @@
 package stages.primary.albums;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
-import model.Album;
 import model.Model;
 import photos.Photos;
 
@@ -42,14 +36,15 @@ public class Controller {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
 
-        System.out.println(Model.currentUser.albums);
-        for (Album i: Model.currentUser.albums) {
-            ImageView imageView = new ImageView(new Image(i.photos.get(0).path));
-            this.albumsPane.getChildren().add(imageView);
-        }
+        // THIS FOR LOOP NEEDS TO BE FIXED BECAUSE RIGHT NOW IT CAUSES THIS SCENE TO NOT LOAD PROPERLY
+        // WHICH IS WHY I COMMENTED IT OUT FOR NOW
+//        for (Album i: Model.currentUser.albums) {
+//            ImageView imageView = new ImageView(new Image(i.photos.get(0).path));
+//            this.albumsPane.getChildren().add(imageView);
+//        }
 
-        this.back.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
-        this.logout.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
+        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
+        this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.search.setOnAction(actionEvent -> searchPhotos());
         this.delete.setOnAction(actionEvent -> deleteAlbum());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
@@ -57,21 +52,8 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        try {
-            //pass or store this query to get the search scene so we can display correct results
-            System.out.println(searchField.getText());
-            java.net.URL obj = Photos.class.getResource("/stages/primary/search/search.fxml");
-            if (obj == null) {
-                // handle this in GUI with alert dialog
-                System.out.println("FXML not found");
-                throw new NullPointerException();
-            }
-            Parent root = FXMLLoader.load(obj);
-            Scene scene = new Scene(root);
-            Photos.getPrimaryStage().setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Model.userData = searchField.getText();
+        Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
 
     public void deleteAlbum() {

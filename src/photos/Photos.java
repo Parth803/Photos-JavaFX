@@ -9,8 +9,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Model;
 
-import java.io.IOException;
-
 public final class Photos extends Application {
     private static Stage primaryStage;
     private static Stage viewPhotoStage;
@@ -54,12 +52,13 @@ public final class Photos extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Model.initializeModel();
         initShowing();
         initPrimaryStage(primaryStage);
         initViewPhotoStage();
         initCloseStageHandlers();
+        changeScene("primary", "/stages/primary/main/main.fxml");
     }
 
     @Override
@@ -67,21 +66,27 @@ public final class Photos extends Application {
         Model.persist();
     }
 
-    public static void initPrimaryStage(Stage primaryStage) throws Exception {
-        Photos.setPrimaryStage(primaryStage);
-        java.net.URL obj = Photos.class.getResource("/stages/primary/main/main.fxml");
-        if (obj == null) {
-            throw new NullPointerException();
-        }
-        Parent root = FXMLLoader.load(obj);
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+    public static void initShowing() {
+        setPrimaryShowing(false);
+        setViewPhotoShowing(false);
+    }
+
+    public static void initPrimaryStage(Stage primaryStage) {
+        setPrimaryStage(primaryStage);
         primaryStage.setTitle("Photos Application");
         primaryStage.setResizable(false);
         primaryStage.setWidth(1280);
         primaryStage.setHeight(800);
-        primaryStage.show();
-        setPrimaryShowing(true);
+    }
+
+    public static void initViewPhotoStage() {
+        Stage viewPhotoStage = new Stage();
+        viewPhotoStage.initModality(Modality.NONE);
+        setViewPhotoStage(viewPhotoStage);
+        viewPhotoStage.setTitle("View Photo");
+        viewPhotoStage.setResizable(false);
+        viewPhotoStage.setWidth(1280);
+        viewPhotoStage.setHeight(720);
     }
 
     public static void initCloseStageHandlers() {
@@ -95,50 +100,41 @@ public final class Photos extends Application {
         });
     }
 
-    public static void initShowing() {
-        setPrimaryShowing(false);
-        setViewPhotoShowing(false);
-    }
-
-    public static void initViewPhotoStage() throws Exception {
-        Stage viewPhotoStage = new Stage();
-        viewPhotoStage.initModality(Modality.NONE);
-        Photos.setViewPhotoStage(viewPhotoStage);
-        java.net.URL obj = Photos.class.getResource("/stages/viewphoto/main/main.fxml");
-        if (obj == null) {
-            throw new NullPointerException();
+    public static void showPrimaryStage() {
+        if (isPrimaryShowing()) {
+            return;
         }
-        Parent root = FXMLLoader.load(obj);
-        Scene scene = new Scene(root);
-        viewPhotoStage.setScene(scene);
-        viewPhotoStage.setTitle("View Photo");
-        viewPhotoStage.setResizable(false);
-        viewPhotoStage.setWidth(1280);
-        viewPhotoStage.setHeight(720);
+        Stage primaryStage = getPrimaryStage();
+        primaryStage.show();
+        setPrimaryShowing(true);
     }
 
     public static void showViewPhotoStage() {
         if (isViewPhotoShowing()) {
             return;
         }
-        Stage viewPhotoStage = Photos.getViewPhotoStage();
+        Stage viewPhotoStage = getViewPhotoStage();
         viewPhotoStage.show();
         setViewPhotoShowing(true);
     }
 
-    public static void changeScene(String newScene) {
+    public static void changeScene(String stage, String newScene) {
         try {
-            java.net.URL obj = Photos.class.getResource(newScene);
-            if (obj == null) {
-                // handle this in GUI with alert dialog
-                System.out.println("FXML not found");
-                throw new NullPointerException();
-            }
-            Parent root = FXMLLoader.load(obj);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Photos.class.getResource(newScene));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
-            Photos.getPrimaryStage().setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (stage.equals("primary")) {
+                getPrimaryStage().setScene(scene);
+                showPrimaryStage();
+            } else if (stage.equals("viewphoto")) {
+                getViewPhotoStage().setScene(scene);
+                showViewPhotoStage();
+            } else {
+                throw new RuntimeException("incorrect stage");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("can not change scene");
         }
     }
 }

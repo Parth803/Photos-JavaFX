@@ -11,7 +11,7 @@ public class Controller {
     private Button logout;
 
     public void initialize() {
-        this.back.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/albums/albums.fxml"));
-        this.logout.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
+        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
+        this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
     }
 }

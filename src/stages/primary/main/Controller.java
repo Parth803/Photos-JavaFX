@@ -1,9 +1,5 @@
 package stages.primary.main;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import model.Model;
@@ -32,10 +28,10 @@ public class Controller {
             warning.setOpacity(0);
 
             if (username.getText().equals("admin")) {
-                Photos.changeScene("/stages/primary/admin/admin.fxml");
+                Photos.changeScene("primary", "/stages/primary/admin/admin.fxml");
             }
             else {
-                Photos.changeScene("/stages/primary/albums/albums.fxml");
+                Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
             }
         } catch (Exception e) {
             warning.setOpacity(0.69);
