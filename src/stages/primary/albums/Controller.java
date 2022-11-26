@@ -2,16 +2,10 @@ package stages.primary.albums;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
-import model.Album;
 import model.Model;
-import model.Photo;
 import photos.Photos;
 
 import java.text.SimpleDateFormat;
@@ -25,8 +19,8 @@ public class Controller {
     private TextField searchField;
     @FXML
     private Button search;
-    @FXML
-    private TilePane albumsPane;
+//    @FXML
+//    private TilePane albumsPane;
     @FXML
     private Button delete;
     @FXML
@@ -100,6 +94,9 @@ public class Controller {
     }
 
     public void openAlbum() {
+        // SAVE SELECTED ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
+//        Model.data.clear();
+//        Model.data.add(0, selectedAlbum);
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 

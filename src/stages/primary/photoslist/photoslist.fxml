@@ -36,7 +36,7 @@
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="194.0" layoutY="255.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="299.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="273.0" layoutX="825.0" layoutY="255.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="276.0" />
-            <Text layoutX="339.0" layoutY="82.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album: cool" textAlignment="CENTER" wrappingWidth="605.8287401199341">
+            <Text fx:id="albumName" layoutX="339.0" layoutY="82.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album: N/A" textAlignment="CENTER" wrappingWidth="605.8287401199341">
                <font>
                   <Font size="18.0" />
                </font>
@@ -46,7 +46,7 @@
             <Text layoutX="756.0" layoutY="490.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
             <Text layoutX="748.0" layoutY="540.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
             <Text fx:id="caption" layoutX="981.0" layoutY="489.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
-            <Text fx:id="dateRange" layoutX="984.0" layoutY="537.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A to N/A" textAlignment="CENTER" wrappingWidth="156.40535600397834">
+            <Text fx:id="dateTaken" layoutX="984.0" layoutY="537.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A to N/A" textAlignment="CENTER" wrappingWidth="156.40535600397834">
                <font>
                   <Font size="7.0" />
                </font>

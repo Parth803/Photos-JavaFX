@@ -5,8 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import model.Album;
 import model.Model;
 import photos.Photos;
+
+import java.text.SimpleDateFormat;
 
 public class Controller {
     @FXML
@@ -16,13 +19,15 @@ public class Controller {
 //    @FXML
 //    private TilePane photosPane;
     @FXML
+    private Text albumName;
+    @FXML
     private Button delete;
     @FXML
     private Button promptAdd;
     @FXML
     private Text caption;
     @FXML
-    private Text dateRange;
+    private Text dateTaken;
     @FXML
     private Button edit;
     @FXML
@@ -38,6 +43,9 @@ public class Controller {
     public void initialize() {
         sendAdd.setDisable(true);
         photoPath.setDisable(true);
+        this.setAlbumName();
+
+        // ADD TilePane STUFF SO IT CAN CALL updateDetailDisplay when selecting a tile
 
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
@@ -46,6 +54,21 @@ public class Controller {
         this.edit.setOnAction(actionEvent -> editPhoto());
         this.display.setOnAction(actionEvent -> displayPhoto());
         this.sendAdd.setOnAction(actionEvent -> addPhoto());
+    }
+
+    public void setAlbumName() {
+        try {
+            albumName.setText(((Album) Model.data.get(0)).name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDetailDisplay() {
+        // NEEDS TO GET SELECTED Photo AND DISPLAY
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        this.caption.setText(""); // photo.caption
+        this.dateTaken.setText(""); // formatter.format(photo.dateTaken)
     }
 
     public void deletePhoto() {
@@ -72,12 +95,14 @@ public class Controller {
     }
 
     public void editPhoto() {
-        // pass data to next scene to edit the data
+        // SAVE SELECTED PHOTO IN DATA SO WE CAN USE IT IN NEXT SCENE BUT KEEP ALBUM IN THERE IN CASE WE GO BACK WE STILL NEED ALBUM
+//        Model.data.add(1, selectedPhoto);
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
     public void displayPhoto() {
-        // pass current photo and full album for carousel
+        // SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
+//        Model.data.add(1, selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
@@ -88,8 +113,7 @@ public class Controller {
         }
 
         try {
-            // NEED TO GET CURRENT ALBUM THAT IS PASSED FROM ALBUMS SCENE (PERHAPS USING MODEL LIKE THE USERDATA THINGY), CHECK IF PHOTO ALREADY IN ALBUM, AND THEN ADD A PHOTO TO IT
-//            Model.currentUser.createAlbum(albumName.getText());
+            ((Album) Model.data.get(0)).addPhoto(photoPath.getText());
             promptAdd.setText("Add");
             photoPathLabel.setOpacity(0);
             photoPath.clear();
