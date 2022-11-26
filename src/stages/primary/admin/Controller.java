@@ -1,19 +1,13 @@
 package stages.primary.admin;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import model.Model;
-import model.User;
 import photos.Photos;
-import javafx.beans.value.*;
 
 import java.util.stream.Collectors;
 
@@ -45,6 +39,7 @@ public class Controller {
             Model.addUser(username.getText());
         } catch (Exception e) {
             e.printStackTrace();
+            warning.setOpacity(0.69);
         }
     }
 
