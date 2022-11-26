@@ -5,11 +5,8 @@ import javafx.scene.text.Text;
 import model.Model;
 import photos.Photos;
 
+
 public class Controller {
-    @FXML
-    private Button back;
-    @FXML
-    private Button logout;
     @FXML
     private TextField username;
     @FXML
@@ -17,8 +14,6 @@ public class Controller {
     @FXML
     private Text warning;
     public void initialize() {
-        this.back.setDisable(true);
-        this.logout.setDisable(true);
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 

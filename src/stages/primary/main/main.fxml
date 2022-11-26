@@ -32,54 +32,35 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.Cursor?>
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stages.primary.main.Controller">
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stages.primary.main.Controller">
   <children>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #202124;">
-          <items>
-              <Button fx:id="back" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Back" textFill="#1a73e8">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-                  <cursor>
-                      <Cursor fx:constant="HAND" />
-                  </cursor></Button>
-              <Button fx:id="logout" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Log Out" textFill="#1a73e8">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-                  <cursor>
-                      <Cursor fx:constant="HAND" />
-                  </cursor></Button>
-          </items>
-      </ToolBar>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #202124;" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="300.0" prefWidth="586.0" VBox.vgrow="ALWAYS">
       <children>
-            <Text layoutX="534.0" layoutY="144.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photos Library" textAlignment="CENTER" wrappingWidth="238.45626831054688">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Text>
-            <Text layoutX="468.0" layoutY="241.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="79.28402709960938">
+            <Text layoutX="465.0" layoutY="192.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="79.28402709960938">
                <font>
                   <Font size="17.0" />
                </font>
             </Text>
-            <TextField fx:id="username" layoutX="540.0" layoutY="287.0" prefHeight="29.0" prefWidth="227.0" scaleX="2.0" scaleY="2.0" />
-            <Button fx:id="proceed" defaultButton="true" layoutX="541.0" layoutY="451.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="226.0" scaleX="2.0" scaleY="2.0" text="Continue">
+            <TextField fx:id="username" layoutX="539.0" layoutY="237.0" prefHeight="29.0" prefWidth="227.0" promptText="Username..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
+            <Button fx:id="proceed" defaultButton="true" layoutX="597.0" layoutY="378.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8 #1a73e8;" text="Continue" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="22.0" />
+                  <Font name="System Bold" size="17.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Text fx:id="warning" fill="RED" layoutX="566.0" layoutY="380.0" opacity="0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Username. Please try again.">
+            <Text fx:id="warning" fill="RED" layoutX="565.0" layoutY="316.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Username. Please try again.">
                <font>
                   <Font size="12.0" />
                </font>
