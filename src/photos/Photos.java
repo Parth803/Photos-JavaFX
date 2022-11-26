@@ -69,8 +69,6 @@ public final class Photos extends Application {
         Photos.setPrimaryStage(primaryStage);
         java.net.URL obj = Photos.class.getResource("/stages/primary/main/main.fxml");
         if (obj == null) {
-            // handle this in GUI with alert dialog
-            System.out.println("FXML not found");
             throw new NullPointerException();
         }
         Parent root = FXMLLoader.load(obj);
@@ -106,8 +104,6 @@ public final class Photos extends Application {
         Photos.setViewPhotoStage(viewPhotoStage);
         java.net.URL obj = Photos.class.getResource("/stages/viewphoto/main/main.fxml");
         if (obj == null) {
-            // handle this in GUI with alert dialog
-            System.out.println("FXML not found");
             throw new NullPointerException();
         }
         Parent root = FXMLLoader.load(obj);
