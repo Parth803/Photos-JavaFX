@@ -82,7 +82,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button defaultButton="true" layoutX="72.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437;" text="Delete" textFill="WHITE">
+            <Button fx:id="delete" defaultButton="true" layoutX="72.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437;" text="Delete" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>

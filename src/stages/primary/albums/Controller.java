@@ -58,6 +58,8 @@ public class Controller {
 
     public void searchPhotos() {
         try {
+            //pass or store this query to get the search scene so we can display correct results
+            System.out.println(searchField.getText());
             java.net.URL obj = Photos.class.getResource("/stages/primary/search/search.fxml");
             if (obj == null) {
                 // handle this in GUI with alert dialog
@@ -73,7 +75,7 @@ public class Controller {
     }
 
     public void deleteAlbum() {
-
+//        this.albumsPane.getChildren()
     }
 
     public void promptAdd() {
