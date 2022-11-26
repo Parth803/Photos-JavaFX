@@ -27,8 +27,8 @@ public class Controller {
     @FXML
     private ListView<String> usersList;
     public void initialize() {
-        this.back.setOnAction(actionEvent -> Photos.logOut());
-        this.logout.setOnAction(actionEvent -> Photos.logOut());
+        this.back.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
+        this.logout.setOnAction(actionEvent ->Photos.changeScene("/stages/primary/main/main.fxml"));
         this.addUser.setOnAction(actionEvent -> addUser());
         this.deleteUser.setOnAction(actionEvent -> deleteUser());
         this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));

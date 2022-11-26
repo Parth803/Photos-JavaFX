@@ -48,8 +48,8 @@ public class Controller {
             this.albumsPane.getChildren().add(imageView);
         }
 
-        this.back.setOnAction(actionEvent -> Photos.logOut());
-        this.logout.setOnAction(actionEvent -> Photos.logOut());
+        this.back.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
+        this.logout.setOnAction(actionEvent -> Photos.changeScene("/stages/primary/main/main.fxml"));
         this.search.setOnAction(actionEvent -> searchPhotos());
         this.delete.setOnAction(actionEvent -> deleteAlbum());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());

@@ -126,9 +126,9 @@ public final class Photos extends Application {
         setViewPhotoShowing(true);
     }
 
-    public static void logOut() {
+    public static void changeScene(String newScene) {
         try {
-            java.net.URL obj = Photos.class.getResource("/stages/primary/main/main.fxml");
+            java.net.URL obj = Photos.class.getResource(newScene);
             if (obj == null) {
                 // handle this in GUI with alert dialog
                 System.out.println("FXML not found");
