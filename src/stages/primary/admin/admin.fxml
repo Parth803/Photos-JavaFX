@@ -80,7 +80,7 @@
                   <Font size="12.0" />
                </font>
             </Text>
-            <ListView layoutX="856.0" layoutY="254.0" prefHeight="271.0" prefWidth="258.0" scaleX="2.0" scaleY="2.0" />
+            <ListView fx:id="usersList" layoutX="856.0" layoutY="254.0" prefHeight="271.0" prefWidth="258.0" scaleX="2.0" scaleY="2.0" />
             <Button fx:id="deleteUser" defaultButton="true" layoutX="752.0" layoutY="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437;" text="Delete" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
