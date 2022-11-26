@@ -17,7 +17,6 @@ public final class Model {
             users = new ArrayList<>();
             users.add(new User("admin"));
             users.add(new User("stock"));
-            userData = "";
             try {
                 Model.setCurrentUser("stock");
             } catch (Exception e) {
@@ -84,5 +83,6 @@ public final class Model {
         }
     }
 }
+
 
 
