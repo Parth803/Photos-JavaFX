@@ -21,14 +21,11 @@ public class Controller {
     @FXML
     private Text warning;
     public void initialize() {
-        this.back.setOnAction(actionEvent -> {});
-        this.logout.setOnAction(actionEvent -> logOut());
+        this.back.setDisable(true);
+        this.logout.setDisable(true);
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 
-    public void logOut() {
-        Platform.exit();
-    }
     public void continueAction() {
         try {
             Model.setCurrentUser(username.getText());
