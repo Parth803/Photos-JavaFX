@@ -18,14 +18,14 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #202124;">
          <items>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Back" textFill="#1a73e8">
+            <Button fx:id="back" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Back" textFill="#1a73e8">
                <font>
                   <Font size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Log Out" textFill="#1a73e8">
+            <Button fx:id="logout" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="Log Out" textFill="#1a73e8">
                <font>
                   <Font size="15.0" />
                </font>
