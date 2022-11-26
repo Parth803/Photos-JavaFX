@@ -3,7 +3,11 @@ package stages.primary.albums;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import model.Album;
 import model.Model;
 import photos.Photos;
 
@@ -12,6 +16,8 @@ public class Controller {
     private Button back;
     @FXML
     private Button logout;
+    @FXML
+    private TilePane albumsPane;
     @FXML
     private Button promptAdd;
     @FXML
@@ -30,6 +36,12 @@ public class Controller {
         this.logout.setOnAction(actionEvent -> Photos.logOut());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
         this.sendAdd.setOnAction(actionEvent -> addAlbum());
+
+        for (Album i: Model.currentUser.albums) {
+            ImageView imageView = new ImageView(new Image(i.photos.get(0).path));
+            this.albumsPane.getChildren().add(imageView);
+        }
+
     }
 
     public void promptAdd() {
