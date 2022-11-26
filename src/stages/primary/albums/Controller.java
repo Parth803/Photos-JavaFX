@@ -1,7 +1,9 @@
 package stages.primary.albums;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,7 +20,13 @@ public class Controller {
     @FXML
     private Button logout;
     @FXML
+    private TextField searchField;
+    @FXML
+    private Button search;
+    @FXML
     private TilePane albumsPane;
+    @FXML
+    private Button delete;
     @FXML
     private Button promptAdd;
     @FXML
@@ -42,8 +50,30 @@ public class Controller {
 
         this.back.setOnAction(actionEvent -> Photos.logOut());
         this.logout.setOnAction(actionEvent -> Photos.logOut());
+        this.search.setOnAction(actionEvent -> searchPhotos());
+        this.delete.setOnAction(actionEvent -> deleteAlbum());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
         this.sendAdd.setOnAction(actionEvent -> addAlbum());
+    }
+
+    public void searchPhotos() {
+        try {
+            java.net.URL obj = Photos.class.getResource("/stages/primary/search/search.fxml");
+            if (obj == null) {
+                // handle this in GUI with alert dialog
+                System.out.println("FXML not found");
+                throw new NullPointerException();
+            }
+            Parent root = FXMLLoader.load(obj);
+            Scene scene = new Scene(root);
+            Photos.getPrimaryStage().setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAlbum() {
+
     }
 
     public void promptAdd() {
