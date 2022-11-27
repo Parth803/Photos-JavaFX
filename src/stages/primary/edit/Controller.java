@@ -36,6 +36,8 @@ public class Controller {
     @FXML
     private TextField tagValue;
     @FXML
+    private Text tagWarning;
+    @FXML
     private Button addTag;
     @FXML
     private TextField destinationAlbum;
@@ -98,45 +100,35 @@ public class Controller {
     }
 
     public void addTag(Photo selectedPhoto) {
-        System.out.println(tagProperty.getValue());
-        if (tagProperty.getValue().equals("Single")) {
-            if (tagType.getValue().equals("Other")) {
-                try {
+        if (tagType.getValue() == null || (!newTagType.isDisabled() && newTagType.getText() == null) || tagProperty.getValue() == null || tagValue.getText() == null) {
+            tagWarning.setOpacity(1);
+            tagWarning.setText("Fill in all the details to add a tag.");
+            return;
+        }
+        tagWarning.setOpacity(0);
+        tagWarning.setText("Tag Value already exists.");
+
+        try {
+            if (tagProperty.getValue().equals("Single")) {
+                if (tagType.getValue().equals("Other")) {
                     selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), true);
-                    warning.setOpacity(0);
-                } catch (Exception e) {
-                    warning.setOpacity(0.69);
-                    throw new RuntimeException("error adding single tag");
-                }
-            }
-            else {
-                try {
+                    tagWarning.setOpacity(0);
+                } else {
                     selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), true);
-                    warning.setOpacity(0);
-                } catch (Exception e) {
-                    warning.setOpacity(0.69);
-                    throw new RuntimeException("error adding single tag");
+                    tagWarning.setOpacity(0);
                 }
-            }
-        } else {
-            if (tagType.getValue().equals("Other")) {
-                try {
+            } else {
+                if (tagType.getValue().equals("Other")) {
                     selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), false);
-                    warning.setOpacity(0);
-                } catch (Exception e) {
-                    warning.setOpacity(0.69);
-                    throw new RuntimeException("error adding multi tag");
-                }
-            }
-            else {
-                try {
+                    tagWarning.setOpacity(0);
+                } else {
                     selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), false);
-                    warning.setOpacity(0);
-                } catch (Exception e) {
-                    warning.setOpacity(0.69);
-                    throw new RuntimeException("error adding multi tag");
+                    tagWarning.setOpacity(0);
                 }
             }
+        } catch (Exception e) {
+            tagWarning.setOpacity(0.69);
+            throw new RuntimeException("error adding multi tag");
         }
     }
 
