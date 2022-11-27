@@ -63,7 +63,7 @@ public final class Photos extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Model.initializeModel();
+        Model.init();
         setLogo();
         initShowing();
         initPrimaryStage(primaryStage);
