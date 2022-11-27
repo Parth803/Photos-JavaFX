@@ -93,7 +93,7 @@
             <TextField fx:id="tagValue" layoutX="1038.0" layoutY="224.0" prefHeight="26.0" prefWidth="105.0" promptText="Value..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
             <TextField fx:id="newTagType" layoutX="1037.0" layoutY="103.0" opacity="0" prefHeight="26.0" prefWidth="105.0" promptText="Type..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
             <ChoiceBox fx:id="tagType" layoutX="985.0" layoutY="33.0" prefHeight="46.0" prefWidth="210.0" />
-            <Text fill="RED" layoutX="849.0" layoutY="295.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value already exists." textAlignment="CENTER" wrappingWidth="275.03221130371094">
+            <Text fx:id="tagWarning" fill="RED" layoutX="849.0" layoutY="295.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
                </font>
