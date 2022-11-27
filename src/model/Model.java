@@ -2,17 +2,20 @@ package model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public final class Model {
     public static ArrayList<User> users;
     public static User currentUser;
     public static ArrayList<Object> dataTransfer;
+    private static Stack<Object> dataSnapshots;
 
     private Model() {}
 
     @SuppressWarnings("unchecked casting")
-    public static void initializeModel() {
+    public static void init() {
         dataTransfer = new ArrayList<>();
+        dataSnapshots = new Stack<>();
         File serializedUsers = new File("data/admin/users.txt");
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
@@ -42,13 +45,14 @@ public final class Model {
                 FileInputStream file = new FileInputStream("data/admin/users.txt");
                 ObjectInputStream input = new ObjectInputStream(file);
                 users = (ArrayList<User>) input.readObject();
+                if (users.size() == 0) {
+                    users.add(new User("admin"));
+                }
                 currentUser = users.get(0);
                 input.close();
                 file.close();
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (Exception e) {
                 throw new RuntimeException("could not read serialized object");
-            } catch (IndexOutOfBoundsException e) {
-                throw new RuntimeException("Locked out - meaning all users have been deleted by admin");
             }
         }
     }
@@ -87,6 +91,13 @@ public final class Model {
             throw new Exception("User Does Not Exist");
         }
         users.remove(new User(username));
+    }
+
+    public static void initPreviousScene() {
+        if (dataSnapshots.isEmpty()) {
+            return;
+        }
+        Object o = dataSnapshots.pop();
     }
 }
 
