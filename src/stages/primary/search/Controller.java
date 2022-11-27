@@ -2,6 +2,9 @@ package stages.primary.search;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
 import model.Model;
 import photos.Photos;
 
@@ -12,19 +15,78 @@ import java.util.regex.Pattern;
 
 public class Controller {
     @FXML
+    private TilePane photosPane;
+    @FXML
     private Button back;
     @FXML
     private Button logout;
-
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button search;
+    @FXML
+    private Text searchWarning;
+    @FXML
+    private TextField newAlbumName;
+    @FXML
+    private Text warning;
+    @FXML
+    private Button createAlbum;
+    @FXML
+    private Text caption;
+    @FXML
+    private Text dateTaken;
+    @FXML
+    private Button display;
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
         Model.dataTransfer.clear();
         getSearchedImages(searchQuery);
 
+        // Call when a new tile is selected
+        updateDetailDisplay();
+
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
+        this.search.setOnAction(actionEvent -> searchPhotos());
+        this.createAlbum.setOnAction(actionEvent -> addAlbum());
+        this.display.setOnAction(actionEvent -> displayPhoto());
     }
 
+    public void updateDetailDisplay() {
+        // NEEDS TO GET SELECTED Photo AND DISPLAY
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        this.caption.setText(""); // photo.caption
+        this.dateTaken.setText(""); // formatter.format(photo.dateTaken)
+    }
+
+    public void addAlbum() {
+        if (newAlbumName.getText().isEmpty()) {
+            return;
+        }
+        try {
+            Model.currentUser.createAlbum(newAlbumName.getText());
+            warning.setOpacity(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            warning.setOpacity(0.69);
+        }
+    }
+
+    public void displayPhoto() {
+//        SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
+//        Model.dataTransfer.add(1, selectedPhoto);
+        Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
+    }
+
+    public void searchPhotos() {
+        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+            searchWarning.setOpacity(0);
+            getSearchedImages(searchField.getText());
+        } else {
+            searchWarning.setOpacity(0.69);
+        }
+    }
     public void getSearchedImages(String searchQuery) {
         if (searchQuery.isEmpty()) {
             Model.currentUser.getAllPhotos(); // NEEDS TO BE STORED IN TILEPANE

@@ -11,6 +11,8 @@ import photos.Photos;
 import java.text.SimpleDateFormat;
 
 public class Controller {
+//    @FXML
+//    private TilePane albumsPane;
     @FXML
     private Button back;
     @FXML
@@ -21,8 +23,6 @@ public class Controller {
     private Button search;
     @FXML
     private Text searchWarning;
-//    @FXML
-//    private TilePane albumsPane;
     @FXML
     private Button delete;
     @FXML
@@ -71,6 +71,7 @@ public class Controller {
 
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+            searchWarning.setOpacity(0);
             Model.dataTransfer.clear();
             Model.dataTransfer.add(0, searchField.getText());
             Photos.changeScene("primary", "/stages/primary/search/search.fxml");
