@@ -57,7 +57,7 @@ public class Controller {
 
     public void setAlbumName() {
         try {
-            albumName.setText(((Album) Model.dataTransfer.get(0)).name);
+            albumName.setText("Album: " + ((Album) Model.dataTransfer.get(0)).name);
         } catch (Exception e) {
             throw new RuntimeException("could not set album name");
         }
