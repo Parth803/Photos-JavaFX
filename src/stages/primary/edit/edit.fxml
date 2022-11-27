@@ -42,7 +42,7 @@
             <Text layoutX="807.0" layoutY="243.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value:" />
             <Text layoutX="79.0" layoutY="76.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
             <TextField fx:id="caption" layoutX="326.0" layoutY="58.0" prefHeight="26.0" prefWidth="159.0" promptText="Caption..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
-            <Text fill="RED" layoutX="822.0" layoutY="555.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo already exists in album." textAlignment="CENTER" wrappingWidth="275.03221130371094">
+            <Text fx:id="warning" fill="RED" layoutX="822.0" layoutY="555.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo already exists in album." textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
                </font>
