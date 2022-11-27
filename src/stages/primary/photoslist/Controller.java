@@ -107,7 +107,7 @@ public class Controller {
     public void displayPhoto() {
 //        SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
 //        Model.dataTransfer.add(1, selectedPhoto);
-        Model.dataTransfer.add(1, new Photo(""));
+        Model.dataTransfer.add(1, new Photo("", "what a nice image"));
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
