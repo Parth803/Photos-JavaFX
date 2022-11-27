@@ -1,10 +1,9 @@
 package stages.primary.edit;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
@@ -29,6 +28,16 @@ public class Controller {
     @FXML
     private ListView<String> tagsList;
     @FXML
+    private ChoiceBox<String> tagType;
+    @FXML
+    private TextField newTagType;
+    @FXML
+    private ChoiceBox<String> tagProperty;
+    @FXML
+    private TextField tagValue;
+    @FXML
+    private Button addTag;
+    @FXML
     private TextField destinationAlbum;
     @FXML
     private Text warning;
@@ -37,14 +46,20 @@ public class Controller {
     @FXML
     private Button moveTo;
     public void initialize() {
+        tagType.getItems().addAll("Location", "Person", "Other");
+        tagProperty.getItems().addAll("Single", "Multi");
+
         Album currentAlbum = (Album) Model.dataTransfer.get(0);
         Photo selectedPhoto = (Photo) Model.dataTransfer.get(1);
         Model.dataTransfer.clear();
+
+        tagType.setOnAction(this::selectTagType);
 
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.deleteTag.setOnAction(actionEvent -> deleteTag(selectedPhoto));
         this.updateCaption.setOnAction(actionEvent -> updateCaption(selectedPhoto));
+        this.addTag.setOnAction(actionEvent -> addTag(selectedPhoto));
         this.copyTo.setOnAction(actionEvent -> copyTo(selectedPhoto));
         this.moveTo.setOnAction(actionEvent -> moveTo(currentAlbum, selectedPhoto));
 
@@ -71,6 +86,57 @@ public class Controller {
         selectedPhoto.caption = caption.getText();
     }
 
+    public void selectTagType(Event event) {
+        if (tagType.getValue().equals("Other")) {
+            newTagType.setOpacity(1);
+        } else {
+            newTagType.setOpacity(0);
+        }
+    }
+
+    public void addTag(Photo selectedPhoto) {
+        System.out.println(tagProperty.getValue());
+        if (tagProperty.getValue().equals("Single")) {
+            if (tagType.getValue().equals("Other")) {
+                try {
+                    selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), true);
+                    warning.setOpacity(0);
+                } catch (Exception e) {
+                    warning.setOpacity(0.69);
+                    throw new RuntimeException("error adding single tag");
+                }
+            }
+            else {
+                try {
+                    selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), true);
+                    warning.setOpacity(0);
+                } catch (Exception e) {
+                    warning.setOpacity(0.69);
+                    throw new RuntimeException("error adding single tag");
+                }
+            }
+        } else {
+            if (tagType.getValue().equals("Other")) {
+                try {
+                    selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), false);
+                    warning.setOpacity(0);
+                } catch (Exception e) {
+                    warning.setOpacity(0.69);
+                    throw new RuntimeException("error adding multi tag");
+                }
+            }
+            else {
+                try {
+                    selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), false);
+                    warning.setOpacity(0);
+                } catch (Exception e) {
+                    warning.setOpacity(0.69);
+                    throw new RuntimeException("error adding multi tag");
+                }
+            }
+        }
+    }
+
     public void copyTo(Photo selectedPhoto) {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
@@ -91,4 +157,6 @@ public class Controller {
             throw new RuntimeException("error when moving photo");
         }
     }
+
+
 }

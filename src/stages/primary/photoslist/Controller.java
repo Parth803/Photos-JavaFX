@@ -7,6 +7,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
+import model.Photo;
 import photos.Photos;
 
 import java.text.SimpleDateFormat;
@@ -99,6 +100,7 @@ public class Controller {
     public void editPhoto() {
 //        SAVE SELECTED PHOTO IN DATA SO WE CAN USE IT IN NEXT SCENE BUT KEEP ALBUM IN THERE IN CASE WE GO BACK WE STILL NEED ALBUM
 //        Model.dataTransfer.add(1, selectedPhoto);
+        Model.dataTransfer.add(1, new Photo(""));
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
@@ -125,8 +127,8 @@ public class Controller {
             sendAdd.setOpacity(0);
             sendAdd.setDisable(true);
         } catch (Exception e) {
-            e.printStackTrace();
             warning.setOpacity(0.69);
+            throw new RuntimeException("error adding photo to album.");
         }
     }
 }
