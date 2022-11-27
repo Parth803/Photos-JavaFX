@@ -41,7 +41,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="193.0" layoutX="178.0" layoutY="250.0" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeType="INSIDE" width="259.0" />
             <Text layoutX="807.0" layoutY="243.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value:" />
             <Text layoutX="79.0" layoutY="76.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
-            <TextField layoutX="326.0" layoutY="58.0" prefHeight="26.0" prefWidth="159.0" promptText="Caption..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
+            <TextField fx:id="caption" layoutX="326.0" layoutY="58.0" prefHeight="26.0" prefWidth="159.0" promptText="Caption..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
             <Text fill="RED" layoutX="822.0" layoutY="555.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo already exists in album." textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
@@ -72,13 +72,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ListView layoutX="179.0" layoutY="290.0" prefHeight="164.0" prefWidth="257.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF;" />
-            <Button defaultButton="true" layoutX="486.0" layoutY="168.0" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437 #DB4437;" text="Delete" textFill="WHITE">
+            <ListView fx:id="tagsList" layoutX="179.0" layoutY="290.0" prefHeight="164.0" prefWidth="257.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF;" />
+            <Button fx:id="deleteTag" defaultButton="true" layoutX="486.0" layoutY="168.0" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #DB4437 #DB4437;" text="Delete" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
             <Text layoutX="72.0" layoutY="186.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" />
-            <Button defaultButton="true" layoutX="213.0" layoutY="603.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8 #1a73e8;" text="Update Caption" textFill="WHITE">
+            <Button fx:id="updateCaption" defaultButton="true" layoutX="213.0" layoutY="603.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8 #1a73e8;" text="Update Caption" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
