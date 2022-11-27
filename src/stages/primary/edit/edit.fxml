@@ -47,7 +47,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button defaultButton="true" layoutX="911.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1a73e8 #1a73e8;" text="Add Tag" textFill="WHITE">
+            <Button defaultButton="true" layoutX="911.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #0F9D58 #0F9D58;" text="Add Tag" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
