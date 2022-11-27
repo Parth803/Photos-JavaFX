@@ -5,15 +5,21 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Model;
 
 public final class Photos extends Application {
+    private static Image logo;
     private static Stage primaryStage;
     private static Stage viewPhotoStage;
     private static boolean primaryShowing;
     private static boolean viewPhotoShowing;
+
+    public static Image getLogo() {
+        return Photos.logo;
+    }
 
     public static Stage getPrimaryStage() {
         return Photos.primaryStage;
@@ -29,6 +35,11 @@ public final class Photos extends Application {
 
     public static boolean isViewPhotoShowing() {
         return Photos.viewPhotoShowing;
+    }
+
+    private static void setLogo() {
+        String url = "https://thumbs.dreamstime.com/b/sun-flower-transparent-background-additional-png-file-greeting-cards-holiday-wishes-sun-flower-transparent-129371261.jpg";
+        Photos.logo = new Image(url);
     }
 
     private static void setPrimaryStage(Stage primaryStage) {
@@ -54,6 +65,7 @@ public final class Photos extends Application {
     @Override
     public void start(Stage primaryStage) {
         Model.initializeModel();
+        setLogo();
         initShowing();
         initPrimaryStage(primaryStage);
         initViewPhotoStage();
@@ -73,6 +85,7 @@ public final class Photos extends Application {
 
     public static void initPrimaryStage(Stage primaryStage) {
         setPrimaryStage(primaryStage);
+        primaryStage.getIcons().add(getLogo());
         primaryStage.setTitle("Photos Application");
         primaryStage.setResizable(false);
         primaryStage.setWidth(1280);
@@ -83,6 +96,7 @@ public final class Photos extends Application {
         Stage viewPhotoStage = new Stage();
         viewPhotoStage.initModality(Modality.NONE);
         setViewPhotoStage(viewPhotoStage);
+        viewPhotoStage.getIcons().add(getLogo());
         viewPhotoStage.setTitle("View Photo");
         viewPhotoStage.setResizable(false);
         viewPhotoStage.setWidth(1280);
