@@ -86,15 +86,15 @@ public class Controller {
             photoPath.setOpacity(1);
             photoPath.setDisable(false);
             sendAdd.setOpacity(1);
-        } else {
-            promptAdd.setText("Add");
-            sendAdd.setDisable(true);
-            photoPathLabel.setOpacity(0);
-            photoPath.setOpacity(0);
-            photoPath.setDisable(true);
-            sendAdd.setOpacity(0);
-            warning.setOpacity(0);
+            return;
         }
+        promptAdd.setText("Add");
+        sendAdd.setDisable(true);
+        photoPathLabel.setOpacity(0);
+        photoPath.setOpacity(0);
+        photoPath.setDisable(true);
+        sendAdd.setOpacity(0);
+        warning.setOpacity(0);
     }
 
     public void editPhoto() {
@@ -107,6 +107,7 @@ public class Controller {
     public void displayPhoto() {
 //        SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
 //        Model.dataTransfer.add(1, selectedPhoto);
+        Model.dataTransfer.add(1, new Photo(""));
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 

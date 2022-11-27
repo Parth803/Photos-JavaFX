@@ -59,11 +59,14 @@ public class Controller {
 
         Album currentAlbum = (Album) Model.dataTransfer.get(0);
         Photo selectedPhoto = (Photo) Model.dataTransfer.get(1);
-        Model.dataTransfer.clear();
 
         presets.setOnAction(this::selectTagType);
 
-        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml"));
+        this.back.setOnAction(actionEvent -> {
+            Model.dataTransfer.clear();
+            Model.dataTransfer.add(0, currentAlbum);
+            Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
+        });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.deleteTag.setOnAction(actionEvent -> deleteTag(selectedPhoto));
         this.updateCaption.setOnAction(actionEvent -> updateCaption(selectedPhoto));
