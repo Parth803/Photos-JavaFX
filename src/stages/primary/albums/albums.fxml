@@ -54,7 +54,7 @@
             <Text layoutX="757.0" layoutY="344.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range:" />
             <Text fx:id="numPhotos" layoutX="1011.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
             <Text fx:id="nameOfAlbum" layoutX="1013.0" layoutY="224.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="157.56462724421272" />
-            <Text fx:id="dateRange" layoutX="1017.0" layoutY="340.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A to N/A" textAlignment="CENTER" wrappingWidth="147.4053566000248">
+            <Text fx:id="dateRange" layoutX="1017.0" layoutY="340.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A TO N/A" textAlignment="CENTER" wrappingWidth="147.4053566000248">
                <font>
                   <Font size="11.0" />
                </font>
@@ -74,7 +74,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="sendAdd" defaultButton="true" layoutX="897.0" layoutY="607.0" opacity="0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #0F9D58;" text="Add" textFill="WHITE">
+            <Button fx:id="sendAdd" defaultButton="true" layoutX="897.0" layoutY="607.0" mnemonicParsing="false" opacity="0" prefHeight="25.0" prefWidth="153.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #0F9D58;" text="Add" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -96,7 +96,7 @@
             <Text layoutX="313.0" layoutY="157.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Albums" />
             <ScrollPane hbarPolicy="NEVER" layoutX="44.0" layoutY="190.0" prefHeight="476.0" prefWidth="581.0" style="-fx-background-color: #FFFFFF;">
                <content>
-                  <TilePane  fx:id="albumsPane" prefHeight="475.0" prefWidth="565.0" style="-fx-background-color: #FFFFFF;" />
+                  <TilePane fx:id="albumsPane" prefHeight="475.0" prefWidth="565.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
          </children>

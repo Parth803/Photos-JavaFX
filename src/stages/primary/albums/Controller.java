@@ -94,8 +94,10 @@ public class Controller {
 
     public void openAlbum() {
         // SAVE SELECTED ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
-//        Model.data.clear();
-//        Model.data.add(0, selectedAlbum);
+//        Model.dataTransfer.clear();
+//        Model.dataTransfer.add(0, selectedAlbum);
+        // adding temporary album
+        Model.dataTransfer.add(Model.currentUser.albums.get(0));
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 

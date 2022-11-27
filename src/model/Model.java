@@ -12,18 +12,19 @@ public final class Model {
 
     @SuppressWarnings("unchecked casting")
     public static void initializeModel() {
+        dataTransfer = new ArrayList<>();
         File serializedUsers = new File("data/admin/users.txt");
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
             users.add(new User("admin"));
             users.add(new User("stock"));
             try {
-                Model.setCurrentUser("stock");
+                setCurrentUser("stock");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             Album stockAlbum = new Album("stock");
-            Model.currentUser.albums.add(stockAlbum);
+            currentUser.albums.add(stockAlbum);
             try {
                 stockAlbum.addPhoto("data/stock/one.jpeg", "first");
                 stockAlbum.addPhoto("data/stock/two.jpeg", "second");
@@ -41,6 +42,7 @@ public final class Model {
                 FileInputStream file = new FileInputStream("data/admin/users.txt");
                 ObjectInputStream input = new ObjectInputStream(file);
                 users = (ArrayList<User>) input.readObject();
+                currentUser = users.get(0);
                 input.close();
                 file.close();
             } catch (IOException | ClassNotFoundException e) {
@@ -64,7 +66,7 @@ public final class Model {
     public static void setCurrentUser(String username) throws Exception {
         for (User user : Model.users) {
             if (user.username.equals(username)) {
-                Model.currentUser = user;
+                currentUser = user;
                 return;
             }
         }

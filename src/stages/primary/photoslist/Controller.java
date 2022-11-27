@@ -59,7 +59,7 @@ public class Controller {
         try {
             albumName.setText(((Album) Model.dataTransfer.get(0)).name);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("could not set album name");
         }
     }
 
@@ -95,13 +95,13 @@ public class Controller {
 
     public void editPhoto() {
         // SAVE SELECTED PHOTO IN DATA SO WE CAN USE IT IN NEXT SCENE BUT KEEP ALBUM IN THERE IN CASE WE GO BACK WE STILL NEED ALBUM
-//        Model.data.add(1, selectedPhoto);
+//        Model.dataTransfer.add(1, selectedPhoto);
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
     public void displayPhoto() {
         // SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
-//        Model.data.add(1, selectedPhoto);
+//        Model.dataTransfer.add(1, selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
