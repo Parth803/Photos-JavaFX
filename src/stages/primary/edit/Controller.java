@@ -49,7 +49,6 @@ public class Controller {
         this.moveTo.setOnAction(actionEvent -> moveTo(currentAlbum, selectedPhoto));
 
         this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
-
     }
 
     public void deleteTag(Photo selectedPhoto) {
