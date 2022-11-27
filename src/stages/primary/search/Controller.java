@@ -14,7 +14,8 @@ public class Controller {
     public void initialize() {
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
-        String searchQuery = Model.stringData;
+        String searchQuery = (String) Model.dataTransfer.get(0);
+        Model.dataTransfer.clear();
         // parse searchQuery and extract variables
         // pass those variables into one of the methods below
 

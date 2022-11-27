@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serial;
 
-public final class Tag implements java.io.Serializable, Comparable<Tag>, Data {
+public final class Tag implements java.io.Serializable, Comparable<Tag> {
     @Serial
     private static final long serialVersionUID = -6115814363901437624L;
     public String type;

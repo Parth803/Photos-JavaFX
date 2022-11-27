@@ -3,7 +3,6 @@ package stages.primary.albums;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import model.Model;
 import photos.Photos;
@@ -66,7 +65,7 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        Model.stringData = searchField.getText();
+        Model.dataTransfer.add(searchField.getText());
         Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
 

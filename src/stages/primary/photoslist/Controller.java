@@ -3,7 +3,6 @@ package stages.primary.photoslist;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
@@ -58,7 +57,7 @@ public class Controller {
 
     public void setAlbumName() {
         try {
-            albumName.setText(((Album) Model.data.get(0)).name);
+            albumName.setText(((Album) Model.dataTransfer.get(0)).name);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,7 +112,7 @@ public class Controller {
         }
 
         try {
-            ((Album) Model.data.get(0)).addPhoto(photoPath.getText());
+            ((Album) Model.dataTransfer.get(0)).addPhoto(photoPath.getText());
             promptAdd.setText("Add");
             photoPathLabel.setOpacity(0);
             photoPath.clear();
