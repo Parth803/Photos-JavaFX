@@ -38,8 +38,7 @@ public final class Photos extends Application {
     }
 
     private static void setLogo() {
-        String url = "https://thumbs.dreamstime.com/b/sun-flower-transparent-background-additional-png-file-greeting-cards-holiday-wishes-sun-flower-transparent-129371261.jpg";
-        Photos.logo = new Image(url);
+        Photos.logo = new Image("file:data/resources/logo.jpg");
     }
 
     private static void setPrimaryStage(Stage primaryStage) {
@@ -118,8 +117,7 @@ public final class Photos extends Application {
         if (isPrimaryShowing()) {
             return;
         }
-        Stage primaryStage = getPrimaryStage();
-        primaryStage.show();
+        getPrimaryStage().show();
         setPrimaryShowing(true);
     }
 
@@ -127,14 +125,15 @@ public final class Photos extends Application {
         if (isViewPhotoShowing()) {
             return;
         }
-        Stage viewPhotoStage = getViewPhotoStage();
-        viewPhotoStage.show();
+        getViewPhotoStage().show();
         setViewPhotoShowing(true);
     }
 
     public static void closeViewPhotoStage() {
-        Stage viewPhotoStage = getViewPhotoStage();
-        viewPhotoStage.hide();
+        if (!isViewPhotoShowing()) {
+            return;
+        }
+        getViewPhotoStage().hide();
         setViewPhotoShowing(false);
     }
 
@@ -158,5 +157,6 @@ public final class Photos extends Application {
         }
     }
 }
+
 
 
