@@ -82,7 +82,7 @@ public class Controller {
     }
 
     public void deleteAlbum() {
-//        this.albumsPane.getChildren()
+//        Model.currentUser.deleteAlbum(selectedAlbum);
         System.out.println("Incomplete");
     }
 
