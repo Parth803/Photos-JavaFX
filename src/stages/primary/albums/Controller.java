@@ -12,8 +12,8 @@ import photos.Photos;
 import java.text.SimpleDateFormat;
 
 public class Controller {
-//    @FXML
-//    private TilePane albumsPane;
+    @FXML
+    private TilePane albumsPane;
     @FXML
     private Button back;
     @FXML
@@ -67,7 +67,7 @@ public class Controller {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.nameOfAlbum.setText(selectedAlbum.name);
         this.numPhotos.setText(String.valueOf(selectedAlbum.photos.size()));
-        this.dateRange.setText(formatter.format(selectedAlbum.start) + " to " + formatter.format(selectedAlbum.end));
+        this.dateRange.setText(formatter.format(selectedAlbum.start) + " TO " + formatter.format(selectedAlbum.end));
     }
 
     public void searchPhotos() {
