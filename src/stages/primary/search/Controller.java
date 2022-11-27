@@ -74,7 +74,7 @@ public class Controller {
     }
 
     public void displayPhoto() {
-//        SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
+//        SAVE SELECTED PHOTO IN DATA + ALBUM OBJECT WITH ONLY SELECTED-PHOTO SO IT DOES NOT CAROUSEL
 //        Model.dataTransfer.add(1, selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
