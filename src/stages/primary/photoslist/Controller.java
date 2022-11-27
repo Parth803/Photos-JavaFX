@@ -92,6 +92,7 @@ public class Controller {
             photoPath.setOpacity(0);
             photoPath.setDisable(true);
             sendAdd.setOpacity(0);
+            warning.setOpacity(0);
         }
     }
 

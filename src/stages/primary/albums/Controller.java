@@ -101,6 +101,7 @@ public class Controller {
             albumName.setOpacity(0);
             albumName.setDisable(true);
             sendAdd.setOpacity(0);
+            warning.setOpacity(0);
         }
     }
 

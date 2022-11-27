@@ -57,7 +57,7 @@ public class Controller {
         // NEEDS TO GET SELECTED Photo AND DISPLAY
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.caption.setText(""); // photo.caption
-        this.dateTaken.setText(""); // formatter.format(photo.dateTaken)
+        this.dateTaken.setText(""); // formatter.format(photo.dateTaken.getTime())
     }
 
     public void addAlbum() {
@@ -68,8 +68,8 @@ public class Controller {
 //            Model.currentUser.createAlbum(newAlbumName.getText(), tilepanePhotos);
             warning.setOpacity(0);
         } catch (Exception e) {
-            e.printStackTrace();
             warning.setOpacity(0.69);
+            throw new RuntimeException("can not add album containing search results");
         }
     }
 

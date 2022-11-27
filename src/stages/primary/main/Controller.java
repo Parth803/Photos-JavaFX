@@ -14,6 +14,7 @@ public class Controller {
     @FXML
     private Text warning;
     public void initialize() {
+        Photos.closeViewPhotoStage();
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 

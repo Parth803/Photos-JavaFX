@@ -132,6 +132,12 @@ public final class Photos extends Application {
         setViewPhotoShowing(true);
     }
 
+    public static void closeViewPhotoStage() {
+        Stage viewPhotoStage = getViewPhotoStage();
+        viewPhotoStage.hide();
+        setViewPhotoShowing(false);
+    }
+
     public static void changeScene(String stage, String newScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
