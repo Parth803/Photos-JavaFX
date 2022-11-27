@@ -31,8 +31,20 @@ public class Controller {
     private ListView<String> tagsList;
 
     public void initialize() {
-        Album currentAlbum = (Album) Model.dataTransfer.get(0);
         Photo currentPhoto = (Photo) Model.dataTransfer.get(1);
+        Album currentAlbum;
+        if (Model.dataTransfer.get(0) instanceof Album) {
+            currentAlbum = (Album) Model.dataTransfer.get(0);
+        }
+        else {
+            currentAlbum = new Album("");
+            try {
+                currentAlbum.addPhoto(currentPhoto.path, currentPhoto.caption);
+            } catch (Exception e) {
+                throw new RuntimeException("error adding photo to album created from search");
+            }
+        }
+
         if ((currentAlbum.photos.indexOf(currentPhoto) - 1) == 0) {
             previous.setDisable(true);
         } else if (currentAlbum.photos.indexOf(currentPhoto) == (currentAlbum.photos.size() - 1)) {
