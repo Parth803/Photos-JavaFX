@@ -87,13 +87,13 @@
             </Button>
             <Text layoutX="806.0" layoutY="498.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination Album:" />
             <TextField fx:id="destinationAlbum" layoutX="1038.0" layoutY="479.0" prefHeight="26.0" prefWidth="110.0" promptText="Album..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
-            <Text layoutX="803.0" layoutY="59.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Type:" />
-            <Text layoutX="817.0" layoutY="186.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Tag Type:" />
-            <Text layoutX="813.0" layoutY="251.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Property:" />
+            <Text layoutX="803.0" layoutY="59.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Presets:" />
+            <Text fx:id="tagTypeLabel" layoutX="817.0" layoutY="186.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Type:" />
+            <Text fx:id="tagPropertyLabel" layoutX="813.0" layoutY="251.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Property:" />
             <TextField fx:id="tagValue" layoutX="1038.0" layoutY="103.0" prefHeight="26.0" prefWidth="105.0" promptText="Value..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
-            <TextField fx:id="newTagType" layoutX="1038.0" layoutY="168.0" opacity="0.0" prefHeight="26.0" prefWidth="105.0" promptText="Type..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
-            <ChoiceBox fx:id="tagType" layoutX="985.0" layoutY="30.0" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: #FFFFFF #FFFFFF #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3 #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
-            <Text fill="RED" layoutX="849.0" layoutY="299.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value already exists." textAlignment="CENTER" wrappingWidth="275.03221130371094">
+            <TextField fx:id="tagType" layoutX="1038.0" layoutY="168.0" opacity="0.0" prefHeight="26.0" prefWidth="105.0" promptText="Type..." scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
+            <ChoiceBox fx:id="presets" layoutX="985.0" layoutY="30.0" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: #FFFFFF #FFFFFF #FFFFFF #FFFFFF; -fx-border-color: #d3d3d3 #d3d3d3 #d3d3d3 #d3d3d3; -fx-border-radius: 20;" />
+            <Text fx:id="tagWarning" fill="RED" layoutX="849.0" layoutY="299.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag Value already exists." textAlignment="CENTER" wrappingWidth="275.03221130371094">
                <font>
                   <Font size="10.0" />
                </font>

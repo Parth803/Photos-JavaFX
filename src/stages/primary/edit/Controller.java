@@ -28,9 +28,13 @@ public class Controller {
     @FXML
     private ListView<String> tagsList;
     @FXML
-    private ChoiceBox<String> tagType;
+    private ChoiceBox<String> presets;
     @FXML
-    private TextField newTagType;
+    private Text tagTypeLabel;
+    @FXML
+    private TextField tagType;
+    @FXML
+    private Text tagPropertyLabel;
     @FXML
     private ChoiceBox<String> tagProperty;
     @FXML
@@ -48,15 +52,16 @@ public class Controller {
     @FXML
     private Button moveTo;
     public void initialize() {
-        newTagType.setDisable(true);
-        tagType.getItems().addAll("Location", "Person", "Other");
+        tagProperty.setDisable(true);
+        tagType.setDisable(true);
+        presets.getItems().addAll("Location", "Person", "Other");
         tagProperty.getItems().addAll("Single", "Multi");
 
         Album currentAlbum = (Album) Model.dataTransfer.get(0);
         Photo selectedPhoto = (Photo) Model.dataTransfer.get(1);
         Model.dataTransfer.clear();
 
-        tagType.setOnAction(this::selectTagType);
+        presets.setOnAction(this::selectTagType);
 
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
@@ -90,17 +95,25 @@ public class Controller {
     }
 
     public void selectTagType(Event event) {
-        if (tagType.getValue().equals("Other")) {
-            newTagType.setDisable(false);
-            newTagType.setOpacity(1);
+        if (presets.getValue().equals("Other")) {
+            tagPropertyLabel.setOpacity(1);
+            tagProperty.setOpacity(1);
+            tagProperty.setDisable(false);
+            tagTypeLabel.setOpacity(1);
+            tagType.setDisable(false);
+            tagType.setOpacity(1);
         } else {
-            newTagType.setDisable(true);
-            newTagType.setOpacity(0);
+            tagPropertyLabel.setOpacity(0);
+            tagProperty.setOpacity(0);
+            tagProperty.setDisable(true);
+            tagTypeLabel.setOpacity(0);
+            tagType.setDisable(true);
+            tagType.setOpacity(0);
         }
     }
 
     public void addTag(Photo selectedPhoto) {
-        if (tagType.getValue() == null || (!newTagType.isDisabled() && newTagType.getText() == null) || tagProperty.getValue() == null || tagValue.getText() == null) {
+        if (presets.getValue() == null || (!tagType.isDisabled() && tagType.getText() == null) || tagProperty.getValue() == null || tagValue.getText() == null) {
             tagWarning.setOpacity(1);
             tagWarning.setText("Fill in all the details to add a tag.");
             return;
@@ -110,19 +123,19 @@ public class Controller {
 
         try {
             if (tagProperty.getValue().equals("Single")) {
-                if (tagType.getValue().equals("Other")) {
-                    selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), true);
+                if (presets.getValue().equals("Other")) {
+                    selectedPhoto.addTag(tagType.getText(), tagValue.getText(), true);
                     tagWarning.setOpacity(0);
                 } else {
-                    selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), true);
+                    selectedPhoto.addTag(presets.getValue(), tagValue.getText(), true);
                     tagWarning.setOpacity(0);
                 }
             } else {
-                if (tagType.getValue().equals("Other")) {
-                    selectedPhoto.addTag(newTagType.getText(), tagValue.getText(), false);
+                if (presets.getValue().equals("Other")) {
+                    selectedPhoto.addTag(tagType.getText(), tagValue.getText(), false);
                     tagWarning.setOpacity(0);
                 } else {
-                    selectedPhoto.addTag(tagType.getValue(), tagValue.getText(), false);
+                    selectedPhoto.addTag(presets.getValue(), tagValue.getText(), false);
                     tagWarning.setOpacity(0);
                 }
             }
