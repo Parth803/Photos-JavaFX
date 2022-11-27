@@ -4,14 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import model.Album;
 import model.Model;
 import photos.Photos;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Controller {
     @FXML
@@ -51,7 +48,8 @@ public class Controller {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
 
-        // ADD TilePane STUFF SO IT CAN CALL updateDetailDisplay when selecting a tile
+        // Call when a new tile is selected
+        updateDetailDisplay();
 
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
@@ -64,41 +62,21 @@ public class Controller {
 
     public void updateDetailDisplay() {
         // NEEDS TO GET SELECTED ALBUM AND DISPLAY
+        Album selectedAlbum = Model.currentUser.albums.get(0); // SAMPLE USED TO TESTING BUT IN REALITY IT WILL BE SELECTED ALBUM FROM TILE
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        this.nameOfAlbum.setText(""); // album.name
-        this.numPhotos.setText(""); // album.photos.size()
-        this.dateRange.setText(""); // formatter.format(album.start) + " to " + formatter.format(album.end);
+        this.nameOfAlbum.setText(selectedAlbum.name);
+        this.numPhotos.setText(String.valueOf(selectedAlbum.photos.size()));
+        this.dateRange.setText(formatter.format(selectedAlbum.start) + " to " + formatter.format(selectedAlbum.end));
     }
 
     public void searchPhotos() {
-        Model.dataTransfer.clear();
-        if (searchField.getText().isEmpty()) {
-            Model.dataTransfer.add(0, Model.currentUser.getAllPhotos());
-        } else if (searchField.getText().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO ^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}")) {
-            Pattern pattern = Pattern.compile("^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}");
-            Matcher matcher = pattern.matcher(searchField.getText());
-            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-            try {
-                Calendar start = Calendar.getInstance();
-                start.setTime(formatter.parse(matcher.group(1)));
-                Calendar end = Calendar.getInstance();
-                start.setTime(formatter.parse(matcher.group(2)));
-                Model.dataTransfer.add(0, Model.currentUser.getPhotosInRange(start, end));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (searchField.getText().matches("\\S*=\\S*")) {
-            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
-        } else if (searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*")) {
-            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
-        } else if (searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
-            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
+        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+            Model.dataTransfer.clear();
+            Model.dataTransfer.add(0, searchField.getText());
+            Photos.changeScene("primary", "/stages/primary/search/search.fxml");
         } else {
             searchWarning.setOpacity(0.69);
-            return;
         }
-        Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
 
     public void deleteAlbum() {
