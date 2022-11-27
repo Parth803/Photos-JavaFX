@@ -29,9 +29,11 @@ public class Controller {
             warning.setOpacity(0);
 
             if (username.getText().equals("admin")) {
+                Model.initNextScene();
                 Photos.changeScene("primary", "/stages/primary/admin/admin.fxml");
             }
             else {
+                Model.initNextScene();
                 Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
             }
         } catch (Exception e) {

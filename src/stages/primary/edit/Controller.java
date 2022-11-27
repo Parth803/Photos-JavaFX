@@ -63,8 +63,7 @@ public class Controller {
         presets.setOnAction(this::selectTagType);
 
         this.back.setOnAction(actionEvent -> {
-            Model.dataTransfer.clear();
-            Model.dataTransfer.add(0, currentAlbum);
+            Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
         });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
