@@ -3,6 +3,7 @@ package stages.primary.photoslist;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
@@ -12,11 +13,11 @@ import java.text.SimpleDateFormat;
 
 public class Controller {
     @FXML
+    private TilePane photosPane;
+    @FXML
     private Button back;
     @FXML
     private Button logout;
-//    @FXML
-//    private TilePane photosPane;
     @FXML
     private Text albumName;
     @FXML
