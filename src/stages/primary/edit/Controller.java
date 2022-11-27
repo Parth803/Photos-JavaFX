@@ -33,7 +33,7 @@ public class Controller {
         this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml"));
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.deleteTag.setOnAction(actionEvent -> deleteTag(selectedPhoto));
-        this.updateCaption.setOnAction(actionEvent -> updateCaption());
+        this.updateCaption.setOnAction(actionEvent -> updateCaption(selectedPhoto));
         this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
 
     }
@@ -54,7 +54,7 @@ public class Controller {
         }
     }
 
-    public void updateCaption() {
-
+    public void updateCaption(Photo selectedPhoto) {
+        selectedPhoto.caption = caption.getText();
     }
 }
