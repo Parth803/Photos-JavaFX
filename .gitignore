@@ -31,4 +31,4 @@ bin/
 ### Other ###
 lib/
 workspace.xml
-users.txt
+data/admin/users.txt
