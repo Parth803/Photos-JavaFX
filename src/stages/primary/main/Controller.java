@@ -18,7 +18,7 @@ public class Controller {
     private Text warning;
 
     public void initialize() {
-        Photos.closeViewPhotoStage();
+        Model.logOut();
         this.logo.setImage(Photos.getLogo());
         this.proceed.setOnAction(actionEvent -> continueAction());
     }

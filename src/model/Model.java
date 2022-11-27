@@ -1,21 +1,23 @@
 package model;
 
+import photos.Photos;
+
 import java.io.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public final class Model {
     public static ArrayList<User> users;
     public static User currentUser;
     public static ArrayList<Object> dataTransfer;
-    private static Stack<Object> dataSnapshots;
+    private static ArrayDeque<Object> dataSnapshots;
 
     private Model() {}
 
     @SuppressWarnings("unchecked casting")
     public static void init() {
         dataTransfer = new ArrayList<>();
-        dataSnapshots = new Stack<>();
+        dataSnapshots = new ArrayDeque<>();
         File serializedUsers = new File("data/admin/users.txt");
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
@@ -93,11 +95,28 @@ public final class Model {
         users.remove(new User(username));
     }
 
+    /**
+     * Call just before changing to previous scene
+     */
+    @SuppressWarnings("unchecked casting")
     public static void initPreviousScene() {
         if (dataSnapshots.isEmpty()) {
-            return;
+            throw new RuntimeException("there is no previous scene");
         }
-        Object o = dataSnapshots.pop();
+        dataTransfer = (ArrayList<Object>) dataSnapshots.pop();
+    }
+
+    /**
+     * Call just before changing to next scene
+     */
+    public static void initNextScene() {
+        dataSnapshots.push(dataTransfer.clone());
+    }
+
+    public static void logOut() {
+        dataSnapshots.clear();
+        dataTransfer.clear();
+        Photos.closeViewPhotoStage();
     }
 }
 
