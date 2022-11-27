@@ -12,8 +12,8 @@ import photos.Photos;
 import java.text.SimpleDateFormat;
 
 public class Controller {
-    @FXML
-    private TilePane albumsPane;
+//    @FXML
+//    private TilePane albumsPane;
     @FXML
     private Button back;
     @FXML

@@ -14,8 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Controller {
-    @FXML
-    private TilePane photosPane;
+//    @FXML
+//    private TilePane photosPane;
     @FXML
     private Button back;
     @FXML
