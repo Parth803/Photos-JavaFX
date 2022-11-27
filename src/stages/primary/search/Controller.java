@@ -65,7 +65,7 @@ public class Controller {
             return;
         }
         try {
-            Model.currentUser.createAlbum(newAlbumName.getText());
+//            Model.currentUser.createAlbum(newAlbumName.getText(), tilepanePhotos);
             warning.setOpacity(0);
         } catch (Exception e) {
             e.printStackTrace();
