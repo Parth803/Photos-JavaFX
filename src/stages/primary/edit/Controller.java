@@ -46,6 +46,7 @@ public class Controller {
     @FXML
     private Button moveTo;
     public void initialize() {
+        newTagType.setDisable(true);
         tagType.getItems().addAll("Location", "Person", "Other");
         tagProperty.getItems().addAll("Single", "Multi");
 
@@ -88,8 +89,10 @@ public class Controller {
 
     public void selectTagType(Event event) {
         if (tagType.getValue().equals("Other")) {
+            newTagType.setDisable(false);
             newTagType.setOpacity(1);
         } else {
+            newTagType.setDisable(true);
             newTagType.setOpacity(0);
         }
     }
