@@ -47,6 +47,8 @@ public final class Model {
                 file.close();
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException("could not read serialized object");
+            } catch (IndexOutOfBoundsException e) {
+                throw new RuntimeException("Locked out - meaning all users have been deleted by admin");
             }
         }
     }
