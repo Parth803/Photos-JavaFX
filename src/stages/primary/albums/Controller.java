@@ -7,7 +7,11 @@ import javafx.scene.text.Text;
 import model.Model;
 import photos.Photos;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller {
     @FXML
@@ -18,6 +22,8 @@ public class Controller {
     private TextField searchField;
     @FXML
     private Button search;
+    @FXML
+    private Text searchWarning;
 //    @FXML
 //    private TilePane albumsPane;
     @FXML
@@ -65,7 +71,33 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        Model.dataTransfer.add(searchField.getText());
+        Model.dataTransfer.clear();
+        if (searchField.getText().isEmpty()) {
+            Model.dataTransfer.add(0, Model.currentUser.getAllPhotos());
+        } else if (searchField.getText().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO ^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}")) {
+            Pattern pattern = Pattern.compile("^\\d{1,2}\\/\\d{1,2}\\/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}");
+            Matcher matcher = pattern.matcher(searchField.getText());
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+            try {
+                Calendar start = Calendar.getInstance();
+                start.setTime(formatter.parse(matcher.group(1)));
+                Calendar end = Calendar.getInstance();
+                start.setTime(formatter.parse(matcher.group(2)));
+                Model.dataTransfer.add(0, Model.currentUser.getPhotosInRange(start, end));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (searchField.getText().matches("\\S*=\\S*")) {
+            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
+        } else if (searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*")) {
+            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
+        } else if (searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+            // TO BE FILLED IN -- DO NOT FILL IN OTHERWISE U GONNA MEES UP MY FLOW TOMORROW
+        } else {
+            searchWarning.setOpacity(0.69);
+            return;
+        }
         Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
 
@@ -94,7 +126,7 @@ public class Controller {
 
     public void openAlbum() {
         // SAVE SELECTED ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
-//        Model.dataTransfer.clear();
+        Model.dataTransfer.clear();
 //        Model.dataTransfer.add(0, selectedAlbum);
         // adding temporary album
         Model.dataTransfer.add(Model.currentUser.albums.get(0));
