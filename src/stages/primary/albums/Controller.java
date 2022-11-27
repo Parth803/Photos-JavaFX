@@ -65,6 +65,7 @@ public class Controller {
     }
 
     public void searchPhotos() {
+        Model.dataTransfer.clear();
         Model.dataTransfer.add(searchField.getText());
         Photos.changeScene("primary", "/stages/primary/search/search.fxml");
     }
@@ -97,6 +98,7 @@ public class Controller {
 //        Model.dataTransfer.clear();
 //        Model.dataTransfer.add(0, selectedAlbum);
         // adding temporary album
+        Model.dataTransfer.clear();
         Model.dataTransfer.add(Model.currentUser.albums.get(0));
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
