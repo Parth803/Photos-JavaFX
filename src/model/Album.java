@@ -67,7 +67,16 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
             throw new Exception("Photo is already in album");
         }
         Model.currentUser.uniquePhotos.putIfAbsent(path, new Photo(path));
-        this.photos.add(Model.currentUser.uniquePhotos.get(path));
+        Photo newPhoto;
+        newPhoto = Model.currentUser.uniquePhotos.get(path);
+        this.photos.add(newPhoto);
+        if (this.photos.size() == 1) {
+            this.start = newPhoto.dateTaken;
+            this.end = this.start;
+            return;
+        }
+        if (newPhoto.dateTaken.compareTo(this.start) < 0) this.start = newPhoto.dateTaken;
+        if (newPhoto.dateTaken.compareTo(this.end) > 0) this.end = newPhoto.dateTaken;
     }
 
     public void addPhoto(String path, String caption) throws Exception {
@@ -75,7 +84,14 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
             throw new Exception("Photo is already in album");
         }
         Model.currentUser.uniquePhotos.putIfAbsent(path, new Photo(path, caption));
-        this.photos.add(Model.currentUser.uniquePhotos.get(path));
+        Photo newPhoto = Model.currentUser.uniquePhotos.get(path);
+        this.photos.add(newPhoto);
+        if (this.photos.size() == 1) {
+            this.start = newPhoto.dateTaken;
+            this.end = this.start;
+        }
+        if (newPhoto.dateTaken.compareTo(this.start) < 0) this.start = newPhoto.dateTaken;
+        if (newPhoto.dateTaken.compareTo(this.end) > 0) this.end = newPhoto.dateTaken;
     }
 
     public void removePhoto(String path) throws Exception {

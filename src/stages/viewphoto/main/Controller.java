@@ -26,78 +26,49 @@ public class Controller {
     @FXML
     private Button next;
     @FXML
-    private Text warning;
-    @FXML
     private ListView<String> tagsList;
+    private Album currentAlbum;
+    private Photo currentPhoto;
 
     public void initialize() {
-        Photo currentPhoto = (Photo) Model.dataTransfer.get(1);
-        Album currentAlbum;
-        if (Model.dataTransfer.get(0) instanceof Album) {
-            currentAlbum = (Album) Model.dataTransfer.get(0);
-        }
-        else {
-            currentAlbum = new Album("");
-            try {
-                currentAlbum.addPhoto(currentPhoto.path, currentPhoto.caption);
-            } catch (Exception e) {
-                throw new RuntimeException("error adding photo to album created from search");
-            }
-        }
+        currentAlbum = (Album) Model.dataTransfer.get(0);
+        currentPhoto = (Photo) Model.dataTransfer.get(1);
+        updatePrevNext();
+        updateDisplay();
+        updateTagsList();
+        this.previous.setOnAction(actionEvent -> previousPhoto());
+        this.next.setOnAction(actionEvent -> nextPhoto());
+    }
 
-        if ((currentAlbum.photos.indexOf(currentPhoto) - 1) == 0) {
-            previous.setDisable(true);
-        } else if (currentAlbum.photos.indexOf(currentPhoto) == (currentAlbum.photos.size() - 1)) {
-            next.setDisable(true);
-        }
-        // we cannot clear dataTransfer because if we go back we need the data to load
-        // WE NEED TO SOMEHOW STORE THE SEARCH QUERY TOO INCASE WE GO BACK TO SEARCH FROM HERE
-        updateDisplay(currentPhoto);
-
-        this.previous.setOnAction(actionEvent -> previousPhoto(currentAlbum, currentPhoto));
-        this.next.setOnAction(actionEvent -> nextPhoto(currentAlbum, currentPhoto));
-
+    public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(currentPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
-    public void updateDisplay(Photo currentPhoto) {
-        if (!currentPhoto.path.isEmpty()) {
-            displayImage.setImage(new Image(currentPhoto.path));
-        }
+    public void updatePrevNext() {
+        this.previous.setDisable((currentAlbum.photos.indexOf(currentPhoto)) == 0);
+        this.next.setDisable(currentAlbum.photos.indexOf(currentPhoto) == (currentAlbum.photos.size() - 1));
+    }
+
+    public void updateDisplay() {
+        if (!currentPhoto.path.isEmpty()) displayImage.setImage(new Image("file:" + currentPhoto.path));
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.caption.setText(currentPhoto.caption);
         this.dateTaken.setText(formatter.format(currentPhoto.dateTaken.getTime()));
     }
 
-    public void previousPhoto(Album currentAlbum, Photo currentPhoto) {
-        if (currentAlbum.photos.size() == 1) {
-            warning.setOpacity(0.69);
-            return;
-        }
+    public void previousPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) - 1;
-        if (index >= 0) {
-            updateDisplay(currentAlbum.photos.get(index));
-            warning.setOpacity(0);
-            if (index == 0) {
-                previous.setDisable(true);
-                next.setDisable(false);
-            }
-        }
+        currentPhoto = currentAlbum.photos.get(index);
+        updatePrevNext();
+        updateDisplay();
+        updateTagsList();
     }
 
-    public void nextPhoto(Album currentAlbum, Photo currentPhoto) {
-        if (currentAlbum.photos.size() == 1) {
-            warning.setOpacity(0.69);
-            return;
-        }
+    public void nextPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) + 1;
-        if (index < currentAlbum.photos.size()) {
-            updateDisplay(currentAlbum.photos.get(index));
-            warning.setOpacity(0);
-            if (index == currentAlbum.photos.size() - 1) {
-                previous.setDisable(false);
-                next.setDisable(true);
-            }
-        }
+        currentPhoto = currentAlbum.photos.get(index);
+        updatePrevNext();
+        updateDisplay();
+        updateTagsList();
     }
 }

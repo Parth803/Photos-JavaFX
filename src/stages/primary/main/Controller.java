@@ -28,12 +28,11 @@ public class Controller {
             Model.setCurrentUser(username.getText());
             warning.setOpacity(0);
 
+            Model.initNextScene(true);
             if (username.getText().equals("admin")) {
-                Model.initNextScene();
                 Photos.changeScene("primary", "/stages/primary/admin/admin.fxml");
             }
             else {
-                Model.initNextScene();
                 Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
             }
         } catch (Exception e) {

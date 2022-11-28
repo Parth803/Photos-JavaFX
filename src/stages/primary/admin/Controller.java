@@ -27,7 +27,10 @@ public class Controller {
     @FXML
     private ListView<String> usersList;
     public void initialize() {
-        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
+        this.back.setOnAction(actionEvent -> {
+            Model.initPreviousScene();
+            Photos.changeScene("primary", "/stages/primary/main/main.fxml");
+        });
         this.logout.setOnAction(actionEvent ->Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.addUser.setOnAction(actionEvent -> addUser());
         this.deleteUser.setOnAction(actionEvent -> deleteUser());

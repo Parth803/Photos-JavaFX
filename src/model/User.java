@@ -20,6 +20,7 @@ public final class User implements java.io.Serializable, Comparable<User> {
         this.username = username;
         this.albums = new ArrayList<>();
         this.tagPreset = new ArrayList<>();
+        this.tagPreset.add(new Pair<>("Other", "Custom"));
         this.uniquePhotos = new HashMap<>();
     }
 
@@ -121,16 +122,9 @@ public final class User implements java.io.Serializable, Comparable<User> {
         return getPhotos(containsTags);
     }
 
-    public ArrayList<Photo> getPhotosAtTime(Calendar time) {
-        Predicate<Photo> atTime = p -> p.dateTaken.compareTo(time) == 0;
-        return getPhotos(atTime);
-    }
-
     public ArrayList<Photo> getPhotosInRange(Calendar start, Calendar end) {
         Predicate<Photo> inRange = p -> p.dateTaken.compareTo(start) >= 0 && p.dateTaken.compareTo(end) <= 0;
         return getPhotos(inRange);
     }
 }
-
-
 

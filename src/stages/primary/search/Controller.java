@@ -5,7 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import model.Album;
 import model.Model;
+import model.Photo;
 import photos.Photos;
 
 import java.text.SimpleDateFormat;
@@ -40,13 +42,15 @@ public class Controller {
     private Button display;
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
-        Model.dataTransfer.clear();
         getSearchedImages(searchQuery);
 
         // Call when a new tile is selected
         updateDetailDisplay();
 
-        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
+        this.back.setOnAction(actionEvent -> {
+            Model.initPreviousScene();
+            Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
+        });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.search.setOnAction(actionEvent -> searchPhotos());
         this.createAlbum.setOnAction(actionEvent -> addAlbum());
@@ -74,8 +78,19 @@ public class Controller {
     }
 
     public void displayPhoto() {
-//        SAVE SELECTED PHOTO IN DATA + ALBUM OBJECT WITH ONLY SELECTED-PHOTO SO IT DOES NOT CAROUSEL
-//        Model.dataTransfer.add(1, selectedPhoto);
+        Model.initNextScene(false);
+//        SAVE SELECTED PHOTO IN DataTransfer + ALBUM OBJECT WITH ONLY SELECTED-PHOTO SO IT DOES NOT CAROUSEL
+//        Album albumWithPhoto = new Album("");
+//        try {
+//            albumWithPhoto.addPhoto(selectedPhoto.path);
+//        } catch (Exception e) {
+//            // exception says photo is already in album
+//            // no need to do anything
+//        }
+//        Model.dataTransfer.add(albumWithPhoto);
+//        Model.dataTransfer.add(selectedPhoto);
+        Model.dataTransfer.add(Model.currentUser.albums.get(0));
+        Model.dataTransfer.add(Model.currentUser.albums.get(0).photos.get(0));
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 

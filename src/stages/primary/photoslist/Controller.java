@@ -41,15 +41,23 @@ public class Controller {
     private Text warning;
     @FXML
     private Button sendAdd;
+    private Album currentAlbum;
+    private Photo selectedPhoto;
 
     public void initialize() {
         sendAdd.setDisable(true);
         photoPath.setDisable(true);
-        this.setAlbumName();
+        currentAlbum = (Album) Model.dataTransfer.get(0);
+        albumName.setText("Album: " + currentAlbum.name);
 
+        // Select first photo by default
+        if (!currentAlbum.photos.isEmpty()) selectedPhoto = currentAlbum.photos.get(0);
         // ADD TilePane STUFF SO IT CAN CALL updateDetailDisplay when selecting a tile
 
-        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/albums/albums.fxml"));
+        this.back.setOnAction(actionEvent -> {
+            Model.initPreviousScene();
+            Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
+        });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.delete.setOnAction(actionEvent -> deletePhoto());
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
@@ -58,19 +66,11 @@ public class Controller {
         this.sendAdd.setOnAction(actionEvent -> addPhoto());
     }
 
-    public void setAlbumName() {
-        try {
-            albumName.setText("Album: " + ((Album) Model.dataTransfer.get(0)).name);
-        } catch (Exception e) {
-            throw new RuntimeException("could not set album name");
-        }
-    }
-
     public void updateDetailDisplay() {
         // NEEDS TO GET SELECTED Photo AND DISPLAY
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.caption.setText(""); // photo.caption
-        this.dateTaken.setText(""); // formatter.format(photo.dateTaken)
+        this.dateTaken.setText(""); // formatter.format(photo.dateTaken.getTime())
     }
 
     public void deletePhoto() {
@@ -98,16 +98,18 @@ public class Controller {
     }
 
     public void editPhoto() {
-//        SAVE SELECTED PHOTO IN DATA SO WE CAN USE IT IN NEXT SCENE BUT KEEP ALBUM IN THERE IN CASE WE GO BACK WE STILL NEED ALBUM
-//        Model.dataTransfer.add(1, selectedPhoto);
-        Model.dataTransfer.add(1, new Photo(""));
+        Model.initNextScene(true);
+//        SAVE SELECTED PHOTO AND CURRENT ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
+        Model.dataTransfer.add(Model.currentUser.albums.get(0));
+        Model.dataTransfer.add(Model.currentUser.albums.get(0).photos.get(0));
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
     public void displayPhoto() {
-//        SAVE SELECTED PHOTO IN DATA AS WELL SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
-//        Model.dataTransfer.add(1, selectedPhoto);
-        Model.dataTransfer.add(1, new Photo("", "what a nice image"));
+        Model.initNextScene(false);
+//        SAVE SELECTED PHOTO IN dataTransfer SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
+        Model.dataTransfer.add(Model.currentUser.albums.get(0));
+        Model.dataTransfer.add(Model.currentUser.albums.get(0).photos.get(0));
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
@@ -116,9 +118,8 @@ public class Controller {
         if (photoPath.getText().isEmpty()) {
             return;
         }
-
         try {
-            ((Album) Model.dataTransfer.get(0)).addPhoto(photoPath.getText());
+            currentAlbum.addPhoto(photoPath.getText());
             promptAdd.setText("Add");
             photoPathLabel.setOpacity(0);
             photoPath.clear();

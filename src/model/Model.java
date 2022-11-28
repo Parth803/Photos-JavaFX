@@ -107,10 +107,17 @@ public final class Model {
     }
 
     /**
-     * Call just before changing to next scene
+     * Call just before adding objects to Model.dataTransfer for next scene
+     * @param comeBack Whether the next scene can directly come back to the current scene in a linear transition
+     *                 (usually only valid for scenes on the same stage because otherwise, the user can go back in multiple
+     *                 stages at the same time)
+     *                 (Valid: A <-> B <-> C, linear transition) (Invalid: A <- C, C can not jump over B)
      */
-    public static void initNextScene() {
-        dataSnapshots.push(dataTransfer.clone());
+    public static void initNextScene(boolean comeBack) {
+        if (comeBack) {
+            dataSnapshots.push(dataTransfer.clone());
+        }
+        dataTransfer.clear();
     }
 
     public static void logOut() {
@@ -119,6 +126,5 @@ public final class Model {
         Photos.closeViewPhotoStage();
     }
 }
-
 
 

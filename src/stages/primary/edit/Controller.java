@@ -51,32 +51,39 @@ public class Controller {
     private Button copyTo;
     @FXML
     private Button moveTo;
+    private Album currentAlbum;
+    private Photo selectedPhoto;
+
     public void initialize() {
+        currentAlbum = (Album) Model.dataTransfer.get(0);
+        selectedPhoto = (Photo) Model.dataTransfer.get(1);
         tagProperty.setDisable(true);
         tagType.setDisable(true);
-        presets.getItems().addAll("Location", "Person", "Other");
+        updateTagsList();
+        updatePresets();
         tagProperty.getItems().addAll("Single", "Multi");
-
-        Album currentAlbum = (Album) Model.dataTransfer.get(0);
-        Photo selectedPhoto = (Photo) Model.dataTransfer.get(1);
-
         presets.setOnAction(this::selectTagType);
-
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
         });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
-        this.deleteTag.setOnAction(actionEvent -> deleteTag(selectedPhoto));
-        this.updateCaption.setOnAction(actionEvent -> updateCaption(selectedPhoto));
-        this.addTag.setOnAction(actionEvent -> addTag(selectedPhoto));
-        this.copyTo.setOnAction(actionEvent -> copyTo(selectedPhoto));
-        this.moveTo.setOnAction(actionEvent -> moveTo(currentAlbum, selectedPhoto));
+        this.deleteTag.setOnAction(actionEvent -> deleteTag());
+        this.updateCaption.setOnAction(actionEvent -> updateCaption());
+        this.addTag.setOnAction(actionEvent -> addTag());
+        this.copyTo.setOnAction(actionEvent -> copyTo());
+        this.moveTo.setOnAction(actionEvent -> moveTo());
+    }
 
+    public void updatePresets() {
+        this.presets.setItems(FXCollections.observableList(Model.currentUser.tagPreset.stream().map(p -> p.getKey()+" - "+p.getValue()).collect(Collectors.toList())));
+    }
+
+    public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
-    public void deleteTag(Photo selectedPhoto) {
+    public void deleteTag() {
         if (this.tagsList.getSelectionModel().isEmpty()) {
             return;
         }
@@ -84,38 +91,42 @@ public class Controller {
         Matcher m = p.matcher(this.tagsList.getSelectionModel().getSelectedItem());
         if (m.find()) {
             try {
-                Model.currentUser.uniquePhotos.get(selectedPhoto.path).removeTag(m.group(1), m.group(2));
-                this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
+                selectedPhoto.removeTag(m.group(1), m.group(2));
+                updateTagsList();
             } catch (Exception e) {
                 throw new RuntimeException("Error removing tag from photo");
             }
         }
     }
 
-    public void updateCaption(Photo selectedPhoto) {
+    public void updateCaption() {
         selectedPhoto.caption = caption.getText();
+        this.caption.setText(selectedPhoto.caption);
     }
 
     public void selectTagType(Event event) {
-        if (presets.getValue().equals("Other")) {
+        tagPropertyLabel.setOpacity(0);
+        tagProperty.setOpacity(0);
+        tagProperty.setDisable(true);
+        tagTypeLabel.setOpacity(0);
+        tagType.setDisable(true);
+        tagType.setOpacity(0);
+        if (this.presets.getValue() == null) return;
+        Pattern p = Pattern.compile("(\\S*) - (\\S*)");
+        Matcher m = p.matcher(this.presets.getValue());
+        if (!m.find()) return;
+        if (m.group(1).equals("Other")) {
             tagPropertyLabel.setOpacity(1);
             tagProperty.setOpacity(1);
             tagProperty.setDisable(false);
             tagTypeLabel.setOpacity(1);
             tagType.setDisable(false);
             tagType.setOpacity(1);
-        } else {
-            tagPropertyLabel.setOpacity(0);
-            tagProperty.setOpacity(0);
-            tagProperty.setDisable(true);
-            tagTypeLabel.setOpacity(0);
-            tagType.setDisable(true);
-            tagType.setOpacity(0);
         }
     }
 
-    public void addTag(Photo selectedPhoto) {
-        if (presets.getValue() == null || (!tagType.isDisabled() && tagType.getText() == null) || tagProperty.getValue() == null || tagValue.getText() == null) {
+    public void addTag() {
+        if (presets.getValue() == null || (!tagType.isDisabled() && tagType.getText() == null) || (!tagProperty.isDisabled() && tagProperty.getValue() == null) || tagValue.getText() == null) {
             tagWarning.setOpacity(1);
             tagWarning.setText("Fill in all the details to add a tag.");
             return;
@@ -123,31 +134,25 @@ public class Controller {
         tagWarning.setOpacity(0);
         tagWarning.setText("Tag Value already exists.");
 
+        Pattern p = Pattern.compile("(\\S*) - (\\S*)");
+        Matcher m = p.matcher(this.presets.getValue());
+        if (!m.find()) return;
+
         try {
-            if (tagProperty.getValue().equals("Single")) {
-                if (presets.getValue().equals("Other")) {
-                    selectedPhoto.addTag(tagType.getText(), tagValue.getText(), true);
-                    tagWarning.setOpacity(0);
-                } else {
-                    selectedPhoto.addTag(presets.getValue(), tagValue.getText(), true);
-                    tagWarning.setOpacity(0);
-                }
+            if (m.group(1).equals("Other")) {
+                selectedPhoto.addTag(tagType.getText(), tagValue.getText(), tagProperty.getValue().equals("Single"));
+                updatePresets();
             } else {
-                if (presets.getValue().equals("Other")) {
-                    selectedPhoto.addTag(tagType.getText(), tagValue.getText(), false);
-                    tagWarning.setOpacity(0);
-                } else {
-                    selectedPhoto.addTag(presets.getValue(), tagValue.getText(), false);
-                    tagWarning.setOpacity(0);
-                }
+                selectedPhoto.addTag(m.group(1), tagValue.getText());
             }
         } catch (Exception e) {
             tagWarning.setOpacity(0.69);
-            throw new RuntimeException("error adding multi tag");
+            throw new RuntimeException("error adding tag");
         }
+        updateTagsList();
     }
 
-    public void copyTo(Photo selectedPhoto) {
+    public void copyTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
             warning.setOpacity(0);
@@ -157,7 +162,7 @@ public class Controller {
         }
     }
 
-    public void moveTo(Album currentAlbum, Photo selectedPhoto) {
+    public void moveTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
             currentAlbum.removePhoto(selectedPhoto.path);
@@ -167,6 +172,5 @@ public class Controller {
             throw new RuntimeException("error when moving photo");
         }
     }
-
-
 }
+

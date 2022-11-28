@@ -52,7 +52,10 @@ public class Controller {
         // Call when a new tile is selected
         updateDetailDisplay();
 
-        this.back.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
+        this.back.setOnAction(actionEvent -> {
+            Model.initPreviousScene();
+            Photos.changeScene("primary", "/stages/primary/main/main.fxml");
+        });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.search.setOnAction(actionEvent -> searchPhotos());
         this.delete.setOnAction(actionEvent -> deleteAlbum());
@@ -73,8 +76,8 @@ public class Controller {
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
             searchWarning.setOpacity(0);
-            Model.dataTransfer.clear();
-            Model.dataTransfer.add(0, searchField.getText());
+            Model.initNextScene(true);
+            Model.dataTransfer.add(searchField.getText());
             Photos.changeScene("primary", "/stages/primary/search/search.fxml");
         } else {
             searchWarning.setOpacity(0.69);
@@ -107,10 +110,9 @@ public class Controller {
 
     public void openAlbum() {
         // SAVE SELECTED ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
-        Model.dataTransfer.clear();
-        // Model.dataTransfer.add(0, selectedAlbum);
         // adding temporary album
-        Model.dataTransfer.add(0, Model.currentUser.albums.get(0));
+        Model.initNextScene(true);
+        Model.dataTransfer.add(Model.currentUser.albums.get(0));
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 
@@ -134,3 +136,5 @@ public class Controller {
         }
     }
 }
+
+
