@@ -53,9 +53,11 @@ public class Controller {
         photoPath.setDisable(true);
         currentAlbum = (Album) Model.dataTransfer.get(0);
         albumName.setText("Album: " + currentAlbum.name);
-
+        if (!currentAlbum.photos.isEmpty()) {
+            selectedPhoto = currentAlbum.photos.get(0);
+            updateDetailDisplay();
+        }
         createElements();
-
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
