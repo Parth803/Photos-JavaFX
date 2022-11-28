@@ -5,8 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
@@ -44,18 +44,12 @@ public class Controller {
     private Text dateTaken;
     @FXML
     private Button display;
-
     private ArrayList<Photo> searchResults;
-
+    private VBox selectedPhotoBox;
     private Photo selectedPhoto;
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
         getSearchedImages(searchQuery);
-
-//        if (!searchResults.isEmpty()) {
-//            selectedPhoto = searchResults.get(0);
-//            updateDetailDisplay();
-//        }
 
         createElements();
 
@@ -88,6 +82,14 @@ public class Controller {
         VBox element = new VBox();
         element.getChildren().add(img);
         element.setOnMouseClicked(mouseEvent -> {
+            if (selectedPhotoBox != null) {
+                selectedPhotoBox.setBorder(Border.stroke(Paint.valueOf("white")));
+            }
+            selectedPhotoBox = element;
+            Border b = new Border(new BorderStroke(Paint.valueOf("#4285F4"),
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
+
+            selectedPhotoBox.setBorder(b);
             selectedPhoto = p;
             updateDetailDisplay();
         });
