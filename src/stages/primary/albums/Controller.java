@@ -1,14 +1,20 @@
 package stages.primary.albums;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
 import photos.Photos;
 
+import javax.swing.text.TextAction;
 import java.text.SimpleDateFormat;
 
 public class Controller {
@@ -49,8 +55,7 @@ public class Controller {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
 
-        // Call when a new tile is selected
-        updateDetailDisplay();
+        createElements();
 
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
@@ -64,9 +69,43 @@ public class Controller {
         this.sendAdd.setOnAction(actionEvent -> addAlbum());
     }
 
-    public void updateDetailDisplay() {
+    public void createElements() {
+        albumsPane.getChildren().clear();
+        albumsPane.setPrefColumns(3);
+        albumsPane.setHgap(10);
+        albumsPane.setVgap(10);
+
+        for (Album a: Model.currentUser.albums) {
+            // SHOULD ONLY DO THIS ONCE BUT I HAVE MORE JUST FOR TESTING
+            albumsPane.getChildren().add(createElement(a));
+            albumsPane.getChildren().add(createElement(a));
+            albumsPane.getChildren().add(createElement(a));
+            albumsPane.getChildren().add(createElement(a));
+
+        }
+    }
+
+    public VBox createElement(Album a) {
+        ImageView img = new ImageView();
+        img.setImage(new Image("file:" + a.photos.get(0).path));
+        img.setFitWidth(175);
+        img.setFitHeight(175);
+
+        Text albumName = new Text(a.name);
+        albumName.setFont(Font.font(18));
+
+        VBox element = new VBox();
+        element.getChildren().add(img);
+        element.getChildren().add(albumName);
+        element.setAlignment(Pos.CENTER);
+
+        element.setOnMouseClicked(mouseEvent -> updateDetailDisplay(a));
+
+        return element;
+    }
+
+    public void updateDetailDisplay(Album selectedAlbum) {
         // NEEDS TO GET SELECTED ALBUM AND DISPLAY
-        Album selectedAlbum = Model.currentUser.albums.get(0); // SAMPLE USED TO TESTING BUT IN REALITY IT WILL BE SELECTED ALBUM FROM TILE
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.nameOfAlbum.setText(selectedAlbum.name);
         this.numPhotos.setText(String.valueOf(selectedAlbum.photos.size()));
