@@ -14,7 +14,6 @@ import model.Album;
 import model.Model;
 import photos.Photos;
 
-import javax.swing.text.TextAction;
 import java.text.SimpleDateFormat;
 
 public class Controller {
@@ -51,6 +50,7 @@ public class Controller {
     @FXML
     private Button sendAdd;
 
+    private Album selectedAlbum;
     public void initialize() {
         sendAdd.setDisable(true);
         albumName.setDisable(true);
@@ -75,13 +75,17 @@ public class Controller {
         albumsPane.setHgap(10);
         albumsPane.setVgap(10);
 
+        // ONLY FOR TESTING
+        Album b = new Album("lol");
+        try {
+            b.addPhoto("data/stock/two.jpeg");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Model.currentUser.albums.add(b);
+        // END TESTING
         for (Album a: Model.currentUser.albums) {
-            // SHOULD ONLY DO THIS ONCE BUT I HAVE MORE JUST FOR TESTING
             albumsPane.getChildren().add(createElement(a));
-            albumsPane.getChildren().add(createElement(a));
-            albumsPane.getChildren().add(createElement(a));
-            albumsPane.getChildren().add(createElement(a));
-
         }
     }
 
@@ -99,13 +103,15 @@ public class Controller {
         element.getChildren().add(albumName);
         element.setAlignment(Pos.CENTER);
 
-        element.setOnMouseClicked(mouseEvent -> updateDetailDisplay(a));
+        element.setOnMouseClicked(mouseEvent -> {
+            selectedAlbum = a;
+            updateDetailDisplay();
+        });
 
         return element;
     }
 
-    public void updateDetailDisplay(Album selectedAlbum) {
-        // NEEDS TO GET SELECTED ALBUM AND DISPLAY
+    public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.nameOfAlbum.setText(selectedAlbum.name);
         this.numPhotos.setText(String.valueOf(selectedAlbum.photos.size()));
@@ -124,7 +130,11 @@ public class Controller {
     }
 
     public void deleteAlbum() {
-//        Model.currentUser.deleteAlbum(selectedAlbum);
+        try {
+            Model.currentUser.deleteAlbum(selectedAlbum.name);
+        } catch (Exception e) {
+            throw new RuntimeException("error deleting selected album");
+        }
         System.out.println("Incomplete");
     }
 
@@ -148,10 +158,8 @@ public class Controller {
     }
 
     public void openAlbum() {
-        // SAVE SELECTED ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
-        // adding temporary album
         Model.initNextScene(true);
-        Model.dataTransfer.add(Model.currentUser.albums.get(0));
+        Model.dataTransfer.add(selectedAlbum);
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 
