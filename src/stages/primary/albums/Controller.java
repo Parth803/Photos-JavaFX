@@ -138,10 +138,10 @@ public class Controller {
     public void deleteAlbum() {
         try {
             Model.currentUser.deleteAlbum(selectedAlbum.name);
+            createElements();
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
         }
-        System.out.println("Incomplete");
     }
 
     public void promptAdd() {
