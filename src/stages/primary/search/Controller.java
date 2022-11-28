@@ -51,14 +51,11 @@ public class Controller {
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
         getSearchedImages(searchQuery);
-
-//        if (!searchResults.isEmpty()) {
-//            selectedPhoto = searchResults.get(0);
-//            updateDetailDisplay();
-//        }
-
+        if (!searchResults.isEmpty()) {
+            selectedPhoto = searchResults.get(0);
+            updateDetailDisplay();
+        }
         createElements();
-
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
