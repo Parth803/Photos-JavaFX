@@ -3,7 +3,10 @@ package stages.primary.photoslist;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.Album;
 import model.Model;
@@ -13,8 +16,8 @@ import photos.Photos;
 import java.text.SimpleDateFormat;
 
 public class Controller {
-//    @FXML
-//    private TilePane photosPane;
+    @FXML
+    private TilePane photosPane;
     @FXML
     private Button back;
     @FXML
@@ -50,9 +53,11 @@ public class Controller {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         albumName.setText("Album: " + currentAlbum.name);
 
-        // Select first photo by default
-        if (!currentAlbum.photos.isEmpty()) selectedPhoto = currentAlbum.photos.get(0);
-        // ADD TilePane STUFF SO IT CAN CALL updateDetailDisplay when selecting a tile
+        if (!currentAlbum.photos.isEmpty()) {
+            selectedPhoto = currentAlbum.photos.get(0);
+        }
+
+        createElements();
 
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
@@ -66,16 +71,44 @@ public class Controller {
         this.sendAdd.setOnAction(actionEvent -> addPhoto());
     }
 
+    public void createElements() {
+        photosPane.getChildren().clear();
+        photosPane.setPrefColumns(3);
+        photosPane.setHgap(10);
+        photosPane.setVgap(10);
+        for (Photo p: currentAlbum.photos) {
+            photosPane.getChildren().add(createElement(p));
+        }
+    }
+
+    public VBox createElement(Photo p) {
+        ImageView img = new ImageView();
+        img.setImage(new Image("file:" + p.path));
+        img.setFitWidth(175);
+        img.setFitHeight(175);
+
+        VBox element = new VBox();
+        element.getChildren().add(img);
+        element.setOnMouseClicked(mouseEvent -> {
+            selectedPhoto = p;
+            updateDetailDisplay();
+        });
+        return element;
+    }
+
     public void updateDetailDisplay() {
-        // NEEDS TO GET SELECTED Photo AND DISPLAY
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        this.caption.setText(""); // photo.caption
-        this.dateTaken.setText(""); // formatter.format(photo.dateTaken.getTime())
+        this.caption.setText(selectedPhoto.caption);
+        this.dateTaken.setText(formatter.format(selectedPhoto.dateTaken.getTime()));
     }
 
     public void deletePhoto() {
-        // photosPane delete stuff
-        System.out.println("Incomplete");
+        try {
+            currentAlbum.photos.remove(selectedPhoto);
+            createElements();
+        } catch (Exception e) {
+            throw new RuntimeException("error deleting selected album");
+        }
     }
 
     public void promptAdd() {
@@ -99,17 +132,15 @@ public class Controller {
 
     public void editPhoto() {
         Model.initNextScene(true);
-//        SAVE SELECTED PHOTO AND CURRENT ALBUM IN DATA SO WE CAN USE IT IN NEXT SCENE
-        Model.dataTransfer.add(Model.currentUser.albums.get(0));
-        Model.dataTransfer.add(Model.currentUser.albums.get(0).photos.get(0));
+        Model.dataTransfer.add(currentAlbum);
+        Model.dataTransfer.add(selectedPhoto);
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
     public void displayPhoto() {
         Model.initNextScene(false);
-//        SAVE SELECTED PHOTO IN dataTransfer SO WE CAN USE IT IN NEXT SCENE AND ALBUM TO CAROUSEL
-        Model.dataTransfer.add(Model.currentUser.albums.get(0));
-        Model.dataTransfer.add(Model.currentUser.albums.get(0).photos.get(0));
+        Model.dataTransfer.add(currentAlbum);
+        Model.dataTransfer.add(selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
