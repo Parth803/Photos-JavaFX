@@ -74,16 +74,6 @@ public class Controller {
         albumsPane.setPrefColumns(3);
         albumsPane.setHgap(10);
         albumsPane.setVgap(10);
-
-        // ONLY FOR TESTING
-        Album b = new Album("lol");
-        try {
-            b.addPhoto("data/stock/two.jpeg");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Model.currentUser.albums.add(b);
-        // END TESTING
         for (Album a: Model.currentUser.albums) {
             albumsPane.getChildren().add(createElement(a));
         }
