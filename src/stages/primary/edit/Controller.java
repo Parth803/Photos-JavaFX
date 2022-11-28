@@ -128,9 +128,19 @@ public class Controller {
     }
 
     public void addTag() {
-        if (presets.getValue() == null || presets.getValue().isEmpty() || (!tagType.isDisabled() && tagType.getText().isEmpty()) || (!tagProperty.isDisabled() && tagProperty.getValue().isEmpty()) || tagValue.getText().isEmpty()) {
-            tagWarning.setOpacity(1);
+        if (presets.getValue() == null || presets.getValue().isEmpty() || (!tagType.isDisabled() && tagType.getText().isEmpty()) || (!tagProperty.isDisabled() && tagProperty.getValue() == null) || (!tagProperty.isDisabled() && tagProperty.getValue().isEmpty()) || tagValue.getText().isEmpty()) {
             tagWarning.setText("Fill in all the details to add a tag.");
+            tagWarning.setOpacity(0.69);
+            return;
+        }
+        if (tagValue.getText().contains("=") || tagValue.getText().contains("-")) {
+            tagWarning.setText("Tag value cannot contain '=' or '-'");
+            tagWarning.setOpacity(0.69);
+            return;
+        }
+        if (!tagType.isDisabled() && !tagType.getText().isEmpty() && (tagType.getText().contains("=") || tagType.getText().contains("-"))) {
+            tagWarning.setText("Tag type cannot contain '=' or '-'");
+            tagWarning.setOpacity(0.69);
             return;
         }
         tagWarning.setOpacity(0);
@@ -157,24 +167,30 @@ public class Controller {
     public void copyTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
+            Model.persist();
             warning.setOpacity(0);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
+            warning.setText("album does not exist");
             warning.setOpacity(0.69);
-            throw new RuntimeException("error when copying photo");
+        } catch (Exception e) {
+            warning.setText(e.getMessage());
+            warning.setOpacity(0.69);
         }
-        Model.persist();
     }
 
     public void moveTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
             currentAlbum.removePhoto(selectedPhoto.path);
+            Model.persist();
             warning.setOpacity(0);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
+            warning.setText("album does not exist");
             warning.setOpacity(0.69);
-            throw new RuntimeException("error when moving photo");
+        } catch (Exception e) {
+            warning.setText(e.getMessage());
+            warning.setOpacity(0.69);
         }
-        Model.persist();
     }
 }
 
