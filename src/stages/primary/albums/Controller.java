@@ -144,17 +144,18 @@ public class Controller {
     }
 
     public void deleteAlbum() {
+        if (selectedAlbum == null) {
+            return;
+        }
         try {
             Model.currentUser.deleteAlbum(selectedAlbum.name);
+            Model.persist();
             selectedAlbum = null;
             this.nameOfAlbum.setText("N/A");
             this.numPhotos.setText("N/A");
             this.dateRange.setText("N/A TO N/A");
             createElements();
-        } catch (Exception e) {
-            throw new RuntimeException("error deleting selected album");
-        }
-        Model.persist();
+        } catch (Exception ignored) {}
     }
 
     public void promptAdd() {
@@ -186,11 +187,12 @@ public class Controller {
     }
 
     public void addAlbum() {
-        if (albumName.getText().isEmpty()) {
-            return;
-        }
         try {
+            if (albumName.getText().isEmpty()) {
+                throw new Exception("Enter album name");
+            }
             Model.currentUser.createAlbum(albumName.getText());
+            Model.persist();
             createElements();
             promptAdd.setText("Add");
             newAlbumLabel.setOpacity(0);
@@ -201,12 +203,10 @@ public class Controller {
             sendAdd.setOpacity(0);
             sendAdd.setDisable(true);
         } catch (Exception e) {
+            warning.setText(e.getMessage());
             warning.setOpacity(0.69);
-            throw new RuntimeException("can not add album");
         }
-        Model.persist();
     }
 }
-
 
 

@@ -120,6 +120,9 @@ public class Controller {
     }
 
     public void deletePhoto() {
+        if (selectedPhoto == null) {
+            return;
+        }
         try {
             currentAlbum.removePhoto(selectedPhoto.path);
             Model.persist();
@@ -127,10 +130,7 @@ public class Controller {
             this.caption.setText("N/A");
             this.dateTaken.setText("N/A");
             createElements();
-
-        } catch (Exception e) {
-            throw new RuntimeException("error deleting selected album");
-        }
+        } catch (Exception ignored) {}
     }
 
     public void promptAdd() {
@@ -153,6 +153,9 @@ public class Controller {
     }
 
     public void editPhoto() {
+        if (selectedPhoto == null) {
+            return;
+        }
         Model.initNextScene(true);
         Model.dataTransfer.add(currentAlbum);
         Model.dataTransfer.add(selectedPhoto);
@@ -160,19 +163,29 @@ public class Controller {
     }
 
     public void displayPhoto() {
+        if (selectedPhoto == null) {
+            return;
+        }
         Model.initNextScene(false);
         Model.dataTransfer.add(currentAlbum);
         Model.dataTransfer.add(selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
-
     public void addPhoto() {
-        if (photoPath.getText().isEmpty()) {
-            return;
-        }
         try {
+            if (photoPath.getText().isEmpty()) {
+                throw new Exception("Enter full local path");
+            }
+            if (photoPath.getText().contains("://")) {
+                throw new Exception("Path must be local on your machine");
+            }
+            Image img = new Image("file:" + photoPath.getText());
+            if (img.isError()) {
+                throw new Exception("invalid path or wrong file extension");
+            }
             currentAlbum.addPhoto(photoPath.getText());
+            Model.persist();
             createElements();
             promptAdd.setText("Add");
             photoPathLabel.setOpacity(0);
@@ -183,10 +196,9 @@ public class Controller {
             sendAdd.setOpacity(0);
             sendAdd.setDisable(true);
         } catch (Exception e) {
+            warning.setText(e.getMessage());
             warning.setOpacity(0.69);
-            throw new RuntimeException("error adding photo to album.");
         }
-        Model.persist();
     }
 }
 

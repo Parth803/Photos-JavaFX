@@ -92,7 +92,7 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
             Model.currentUser.addToTagPreset(type, isSingle);
             this.addTag(type, value);
         } catch (Exception e) {
-            throw new Exception("you cannot change property of a tag type");
+            throw new Exception("cannot change tag property");
         }
     }
 

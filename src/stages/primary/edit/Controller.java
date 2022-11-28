@@ -128,13 +128,12 @@ public class Controller {
     }
 
     public void addTag() {
-        if (presets.getValue() == null || (!tagType.isDisabled() && tagType.getText() == null) || (!tagProperty.isDisabled() && tagProperty.getValue() == null) || tagValue.getText() == null) {
+        if (presets.getValue() == null || presets.getValue().isEmpty() || (!tagType.isDisabled() && tagType.getText().isEmpty()) || (!tagProperty.isDisabled() && tagProperty.getValue().isEmpty()) || tagValue.getText().isEmpty()) {
             tagWarning.setOpacity(1);
             tagWarning.setText("Fill in all the details to add a tag.");
             return;
         }
         tagWarning.setOpacity(0);
-        tagWarning.setText("Tag Value already exists.");
 
         Pattern p = Pattern.compile("(\\S*) - (\\S*)");
         Matcher m = p.matcher(this.presets.getValue());
@@ -147,12 +146,12 @@ public class Controller {
             } else {
                 selectedPhoto.addTag(m.group(1), tagValue.getText());
             }
+            updateTagsList();
+            Model.persist();
         } catch (Exception e) {
+            tagWarning.setText(e.getMessage());
             tagWarning.setOpacity(0.69);
-            throw new RuntimeException("error adding tag");
         }
-        updateTagsList();
-        Model.persist();
     }
 
     public void copyTo() {
@@ -178,4 +177,6 @@ public class Controller {
         Model.persist();
     }
 }
+
+
 
