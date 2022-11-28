@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 
 public class Controller {
     @FXML
+    private Button rename;
+    @FXML
     private TilePane albumsPane;
     @FXML
     private Button back;
@@ -71,6 +73,7 @@ public class Controller {
         this.promptAdd.setOnAction(actionEvent -> promptAdd());
         this.openAlbum.setOnAction(actionEvent -> openAlbum());
         this.sendAdd.setOnAction(actionEvent -> addAlbum());
+        this.rename.setOnAction(actionEvent -> renameAlbum());
     }
 
     public void createElements() {
@@ -108,6 +111,7 @@ public class Controller {
             selectedAlbumBox = element;
             selectedAlbumBox.setBorder(b);
             updateDetailDisplay();
+            rename.setDisable(false);
         }
 
         element.setOnMouseClicked(mouseEvent -> {
@@ -120,6 +124,10 @@ public class Controller {
             Model.dataTransfer.clear();
             Model.dataTransfer.add(selectedAlbum);
             updateDetailDisplay();
+            if (promptAdd.getText().equals("Close")) {
+                promptAdd();
+            }
+            rename.setDisable(false);
         });
 
         return element;
@@ -159,21 +167,27 @@ public class Controller {
     }
 
     public void promptAdd() {
-        if (promptAdd.getText().equals("Add")) {
+        if (promptAdd.getText().equals("Edit")) {
             promptAdd.setText("Close");
             sendAdd.setDisable(false);
             newAlbumLabel.setOpacity(1);
             albumName.setOpacity(1);
             albumName.setDisable(false);
             sendAdd.setOpacity(1);
+            if (rename.isDisabled()) {
+                rename.setOpacity(0.59);
+            } else {
+                rename.setOpacity(1);
+            }
         } else {
-            promptAdd.setText("Add");
+            promptAdd.setText("Edit");
             sendAdd.setDisable(true);
             newAlbumLabel.setOpacity(0);
             albumName.setOpacity(0);
             albumName.setDisable(true);
             sendAdd.setOpacity(0);
             warning.setOpacity(0);
+            rename.setOpacity(0);
         }
     }
 
@@ -194,7 +208,7 @@ public class Controller {
             Model.currentUser.createAlbum(albumName.getText());
             Model.persist();
             createElements();
-            promptAdd.setText("Add");
+            promptAdd.setText("Edit");
             newAlbumLabel.setOpacity(0);
             albumName.clear();
             albumName.setOpacity(0);
@@ -202,11 +216,41 @@ public class Controller {
             warning.setOpacity(0);
             sendAdd.setOpacity(0);
             sendAdd.setDisable(true);
+            rename.setDisable(true);
+            rename.setOpacity(0);
+        } catch (Exception e) {
+            warning.setText(e.getMessage());
+            warning.setOpacity(0.69);
+        }
+    }
+
+    public void renameAlbum() {
+        if (selectedAlbum == null) {
+            return;
+        }
+        try {
+            if (albumName.getText().isEmpty()) {
+                throw new Exception("Enter album name");
+            }
+            Model.currentUser.renameAlbum(selectedAlbum.name, albumName.getText());
+            Model.persist();
+            createElements();
+            promptAdd.setText("Edit");
+            newAlbumLabel.setOpacity(0);
+            albumName.clear();
+            albumName.setOpacity(0);
+            albumName.setDisable(true);
+            warning.setOpacity(0);
+            sendAdd.setOpacity(0);
+            sendAdd.setDisable(true);
+            rename.setDisable(true);
+            rename.setOpacity(0);
         } catch (Exception e) {
             warning.setText(e.getMessage());
             warning.setOpacity(0.69);
         }
     }
 }
+
 
 

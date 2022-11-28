@@ -71,7 +71,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <Text fx:id="warning" fill="RED" layoutX="298.0" layoutY="358.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username already exists." wrappingWidth="110.0">
+            <Text fx:id="warning" fill="RED" layoutX="298.0" layoutY="358.0" opacity="0.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username already exists." textAlignment="CENTER" wrappingWidth="110.0">
                <font>
                   <Font size="10.0" />
                </font>
