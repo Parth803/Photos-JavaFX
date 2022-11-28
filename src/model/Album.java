@@ -3,6 +3,7 @@ package model;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public final class Album implements java.io.Serializable, Comparable<Album> {
     @Serial
@@ -29,18 +30,8 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
             this.end = this.start;
             return;
         }
-        Calendar minCal = photos.get(0).dateTaken;
-        Calendar maxCal = photos.get(0).dateTaken;
-        for (Photo image : photos) {
-            if (image.dateTaken.compareTo(minCal) < 0) {
-                minCal = image.dateTaken;
-            }
-            if (image.dateTaken.compareTo(maxCal) > 0) {
-                maxCal = image.dateTaken;
-            }
-        }
-        this.start = minCal;
-        this.end = maxCal;
+        this.start = Collections.min(photos).dateTaken;
+        this.end = Collections.max(photos).dateTaken;
     }
 
     @Override
@@ -99,6 +90,15 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
             throw new Exception("Photo not in album");
         }
         this.photos.remove(new Photo(path));
+        if (this.photos.isEmpty()) {
+            this.start = Calendar.getInstance();
+            this.start.set(Calendar.MILLISECOND, 0);
+            this.end = this.start;
+            return;
+        }
+        Photo photo = Model.currentUser.uniquePhotos.get(path);
+        if (photo.dateTaken.compareTo(this.start) == 0) this.start = Collections.min(this.photos).dateTaken;
+        if (photo.dateTaken.compareTo(this.end) == 0) this.end = Collections.max(this.photos).dateTaken;
     }
 }
 

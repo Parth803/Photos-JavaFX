@@ -55,11 +55,6 @@ public class Controller {
     public void initialize() {
         if (!Model.dataTransfer.isEmpty()) {
             selectedAlbum = (Album) Model.dataTransfer.get(0);
-            if (selectedAlbum != null) {
-                Model.dataTransfer.clear();
-                Model.dataTransfer.add(selectedAlbum);
-                updateDetailDisplay();
-            }
         }
         sendAdd.setDisable(true);
         albumName.setDisable(true);
@@ -107,16 +102,21 @@ public class Controller {
         element.getChildren().add(albumName);
         element.setAlignment(Pos.CENTER);
 
+        Border b = new Border(new BorderStroke(Paint.valueOf("#4285F4"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
+
+        if (selectedAlbum != null && selectedAlbum.equals(a)) {
+            selectedAlbumBox = element;
+            selectedAlbumBox.setBorder(b);
+            updateDetailDisplay();
+        }
+
         element.setOnMouseClicked(mouseEvent -> {
             if (selectedAlbumBox != null) {
                 selectedAlbumBox.setBorder(Border.stroke(Paint.valueOf("white")));
             }
-            selectedAlbumBox = element;
-            Border b = new Border(new BorderStroke(Paint.valueOf("#4285F4"),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
-
-            selectedAlbumBox.setBorder(b);
             selectedAlbum = a;
+            selectedAlbumBox = element;
+            selectedAlbumBox.setBorder(b);
             Model.dataTransfer.clear();
             Model.dataTransfer.add(selectedAlbum);
             updateDetailDisplay();
@@ -146,14 +146,10 @@ public class Controller {
     public void deleteAlbum() {
         try {
             Model.currentUser.deleteAlbum(selectedAlbum.name);
-            if (!Model.currentUser.albums.isEmpty()) {
-                selectedAlbum = Model.currentUser.albums.get(0);
-            } else {
-                selectedAlbum = null;
-                this.nameOfAlbum.setText("N/A");
-                this.numPhotos.setText("N/A");
-                this.dateRange.setText("N/A TO N/A");
-            }
+            selectedAlbum = null;
+            this.nameOfAlbum.setText("N/A");
+            this.numPhotos.setText("N/A");
+            this.dateRange.setText("N/A TO N/A");
             createElements();
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
@@ -211,5 +207,6 @@ public class Controller {
         Model.persist();
     }
 }
+
 
 

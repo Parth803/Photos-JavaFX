@@ -49,15 +49,16 @@ public class Controller {
     private Photo selectedPhoto;
 
     public void initialize() {
+        currentAlbum = (Album) Model.dataTransfer.get(0);
+        if (Model.dataTransfer.size() == 2) {
+            selectedPhoto = (Photo) Model.dataTransfer.get(1);
+        }
         sendAdd.setDisable(true);
         photoPath.setDisable(true);
-        currentAlbum = (Album) Model.dataTransfer.get(0);
         albumName.setText("Album: " + currentAlbum.name);
-        if (!currentAlbum.photos.isEmpty()) {
-            selectedPhoto = currentAlbum.photos.get(0);
-            updateDetailDisplay();
-        }
+
         createElements();
+
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
@@ -88,16 +89,25 @@ public class Controller {
 
         VBox element = new VBox();
         element.getChildren().add(img);
+
+        Border b = new Border(new BorderStroke(Paint.valueOf("#4285F4"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
+
+        if (selectedPhoto != null && selectedPhoto.equals(p)) {
+            selectedPhotoBox = element;
+            selectedPhotoBox.setBorder(b);
+            updateDetailDisplay();
+        }
+
         element.setOnMouseClicked(mouseEvent -> {
             if (selectedPhotoBox != null) {
                 selectedPhotoBox.setBorder(Border.stroke(Paint.valueOf("white")));
             }
-            selectedPhotoBox = element;
-            Border b = new Border(new BorderStroke(Paint.valueOf("#4285F4"),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3)));
-
-            selectedPhotoBox.setBorder(b);
             selectedPhoto = p;
+            selectedPhotoBox = element;
+            selectedPhotoBox.setBorder(b);
+            Model.dataTransfer.clear();
+            Model.dataTransfer.add(currentAlbum);
+            Model.dataTransfer.add(selectedPhoto);
             updateDetailDisplay();
         });
         return element;
@@ -111,7 +121,8 @@ public class Controller {
 
     public void deletePhoto() {
         try {
-            currentAlbum.photos.remove(selectedPhoto);
+            currentAlbum.removePhoto(selectedPhoto.path);
+            Model.persist();
             selectedPhoto = null;
             this.caption.setText("N/A");
             this.dateTaken.setText("N/A");
@@ -120,7 +131,6 @@ public class Controller {
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
         }
-        Model.persist();
     }
 
     public void promptAdd() {
@@ -179,3 +189,4 @@ public class Controller {
         Model.persist();
     }
 }
+

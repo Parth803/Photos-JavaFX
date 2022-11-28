@@ -34,18 +34,30 @@ public class Controller {
         this.logout.setOnAction(actionEvent ->Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.addUser.setOnAction(actionEvent -> addUser());
         this.deleteUser.setOnAction(actionEvent -> deleteUser());
+        updateUsersList();
+    }
+
+    public void updateUsersList() {
         this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
     }
 
     public void addUser() {
         try {
+            if (username.getText().isEmpty()) {
+                throw new Exception("empty");
+            }
             Model.addUser(username.getText());
-            this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
+            Model.persist();
+            updateUsersList();
+            warning.setOpacity(0);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (e.getMessage().equals("empty")) {
+                warning.setText("Please type a username");
+            } else {
+                warning.setText(e.getMessage());
+            }
             warning.setOpacity(0.69);
         }
-        Model.persist();
     }
 
     public void deleteUser() {
@@ -54,10 +66,8 @@ public class Controller {
         }
         try {
             Model.deleteUser(this.usersList.getSelectionModel().getSelectedItem());
-            this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Model.persist();
+            Model.persist();
+            updateUsersList();
+        } catch (Exception ignored) {}
     }
 }

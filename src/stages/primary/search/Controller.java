@@ -47,8 +47,10 @@ public class Controller {
     private ArrayList<Photo> searchResults;
     private VBox selectedPhotoBox;
     private Photo selectedPhoto;
+
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
+        searchField.setText(searchQuery);
         getSearchedImages(searchQuery);
 
         createElements();
@@ -121,13 +123,8 @@ public class Controller {
             return;
         }
         Model.initNextScene(false);
-        Album temp = new Album("");
-        try {
-            temp.addPhoto(selectedPhoto.path);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Model.dataTransfer.add(temp);
+        Album results = new Album("Search Results", searchResults);
+        Model.dataTransfer.add(results);
         Model.dataTransfer.add(selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
@@ -195,3 +192,5 @@ public class Controller {
         }
     }
 }
+
+

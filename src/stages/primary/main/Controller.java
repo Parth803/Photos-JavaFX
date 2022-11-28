@@ -31,11 +31,7 @@ public class Controller {
             Model.initNextScene(true);
             if (username.getText().equals("admin")) {
                 Photos.changeScene("primary", "/stages/primary/admin/admin.fxml");
-            }
-            else {
-                if (!Model.currentUser.albums.isEmpty()) {
-                    Model.dataTransfer.add(Model.currentUser.albums.get(0));
-                }
+            } else {
                 Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
             }
         } catch (Exception e) {

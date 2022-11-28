@@ -47,7 +47,7 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         if (this.equals(other)) {
             return 0;
         }
-        if (this.path.compareToIgnoreCase(other.path) < 0) {
+        if (this.dateTaken.compareTo(other.dateTaken) < 0) {
             return -1;
         } else {
             return 1;
