@@ -55,6 +55,7 @@ public class Controller {
 
         if (!currentAlbum.photos.isEmpty()) {
             selectedPhoto = currentAlbum.photos.get(0);
+            updateDetailDisplay();
         }
 
         createElements();

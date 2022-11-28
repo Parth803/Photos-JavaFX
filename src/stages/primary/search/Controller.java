@@ -54,6 +54,7 @@ public class Controller {
 
         if (!searchResults.isEmpty()) {
             selectedPhoto = searchResults.get(0);
+            updateDetailDisplay();
         }
 
         createElements();
@@ -113,6 +114,9 @@ public class Controller {
     }
 
     public void displayPhoto() {
+        if (selectedPhoto == null) {
+            return;
+        }
         Model.initNextScene(false);
         Album temp = new Album("");
         temp.photos.add(selectedPhoto);
