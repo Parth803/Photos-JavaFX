@@ -131,6 +131,7 @@ public class Controller {
             if (!Model.currentUser.albums.isEmpty()) {
                 selectedAlbum = Model.currentUser.albums.get(0);
             } else {
+                selectedAlbum = null;
                 this.nameOfAlbum.setText("N/A");
                 this.numPhotos.setText("N/A");
                 this.dateRange.setText("N/A TO N/A");

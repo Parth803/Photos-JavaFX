@@ -108,6 +108,7 @@ public class Controller {
             if (!currentAlbum.photos.isEmpty()) {
                 selectedPhoto = currentAlbum.photos.get(0);
             } else {
+                selectedPhoto = null;
                 this.caption.setText("N/A");
                 this.dateTaken.setText("N/A");
             }
