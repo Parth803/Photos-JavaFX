@@ -62,11 +62,13 @@ public final class User implements java.io.Serializable, Comparable<User> {
         throw new Exception("could not get property because tag is not in preset");
     }
 
-    public void createAlbum(String name) throws Exception {
+    public Album createAlbum(String name) throws Exception {
         if (this.albums.contains(new Album(name))) {
             throw new Exception("Album Already Exists");
         }
-        this.albums.add(new Album(name));
+        Album a = new Album(name);
+        this.albums.add(a);
+        return a;
     }
 
     public void createAlbum(String name, ArrayList<Photo> photos) throws Exception {

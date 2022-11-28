@@ -91,7 +91,13 @@ public class Controller {
 
     public VBox createElement(Album a) {
         ImageView img = new ImageView();
-        img.setImage(new Image("file:" + a.photos.get(0).path));
+        if (a.photos.size() == 0) {
+            // placeholder image when we create new album
+            img.setImage(new Image("file:data/resources/logo.jpg"));
+        }
+        else {
+            img.setImage(new Image("file:" + a.photos.get(0).path));
+        }
         img.setFitWidth(175);
         img.setFitHeight(175);
 
@@ -158,6 +164,9 @@ public class Controller {
     }
 
     public void openAlbum() {
+        if (selectedAlbum == null) {
+            return;
+        }
         Model.initNextScene(true);
         Model.dataTransfer.add(selectedAlbum);
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
@@ -168,7 +177,7 @@ public class Controller {
             return;
         }
         try {
-            Model.currentUser.createAlbum(albumName.getText());
+            albumsPane.getChildren().add(createElement(Model.currentUser.createAlbum(albumName.getText())));
             promptAdd.setText("Add");
             newAlbumLabel.setOpacity(0);
             albumName.clear();
