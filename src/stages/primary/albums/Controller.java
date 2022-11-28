@@ -138,6 +138,13 @@ public class Controller {
     public void deleteAlbum() {
         try {
             Model.currentUser.deleteAlbum(selectedAlbum.name);
+            if (!Model.currentUser.albums.isEmpty()) {
+                selectedAlbum = Model.currentUser.albums.get(0);
+            } else {
+                this.nameOfAlbum.setText("N/A");
+                this.numPhotos.setText("N/A");
+                this.dateRange.setText("N/A TO N/A");
+            }
             createElements();
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
