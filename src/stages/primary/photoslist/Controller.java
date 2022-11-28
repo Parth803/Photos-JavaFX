@@ -53,11 +53,6 @@ public class Controller {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         albumName.setText("Album: " + currentAlbum.name);
 
-        if (!currentAlbum.photos.isEmpty()) {
-            selectedPhoto = currentAlbum.photos.get(0);
-            updateDetailDisplay();
-        }
-
         createElements();
 
         this.back.setOnAction(actionEvent -> {
@@ -106,13 +101,9 @@ public class Controller {
     public void deletePhoto() {
         try {
             currentAlbum.photos.remove(selectedPhoto);
-            if (!currentAlbum.photos.isEmpty()) {
-                selectedPhoto = currentAlbum.photos.get(0);
-            } else {
-                selectedPhoto = null;
-                this.caption.setText("N/A");
-                this.dateTaken.setText("N/A");
-            }
+            selectedPhoto = null;
+            this.caption.setText("N/A");
+            this.dateTaken.setText("N/A");
             createElements();
 
         } catch (Exception e) {
