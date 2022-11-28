@@ -52,6 +52,7 @@ public class Controller {
         getSearchedImages(searchQuery);
 
         createElements();
+
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/albums/albums.fxml");
