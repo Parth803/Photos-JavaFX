@@ -49,14 +49,20 @@ public class Controller {
     private Text warning;
     @FXML
     private Button sendAdd;
-
     private Album selectedAlbum;
+
     public void initialize() {
+        if (!Model.dataTransfer.isEmpty()) {
+            selectedAlbum = (Album) Model.dataTransfer.get(0);
+            if (selectedAlbum != null) {
+                Model.dataTransfer.clear();
+                Model.dataTransfer.add(selectedAlbum);
+                updateDetailDisplay();
+            }
+        }
         sendAdd.setDisable(true);
         albumName.setDisable(true);
-
         createElements();
-
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
             Photos.changeScene("primary", "/stages/primary/main/main.fxml");
@@ -93,10 +99,9 @@ public class Controller {
         ImageView img = new ImageView();
         if (a.photos.size() == 0) {
             // placeholder image when we create new album
-            img.setImage(new Image("file:data/resources/logo.jpg"));
-        }
-        else {
-            img.setImage(new Image("file:" + a.photos.get(0).path));
+            img.setImage(Photos.getLogo());
+        } else {
+            img.setImage(new Image("file:" + a.photos.get(a.photos.size() - 1).path));
         }
         img.setFitWidth(175);
         img.setFitHeight(175);
@@ -111,6 +116,8 @@ public class Controller {
 
         element.setOnMouseClicked(mouseEvent -> {
             selectedAlbum = a;
+            Model.dataTransfer.clear();
+            Model.dataTransfer.add(selectedAlbum);
             updateDetailDisplay();
         });
 
@@ -177,7 +184,8 @@ public class Controller {
             return;
         }
         try {
-            albumsPane.getChildren().add(createElement(Model.currentUser.createAlbum(albumName.getText())));
+            Model.currentUser.createAlbum(albumName.getText());
+            createElements();
             promptAdd.setText("Add");
             newAlbumLabel.setOpacity(0);
             albumName.clear();
@@ -187,8 +195,8 @@ public class Controller {
             sendAdd.setOpacity(0);
             sendAdd.setDisable(true);
         } catch (Exception e) {
-            e.printStackTrace();
             warning.setOpacity(0.69);
+            throw new RuntimeException("can not add album");
         }
     }
 }
