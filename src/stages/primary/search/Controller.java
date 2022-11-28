@@ -51,10 +51,10 @@ public class Controller {
         String searchQuery = (String) Model.dataTransfer.get(0);
         getSearchedImages(searchQuery);
 
-        if (!searchResults.isEmpty()) {
-            selectedPhoto = searchResults.get(0);
-            updateDetailDisplay();
-        }
+//        if (!searchResults.isEmpty()) {
+//            selectedPhoto = searchResults.get(0);
+//            updateDetailDisplay();
+//        }
         createElements();
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
