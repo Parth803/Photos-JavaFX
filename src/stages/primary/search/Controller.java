@@ -116,7 +116,11 @@ public class Controller {
         }
         Model.initNextScene(false);
         Album temp = new Album("");
-        temp.photos.add(selectedPhoto);
+        try {
+            temp.addPhoto(selectedPhoto.path);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         Model.dataTransfer.add(temp);
         Model.dataTransfer.add(selectedPhoto);
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
