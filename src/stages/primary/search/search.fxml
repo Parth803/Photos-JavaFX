@@ -53,8 +53,8 @@
             <Line endX="221.0" endY="7.62939453125E-6" layoutX="870.0" layoutY="445.0" scaleX="2.0" scaleY="2.0" startX="-53.585906982421875" startY="7.62939453125E-6" />
             <Text layoutX="755.0" layoutY="492.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caption:" />
             <Text layoutX="746.0" layoutY="540.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Taken:" />
-            <Text fx:id="caption" layoutX="981.0" layoutY="489.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cool pic" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
-            <Text fx:id="dateTaken" layoutX="982.0" layoutY="539.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2021 01:01:01" textAlignment="CENTER" wrappingWidth="156.40535600397834">
+            <Text fx:id="caption" layoutX="981.0" layoutY="489.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="159.49675615046272" />
+            <Text fx:id="dateTaken" layoutX="982.0" layoutY="539.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="156.40535600397834">
                <font>
                   <Font size="11.0" />
                </font>

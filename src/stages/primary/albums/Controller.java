@@ -80,16 +80,6 @@ public class Controller {
         albumsPane.setPrefColumns(3);
         albumsPane.setHgap(10);
         albumsPane.setVgap(10);
-
-        // ONLY FOR TESTING
-        Album b = new Album("lol");
-        try {
-            b.addPhoto("data/stock/two.jpeg");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Model.currentUser.albums.add(b);
-        // END TESTING
         for (Album a: Model.currentUser.albums) {
             albumsPane.getChildren().add(createElement(a));
         }
@@ -145,6 +135,14 @@ public class Controller {
     public void deleteAlbum() {
         try {
             Model.currentUser.deleteAlbum(selectedAlbum.name);
+            if (!Model.currentUser.albums.isEmpty()) {
+                selectedAlbum = Model.currentUser.albums.get(0);
+            } else {
+                selectedAlbum = null;
+                this.nameOfAlbum.setText("N/A");
+                this.numPhotos.setText("N/A");
+                this.dateRange.setText("N/A TO N/A");
+            }
             createElements();
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");

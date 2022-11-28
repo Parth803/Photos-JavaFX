@@ -55,6 +55,7 @@ public class Controller {
 
         if (!currentAlbum.photos.isEmpty()) {
             selectedPhoto = currentAlbum.photos.get(0);
+            updateDetailDisplay();
         }
 
         createElements();
@@ -105,7 +106,15 @@ public class Controller {
     public void deletePhoto() {
         try {
             currentAlbum.photos.remove(selectedPhoto);
+            if (!currentAlbum.photos.isEmpty()) {
+                selectedPhoto = currentAlbum.photos.get(0);
+            } else {
+                selectedPhoto = null;
+                this.caption.setText("N/A");
+                this.dateTaken.setText("N/A");
+            }
             createElements();
+
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
         }
@@ -151,6 +160,7 @@ public class Controller {
         }
         try {
             currentAlbum.addPhoto(photoPath.getText());
+            createElements();
             promptAdd.setText("Add");
             photoPathLabel.setOpacity(0);
             photoPath.clear();
