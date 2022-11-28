@@ -97,11 +97,13 @@ public class Controller {
                 throw new RuntimeException("Error removing tag from photo");
             }
         }
+        Model.persist();
     }
 
     public void updateCaption() {
         selectedPhoto.caption = caption.getText();
         this.caption.setText(selectedPhoto.caption);
+        Model.persist();
     }
 
     public void selectTagType(Event event) {
@@ -150,6 +152,7 @@ public class Controller {
             throw new RuntimeException("error adding tag");
         }
         updateTagsList();
+        Model.persist();
     }
 
     public void copyTo() {
@@ -160,6 +163,7 @@ public class Controller {
             warning.setOpacity(0.69);
             throw new RuntimeException("error when copying photo");
         }
+        Model.persist();
     }
 
     public void moveTo() {
@@ -171,6 +175,7 @@ public class Controller {
             warning.setOpacity(0.69);
             throw new RuntimeException("error when moving photo");
         }
+        Model.persist();
     }
 }
 

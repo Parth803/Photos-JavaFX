@@ -45,6 +45,7 @@ public class Controller {
             e.printStackTrace();
             warning.setOpacity(0.69);
         }
+        Model.persist();
     }
 
     public void deleteUser() {
@@ -57,5 +58,6 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Model.persist();
     }
 }

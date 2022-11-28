@@ -158,6 +158,7 @@ public class Controller {
         } catch (Exception e) {
             throw new RuntimeException("error deleting selected album");
         }
+        Model.persist();
     }
 
     public void promptAdd() {
@@ -207,6 +208,7 @@ public class Controller {
             warning.setOpacity(0.69);
             throw new RuntimeException("can not add album");
         }
+        Model.persist();
     }
 }
 

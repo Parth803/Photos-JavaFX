@@ -113,6 +113,7 @@ public class Controller {
             warning.setOpacity(0.69);
             throw new RuntimeException("error can not add album containing search results");
         }
+        Model.persist();
     }
 
     public void displayPhoto() {
