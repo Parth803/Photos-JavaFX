@@ -57,6 +57,7 @@ public class Controller {
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         selectedPhoto = (Photo) Model.dataTransfer.get(1);
+        caption.setText(selectedPhoto.caption);
         tagProperty.setDisable(true);
         tagType.setDisable(true);
         updateTagsList();
