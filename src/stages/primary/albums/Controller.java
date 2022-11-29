@@ -53,6 +53,7 @@ public class Controller {
     private Button sendAdd;
     private VBox selectedAlbumBox;
     private Album selectedAlbum;
+    private boolean renameAllowed;
 
     public void initialize() {
         if (!Model.dataTransfer.isEmpty()) {
@@ -111,7 +112,7 @@ public class Controller {
             selectedAlbumBox = element;
             selectedAlbumBox.setBorder(b);
             updateDetailDisplay();
-            rename.setDisable(false);
+            renameAllowed = true;
         }
 
         element.setOnMouseClicked(mouseEvent -> {
@@ -127,7 +128,7 @@ public class Controller {
             if (promptAdd.getText().equals("Close")) {
                 promptAdd();
             }
-            rename.setDisable(false);
+            renameAllowed = true;
         });
 
         return element;
@@ -174,10 +175,12 @@ public class Controller {
             albumName.setOpacity(1);
             albumName.setDisable(false);
             sendAdd.setOpacity(1);
-            if (rename.isDisabled()) {
-                rename.setOpacity(0.59);
-            } else {
+            if (renameAllowed) {
+                rename.setDisable(false);
                 rename.setOpacity(1);
+            } else {
+                rename.setDisable(true);
+                rename.setOpacity(0.59);
             }
         } else {
             promptAdd.setText("Edit");
@@ -188,6 +191,7 @@ public class Controller {
             sendAdd.setOpacity(0);
             warning.setOpacity(0);
             rename.setOpacity(0);
+            rename.setDisable(true);
         }
     }
 
@@ -208,16 +212,7 @@ public class Controller {
             Model.currentUser.createAlbum(albumName.getText());
             Model.persist();
             createElements();
-            promptAdd.setText("Edit");
-            newAlbumLabel.setOpacity(0);
-            albumName.clear();
-            albumName.setOpacity(0);
-            albumName.setDisable(true);
-            warning.setOpacity(0);
-            sendAdd.setOpacity(0);
-            sendAdd.setDisable(true);
-            rename.setDisable(true);
-            rename.setOpacity(0);
+            promptAdd();
         } catch (Exception e) {
             warning.setText(e.getMessage());
             warning.setOpacity(0.69);
@@ -226,6 +221,8 @@ public class Controller {
 
     public void renameAlbum() {
         if (selectedAlbum == null) {
+            warning.setText("Select an album first");
+            warning.setOpacity(0.69);
             return;
         }
         try {
@@ -235,16 +232,7 @@ public class Controller {
             Model.currentUser.renameAlbum(selectedAlbum.name, albumName.getText());
             Model.persist();
             createElements();
-            promptAdd.setText("Edit");
-            newAlbumLabel.setOpacity(0);
-            albumName.clear();
-            albumName.setOpacity(0);
-            albumName.setDisable(true);
-            warning.setOpacity(0);
-            sendAdd.setOpacity(0);
-            sendAdd.setDisable(true);
-            rename.setDisable(true);
-            rename.setOpacity(0);
+            promptAdd();
         } catch (Exception e) {
             warning.setText(e.getMessage());
             warning.setOpacity(0.69);

@@ -87,6 +87,9 @@ public final class User implements java.io.Serializable, Comparable<User> {
         if (!this.albums.contains(new Album(oldName))) {
             throw new Exception("Album Not Found");
         }
+        if (this.albums.contains(new Album(newName))) {
+            throw new Exception("Album Already Exists");
+        }
         this.albums.get(this.albums.indexOf(new Album(oldName))).name = newName;
     }
 
@@ -127,4 +130,5 @@ public final class User implements java.io.Serializable, Comparable<User> {
         return getPhotos(inRange);
     }
 }
+
 
