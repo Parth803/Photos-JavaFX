@@ -3,27 +3,28 @@ package model;
 import java.io.Serial;
 
 /**
+ * class for tags
  * @author Parth Patel, Yash Patel
  */
 public final class Tag implements java.io.Serializable, Comparable<Tag> {
     /**
-     *
+     * unique id for serialization
      */
     @Serial
     private static final long serialVersionUID = -6115814363901437624L;
     /**
-     *
+     * tagType
      */
     public String type;
     /**
-     *
+     * tagValue
      */
     public String value;
 
     /**
-     *
-     * @param type
-     * @param value
+     * creates a tag
+     * @param type tagType
+     * @param value tagValue
      */
     public Tag(String type, String value) {
         this.type = type;
@@ -31,9 +32,9 @@ public final class Tag implements java.io.Serializable, Comparable<Tag> {
     }
 
     /**
-     *
-     * @param obj
-     * @return
+     * checks if two objects are equal
+     * @param obj other object
+     * @return if the two tags are the same
      */
     @Override
     public boolean equals(Object obj) {
@@ -44,9 +45,9 @@ public final class Tag implements java.io.Serializable, Comparable<Tag> {
     }
 
     /**
-     *
+     * compares two tags
      * @param other the object to be compared.
-     * @return
+     * @return the order of the two tags
      */
     public int compareTo(Tag other) {
         if (this.equals(other)) {

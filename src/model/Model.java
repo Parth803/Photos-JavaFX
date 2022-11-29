@@ -7,33 +7,34 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**
+ * class for handling data
  * @author Parth Patel, Yash Patel
  */
 public final class Model {
     /**
-     *
+     * stores all users
      */
     public static ArrayList<User> users;
     /**
-     *
+     * current logged-in user
      */
     public static User currentUser;
     /**
-     *
+     * stores data for transferring between views
      */
     public static ArrayList<Object> dataTransfer;
     /**
-     *
+     * stores data for transferring between views
      */
     private static ArrayDeque<Object> dataSnapshots;
 
     /**
-     *
+     * no-arg constructor
      */
     private Model() {}
 
     /**
-     *
+     * sets up and loads data
      */
     @SuppressWarnings("unchecked casting")
     public static void init() {
@@ -89,7 +90,7 @@ public final class Model {
     }
 
     /**
-     *
+     * saves changes to any data in users.txt file
      */
     public static void persist() {
         try {
@@ -104,9 +105,9 @@ public final class Model {
     }
 
     /**
-     *
-     * @param username
-     * @throws Exception
+     * sets a user for the program
+     * @param username username of currentUser
+     * @throws Exception if user does not exist
      */
     public static void setCurrentUser(String username) throws Exception {
         for (User user : Model.users) {
@@ -119,9 +120,9 @@ public final class Model {
     }
 
     /**
-     *
-     * @param username
-     * @throws Exception
+     * adds user to list of users
+     * @param username username of user we are adding
+     * @throws Exception if user is already in list of users
      */
     public static void addUser(String username) throws Exception {
         if (users.contains(new User(username))) {
@@ -131,9 +132,9 @@ public final class Model {
     }
 
     /**
-     *
-     * @param username
-     * @throws Exception
+     * deletes user from list of users
+     * @param username username of user we are deleting
+     * @throws Exception if user is not in list of users
      */
     public static void deleteUser(String username) throws Exception {
         if (!users.contains(new User(username))) {
@@ -168,7 +169,7 @@ public final class Model {
     }
 
     /**
-     *
+     * logs out current user
      */
     public static void logOut() {
         dataSnapshots.clear();

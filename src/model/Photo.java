@@ -8,34 +8,35 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
+ * class for photos
  * @author Parth Patel, Yash Patel
  */
 public final class Photo implements java.io.Serializable, Comparable<Photo> {
     /**
-     *
+     * unique id for serialization
      */
     @Serial
     private static final long serialVersionUID = -1207060131086150206L;
     /**
-     *
+     * location of photo on user's local disk
      */
     public String path;
     /**
-     *
+     * caption for photo
      */
     public String caption;
     /**
-     *
+     * creation date for photo
      */
     public Calendar dateTaken;
     /**
-     *
+     * list of tags
      */
     public ArrayList<Tag> tags;
 
     /**
-     *
-     * @param path
+     * creates a photo object
+     * @param path location of photo locally
      */
     public Photo(String path) {
         this.path = path;
@@ -48,9 +49,9 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
-     * @param path
-     * @param caption
+     * creates a photo object with a caption
+     * @param path the photo's path
+     * @param caption the photo's caption
      */
     public Photo(String path, String caption) {
         this.path = path;
@@ -63,9 +64,9 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
-     * @param obj
-     * @return
+     * checks if two objects are equal
+     * @param obj the other object
+     * @return if photos are equal
      */
     @Override
     public boolean equals(Object obj) {
@@ -76,9 +77,9 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
+     * compares one photo with another
      * @param other the object to be compared.
-     * @return
+     * @return value to represent order of photos
      */
     public int compareTo(Photo other) {
         if (this.equals(other)) {
@@ -92,10 +93,10 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
-     * @param type
-     * @param value
-     * @throws Exception
+     * adds a tag to the photo
+     * @param type tagType
+     * @param value tagValue
+     * @throws Exception if tag cannot be added to photo
      */
     public void addTag(String type, String value) throws Exception {
         boolean isSingle;
@@ -126,11 +127,11 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
-     * @param type
-     * @param value
-     * @param isSingle
-     * @throws Exception
+     * adds a tag to a photo
+     * @param type tagType
+     * @param value tagValue
+     * @param isSingle tagProperty
+     * @throws Exception if tag cannot be added to photo
      */
     public void addTag(String type, String value, boolean isSingle) throws Exception {
         String property = isSingle ? "single" : "multiple";
@@ -147,10 +148,10 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
     }
 
     /**
-     *
-     * @param type
-     * @param value
-     * @throws Exception
+     * removes tag from a photo
+     * @param type tagType
+     * @param value tagValue
+     * @throws Exception if tag cannot be removed from a photo
      */
     public void removeTag(String type, String value) throws Exception {
         if (!this.tags.contains(new Tag(type, value))) {
