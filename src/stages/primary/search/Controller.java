@@ -130,7 +130,7 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
             searchWarning.setOpacity(0);
             getSearchedImages(searchField.getText());
             if (!searchResults.isEmpty()) {
@@ -159,8 +159,8 @@ public class Controller {
                     throw new RuntimeException("Error parsing searchQuery for date range");
                 }
             }
-        } else if (searchQuery.matches("\\S*=\\S*")) {
-            Pattern p = Pattern.compile("(\\S*)=(\\S*)");
+        } else if (searchQuery.matches("\\S+=\\S+")) {
+            Pattern p = Pattern.compile("(\\S+)=(\\S+)");
             Matcher m = p.matcher(searchQuery);
             if (m.find()) {
                 try {
@@ -169,8 +169,8 @@ public class Controller {
                     throw new RuntimeException("Error parsing searchQuery for a tag");
                 }
             }
-        } else if (searchQuery.matches("\\S*=\\S* AND \\S*=\\S*")) {
-            Pattern p = Pattern.compile("(\\S*)=(\\S*) AND (\\S*)=(\\S*)");
+        } else if (searchQuery.matches("\\S+=\\S+ AND \\S+=\\S+")) {
+            Pattern p = Pattern.compile("(\\S+)=(\\S+) AND (\\S+)=(\\S+)");
             Matcher m = p.matcher(searchQuery);
             if (m.find()) {
                 try {
@@ -179,8 +179,8 @@ public class Controller {
                     throw new RuntimeException("Error parsing searchQuery for tags using AND");
                 }
             }
-        } else if (searchQuery.matches("\\S*=\\S* OR \\S*=\\S*")) {
-            Pattern p = Pattern.compile("(\\S*)=(\\S*) OR (\\S*)=(\\S*)");
+        } else if (searchQuery.matches("\\S+=\\S+ OR \\S+=\\S+")) {
+            Pattern p = Pattern.compile("(\\S+)=(\\S+) OR (\\S+)=(\\S+)");
             Matcher m = p.matcher(searchQuery);
             if (m.find()) {
                 try {

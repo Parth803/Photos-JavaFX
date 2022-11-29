@@ -141,7 +141,7 @@ public class Controller {
     }
 
     public void searchPhotos() {
-        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S*=\\S*") || searchField.getText().matches("\\S*=\\S* AND \\S*=\\S*") || searchField.getText().matches("\\S*=\\S* OR \\S*=\\S*")) {
+        if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
             searchWarning.setOpacity(0);
             Model.initNextScene(true);
             Model.dataTransfer.add(searchField.getText());
