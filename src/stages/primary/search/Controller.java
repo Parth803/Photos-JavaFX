@@ -105,17 +105,17 @@ public class Controller {
     }
 
     public void addAlbum() {
-        if (newAlbumName.getText().isEmpty()) {
-            return;
-        }
         try {
+            if (newAlbumName.getText().isEmpty()) {
+                throw new Exception("Enter album name");
+            }
             Model.currentUser.createAlbum(newAlbumName.getText(), searchResults);
+            Model.persist();
             warning.setOpacity(0);
         } catch (Exception e) {
+            warning.setText(e.getMessage());
             warning.setOpacity(0.69);
-            throw new RuntimeException("error can not add album containing search results");
         }
-        Model.persist();
     }
 
     public void displayPhoto() {
