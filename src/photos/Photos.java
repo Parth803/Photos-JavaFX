@@ -161,7 +161,7 @@ public final class Photos extends Application {
         setPrimaryStage(primaryStage);
         primaryStage.getIcons().add(getLogo());
         primaryStage.setTitle("Photos Application");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setWidth(1280);
         primaryStage.setHeight(800);
     }
@@ -175,7 +175,7 @@ public final class Photos extends Application {
         setViewPhotoStage(viewPhotoStage);
         viewPhotoStage.getIcons().add(getLogo());
         viewPhotoStage.setTitle("View Photo");
-        viewPhotoStage.setResizable(false);
+        viewPhotoStage.setResizable(true);
         viewPhotoStage.setWidth(1280);
         viewPhotoStage.setHeight(720);
     }
@@ -252,3 +252,5 @@ public final class Photos extends Application {
         }
     }
 }
+
+

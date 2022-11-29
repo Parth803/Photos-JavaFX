@@ -39,7 +39,8 @@ public final class Model {
     public static void init() {
         dataTransfer = new ArrayList<>();
         dataSnapshots = new ArrayDeque<>();
-        File serializedUsers = new File("data/admin/users.txt");
+        String path = "data/admin/users.txt";
+        File serializedUsers = new File(path);
         if (serializedUsers.length() == 0) {
             users = new ArrayList<>();
             users.add(new User("admin"));
@@ -52,20 +53,27 @@ public final class Model {
             Album stockAlbum = new Album("stock");
             currentUser.albums.add(stockAlbum);
             try {
-                stockAlbum.addPhoto("data/stock/one.jpeg", "first");
-                stockAlbum.addPhoto("data/stock/two.jpeg", "second");
-                stockAlbum.addPhoto("data/stock/three.jpeg", "third");
-                stockAlbum.addPhoto("data/stock/four.jpeg", "fourth");
-                stockAlbum.addPhoto("data/stock/five.jpeg", "fifth");
-                stockAlbum.addPhoto("data/stock/six.jpeg", "sixth");
-                stockAlbum.addPhoto("data/stock/seven.jpeg", "seventh");
+                path = new File("data/stock/one.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "first");
+                path = new File("data/stock/two.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "second");
+                path = new File("data/stock/three.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "third");
+                path = new File("data/stock/four.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "fourth");
+                path = new File("data/stock/five.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "fifth");
+                path = new File("data/stock/six.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "sixth");
+                path = new File("data/stock/seven.jpeg").getAbsolutePath();
+                stockAlbum.addPhoto(path, "seventh");
             } catch (Exception e) {
                 throw new RuntimeException("stock photos could not be added");
             }
         }
         else {
             try {
-                FileInputStream file = new FileInputStream("data/admin/users.txt");
+                FileInputStream file = new FileInputStream(path);
                 ObjectInputStream input = new ObjectInputStream(file);
                 users = (ArrayList<User>) input.readObject();
                 if (users.size() == 0) {
@@ -168,3 +176,5 @@ public final class Model {
         Photos.closeViewPhotoStage();
     }
 }
+
+

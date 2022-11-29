@@ -2,18 +2,21 @@ package stages.primary.photoslist;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import model.Album;
 import model.Model;
 import model.Photo;
 import photos.Photos;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Parth Patel, Yash Patel
@@ -48,11 +51,6 @@ public class Controller {
      *
      */
     @FXML
-    private Button promptAdd;
-    /**
-     *
-     */
-    @FXML
     private Text caption;
     /**
      *
@@ -69,16 +67,6 @@ public class Controller {
      */
     @FXML
     private Button display;
-    /**
-     *
-     */
-    @FXML
-    private Text photoPathLabel;
-    /**
-     *
-     */
-    @FXML
-    private TextField photoPath;
     /**
      *
      */
@@ -110,8 +98,6 @@ public class Controller {
         if (Model.dataTransfer.size() == 2) {
             selectedPhoto = (Photo) Model.dataTransfer.get(1);
         }
-        sendAdd.setDisable(true);
-        photoPath.setDisable(true);
         albumName.setText("Album: " + currentAlbum.name);
 
         createElements();
@@ -122,7 +108,6 @@ public class Controller {
         });
         this.logout.setOnAction(actionEvent -> Photos.changeScene("primary", "/stages/primary/main/main.fxml"));
         this.delete.setOnAction(actionEvent -> deletePhoto());
-        this.promptAdd.setOnAction(actionEvent -> promptAdd());
         this.edit.setOnAction(actionEvent -> editPhoto());
         this.display.setOnAction(actionEvent -> displayPhoto());
         this.sendAdd.setOnAction(actionEvent -> addPhoto());
@@ -207,28 +192,6 @@ public class Controller {
     /**
      *
      */
-    public void promptAdd() {
-        if (promptAdd.getText().equals("Add")) {
-            promptAdd.setText("Close");
-            sendAdd.setDisable(false);
-            photoPathLabel.setOpacity(1);
-            photoPath.setOpacity(1);
-            photoPath.setDisable(false);
-            sendAdd.setOpacity(1);
-            return;
-        }
-        promptAdd.setText("Add");
-        sendAdd.setDisable(true);
-        photoPathLabel.setOpacity(0);
-        photoPath.setOpacity(0);
-        photoPath.setDisable(true);
-        sendAdd.setOpacity(0);
-        warning.setOpacity(0);
-    }
-
-    /**
-     *
-     */
     public void editPhoto() {
         if (selectedPhoto == null) {
             return;
@@ -256,31 +219,36 @@ public class Controller {
      *
      */
     public void addPhoto() {
+        List<String> extensions = new ArrayList<>();
+        extensions.add("*.bmp");
+        extensions.add("*.gif");
+        extensions.add("*.jpeg");
+        extensions.add("*.jpg");
+        extensions.add("*.png");
+        String description = "Image Extensions";
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(description, extensions));
+        File file = fileChooser.showOpenDialog(Photos.getPrimaryStage());
         try {
-            if (photoPath.getText().isEmpty()) {
-                throw new Exception("Enter full local path");
+            if (file == null) {
+                throw new Exception("Select an image file");
             }
-            if (photoPath.getText().contains("://")) {
-                throw new Exception("Path must be local on your machine");
-            }
-            Image img = new Image("file:" + photoPath.getText());
+            Image img = new Image("file:" + file.getAbsolutePath());
             if (img.isError()) {
-                throw new Exception("invalid path or wrong file extension");
+                throw new Exception("Image can not be loaded. Please try again.");
             }
-            currentAlbum.addPhoto(photoPath.getText());
+            currentAlbum.addPhoto(file.getAbsolutePath());
             Model.persist();
             createElements();
-            promptAdd.setText("Add");
-            photoPathLabel.setOpacity(0);
-            photoPath.clear();
-            photoPath.setOpacity(0);
-            photoPath.setDisable(true);
             warning.setOpacity(0);
-            sendAdd.setOpacity(0);
-            sendAdd.setDisable(true);
+        } catch (SecurityException e) {
+            warning.setText("Need permission to access file. Please try again.");
+            warning.setOpacity(0.69);
         } catch (Exception e) {
             warning.setText(e.getMessage());
             warning.setOpacity(0.69);
         }
     }
 }
+
