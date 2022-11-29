@@ -23,75 +23,75 @@ import java.util.List;
  */
 public class Controller {
     /**
-     *
+     * tilepane for photos thumbnails
      */
     @FXML
     private TilePane photosPane;
     /**
-     *
+     * back to previous scene
      */
     @FXML
     private Button back;
     /**
-     *
+     * logout to login page
      */
     @FXML
     private Button logout;
     /**
-     *
+     * album name label
      */
     @FXML
     private Text albumName;
     /**
-     *
+     * delete photo button
      */
     @FXML
     private Button delete;
     /**
-     *
+     * caption label
      */
     @FXML
     private Text caption;
     /**
-     *
+     * date taken label of photo
      */
     @FXML
     private Text dateTaken;
     /**
-     *
+     * edit photo button
      */
     @FXML
     private Button edit;
     /**
-     *
+     * display photo button
      */
     @FXML
     private Button display;
     /**
-     *
+     * warning error message
      */
     @FXML
     private Text warning;
     /**
-     *
+     * upload a new photo
      */
     @FXML
     private Button sendAdd;
     /**
-     *
+     * current album
      */
     private Album currentAlbum;
     /**
-     *
+     * selected photo box with border
      */
     private VBox selectedPhotoBox;
     /**
-     *
+     * selected photo in current album
      */
     private Photo selectedPhoto;
 
     /**
-     *
+     * initialize the photoslist scene
      */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
@@ -114,7 +114,7 @@ public class Controller {
     }
 
     /**
-     *
+     * create photo thumbnails
      */
     public void createElements() {
         photosPane.getChildren().clear();
@@ -128,8 +128,8 @@ public class Controller {
 
     /**
      *
-     * @param p
-     * @return
+     * @param p photo
+     * @return component containing photo thumbnail
      */
     public VBox createElement(Photo p) {
         ImageView img = new ImageView();
@@ -164,7 +164,7 @@ public class Controller {
     }
 
     /**
-     *
+     * update details for selected photo
      */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -173,7 +173,7 @@ public class Controller {
     }
 
     /**
-     *
+     * delete selected photo
      */
     public void deletePhoto() {
         if (selectedPhoto == null) {
@@ -190,7 +190,7 @@ public class Controller {
     }
 
     /**
-     *
+     * edit selected photo
      */
     public void editPhoto() {
         if (selectedPhoto == null) {
@@ -203,7 +203,7 @@ public class Controller {
     }
 
     /**
-     *
+     * display selected photo
      */
     public void displayPhoto() {
         if (selectedPhoto == null) {
@@ -216,7 +216,7 @@ public class Controller {
     }
 
     /**
-     *
+     * upload new photo
      */
     public void addPhoto() {
         List<String> extensions = new ArrayList<>();

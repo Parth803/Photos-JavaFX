@@ -15,50 +15,51 @@ import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
 /**
+ * controller for view photo scene
  * @author Parth Patel, Yash Patel
  */
 public class Controller {
     /**
-     *
+     * caption label
      */
     @FXML
     private Text caption;
     /**
-     *
+     * date taken label
      */
     @FXML
     private Text dateTaken;
     /**
-     *
+     * display image
      */
     @FXML
     private ImageView displayImage;
     /**
-     *
+     * previous photo in current album
      */
     @FXML
     private Button previous;
     /**
-     *
+     * next photo in current album
      */
     @FXML
     private Button next;
     /**
-     *
+     * list of tags
      */
     @FXML
     private ListView<String> tagsList;
     /**
-     *
+     * current album
      */
     private Album currentAlbum;
     /**
-     *
+     * current photo
      */
     private Photo currentPhoto;
 
     /**
-     *
+     * initialize the view photo scene
      */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
@@ -71,14 +72,14 @@ public class Controller {
     }
 
     /**
-     *
+     * update the tags list
      */
     public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(currentPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
     /**
-     *
+     * update the prev / next buttons to disable / enable
      */
     public void updatePrevNext() {
         this.previous.setDisable((currentAlbum.photos.indexOf(currentPhoto)) == 0);
@@ -86,7 +87,7 @@ public class Controller {
     }
 
     /**
-     *
+     * update the display
      */
     public void updateDisplay() {
         if (!currentPhoto.path.isEmpty()) displayImage.setImage(new Image("file:" + currentPhoto.path));
@@ -96,7 +97,7 @@ public class Controller {
     }
 
     /**
-     *
+     * go to previous photo in current album
      */
     public void previousPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) - 1;
@@ -107,7 +108,7 @@ public class Controller {
     }
 
     /**
-     *
+     * go to next photo in current album
      */
     public void nextPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) + 1;

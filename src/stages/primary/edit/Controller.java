@@ -19,106 +19,106 @@ import java.util.stream.Collectors;
  */
 public class Controller {
     /**
-     *
+     * back to previous scene
      */
     @FXML
     private Button back;
     /**
-     *
+     * logout to login page
      */
     @FXML
     private Button logout;
     /**
-     *
+     * caption field
      */
     @FXML
     private TextField caption;
     /**
-     *
+     * update caption button
      */
     @FXML
     private Button updateCaption;
     /**
-     *
+     * delete a selected tag button
      */
     @FXML
     private Button deleteTag;
     /**
-     *
+     * displays the tags
      */
     @FXML
     private ListView<String> tagsList;
     /**
-     *
+     * list of tag types and properties
      */
     @FXML
     private ChoiceBox<String> presets;
     /**
-     *
+     * label for tag type
      */
     @FXML
     private Text tagTypeLabel;
     /**
-     *
+     * tag type field
      */
     @FXML
     private TextField tagType;
     /**
-     *
+     * label for tag property
      */
     @FXML
     private Text tagPropertyLabel;
     /**
-     *
+     * tag property choice box
      */
     @FXML
     private ChoiceBox<String> tagProperty;
     /**
-     *
+     * tag value field
      */
     @FXML
     private TextField tagValue;
     /**
-     *
+     * tag warning message for error
      */
     @FXML
     private Text tagWarning;
     /**
-     *
+     * add a new tag button
      */
     @FXML
     private Button addTag;
     /**
-     *
+     * destination album for move to or copy to
      */
     @FXML
     private TextField destinationAlbum;
     /**
-     *
+     * warning error message
      */
     @FXML
     private Text warning;
     /**
-     *
+     * copy photo to destination album
      */
     @FXML
     private Button copyTo;
     /**
-     *
+     * move photo to destination album
      */
     @FXML
     private Button moveTo;
     /**
-     *
+     * current album
      */
     private Album currentAlbum;
     /**
-     *
+     * selected photo in current album
      */
     private Photo selectedPhoto;
 
     /**
-     *
+     * initialize the edit scene
      */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
@@ -143,21 +143,21 @@ public class Controller {
     }
 
     /**
-     *
+     * update the preset list
      */
     public void updatePresets() {
         this.presets.setItems(FXCollections.observableList(Model.currentUser.tagPreset.stream().map(p -> p.getKey()+" - "+p.getValue()).collect(Collectors.toList())));
     }
 
     /**
-     *
+     * update the tags list
      */
     public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
     /**
-     *
+     * delete a selected tag
      */
     public void deleteTag() {
         if (this.tagsList.getSelectionModel().isEmpty()) {
@@ -177,7 +177,7 @@ public class Controller {
     }
 
     /**
-     *
+     * update the caption of the photo
      */
     public void updateCaption() {
         selectedPhoto.caption = caption.getText();
@@ -186,8 +186,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param event
+     * select tag type
+     * @param event event
      */
     public void selectTagType(Event event) {
         tagPropertyLabel.setOpacity(0);
@@ -211,7 +211,7 @@ public class Controller {
     }
 
     /**
-     *
+     * add a new tag
      */
     public void addTag() {
         if (presets.getValue() == null || presets.getValue().isEmpty() || (!tagType.isDisabled() && tagType.getText().isEmpty()) || (!tagProperty.isDisabled() && tagProperty.getValue() == null) || (!tagProperty.isDisabled() && tagProperty.getValue().isEmpty()) || tagValue.getText().isEmpty()) {
@@ -251,7 +251,7 @@ public class Controller {
     }
 
     /**
-     *
+     * copy to destination album
      */
     public void copyTo() {
         try {
@@ -268,7 +268,7 @@ public class Controller {
     }
 
     /**
-     *
+     * move to destination album
      */
     public void moveTo() {
         try {

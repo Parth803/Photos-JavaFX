@@ -11,120 +11,121 @@ import javafx.stage.Stage;
 import model.Model;
 
 /**
+ * main application class
  * @author Parth Patel, Yash Patel
  */
 public final class Photos extends Application {
     /**
-     *
+     * logo
      */
     private static Image logo;
     /**
-     *
+     * primary stage
      */
     private static Stage primaryStage;
     /**
-     *
+     * view photo stage
      */
     private static Stage viewPhotoStage;
     /**
-     *
+     * is primary stage showing
      */
     private static boolean primaryShowing;
     /**
-     *
+     * is view photo stage showing
      */
     private static boolean viewPhotoShowing;
 
     /**
-     *
-     * @return
+     * get the logo
+     * @return the image of logo
      */
     public static Image getLogo() {
         return Photos.logo;
     }
 
     /**
-     *
-     * @return
+     * get primary stage
+     * @return the primary stage
      */
     public static Stage getPrimaryStage() {
         return Photos.primaryStage;
     }
 
     /**
-     *
-     * @return
+     * get the view photo stage
+     * @return the view photo stage
      */
     public static Stage getViewPhotoStage() {
         return Photos.viewPhotoStage;
     }
 
     /**
-     *
-     * @return
+     * is the primary stage showing
+     * @return whether the primary stage is showing
      */
     public static boolean isPrimaryShowing() {
         return Photos.primaryShowing;
     }
 
     /**
-     *
-     * @return
+     * is the view photo stage showing
+     * @return whether the view photo stage is showing
      */
     public static boolean isViewPhotoShowing() {
         return Photos.viewPhotoShowing;
     }
 
     /**
-     *
+     * set the logo
      */
     private static void setLogo() {
         Photos.logo = new Image("file:data/resources/logo.jpg");
     }
 
     /**
-     *
-     * @param primaryStage
+     * set the primary stage
+     * @param primaryStage the primary stage
      */
     private static void setPrimaryStage(Stage primaryStage) {
         Photos.primaryStage = primaryStage;
     }
 
     /**
-     *
-     * @param viewPhotoStage
+     * set the view photo stage
+     * @param viewPhotoStage the view photo stage
      */
     private static void setViewPhotoStage(Stage viewPhotoStage) {
         Photos.viewPhotoStage = viewPhotoStage;
     }
 
     /**
-     *
-     * @param primaryShowing
+     * set if primary stage is showing
+     * @param primaryShowing is primary stage showing
      */
     private static void setPrimaryShowing(boolean primaryShowing) {
         Photos.primaryShowing = primaryShowing;
     }
 
     /**
-     *
-     * @param viewPhotoShowing
+     * set if view photo stage is showing
+     * @param viewPhotoShowing is view photo stage showing
      */
     private static void setViewPhotoShowing(boolean viewPhotoShowing) {
         Photos.viewPhotoShowing = viewPhotoShowing;
     }
 
     /**
-     *
-     * @param args
+     * main method to run Photos application
+     * @param args arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
 
     /**
-     *
-     * @param primaryStage
+     * start the Photos application
+     * @param primaryStage the primary stage
      */
     @Override
     public void start(Stage primaryStage) {
@@ -138,7 +139,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * stop the application after this method
      */
     @Override
     public void stop() {
@@ -146,7 +147,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * initialize showing variables
      */
     public static void initShowing() {
         setPrimaryShowing(false);
@@ -154,8 +155,8 @@ public final class Photos extends Application {
     }
 
     /**
-     *
-     * @param primaryStage
+     * initialize the primary stage
+     * @param primaryStage the primary stage
      */
     public static void initPrimaryStage(Stage primaryStage) {
         setPrimaryStage(primaryStage);
@@ -167,7 +168,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * initialize the view photo stage
      */
     public static void initViewPhotoStage() {
         Stage viewPhotoStage = new Stage();
@@ -181,7 +182,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * initialize the close stage event handlers
      */
     public static void initCloseStageHandlers() {
         getPrimaryStage().setOnCloseRequest((event) -> {
@@ -195,7 +196,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * show the primary stage
      */
     public static void showPrimaryStage() {
         if (isPrimaryShowing()) {
@@ -206,7 +207,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * show the view photo stage
      */
     public static void showViewPhotoStage() {
         if (isViewPhotoShowing()) {
@@ -217,7 +218,7 @@ public final class Photos extends Application {
     }
 
     /**
-     *
+     * close the view photo stage
      */
     public static void closeViewPhotoStage() {
         if (!isViewPhotoShowing()) {
@@ -228,9 +229,9 @@ public final class Photos extends Application {
     }
 
     /**
-     *
-     * @param stage
-     * @param newScene
+     * change the scene
+     * @param stage the stage
+     * @param newScene the new scene to change on the stage
      */
     public static void changeScene(String stage, String newScene) {
         try {

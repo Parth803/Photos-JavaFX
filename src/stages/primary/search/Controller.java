@@ -20,84 +20,85 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * controller for search scene
  * @author Parth Patel, Yash Patel
  */
 public class Controller {
     /**
-     *
+     * tilepane for photos thumbnails
      */
     @FXML
     private TilePane photosPane;
     /**
-     *
+     * back to previous scene
      */
     @FXML
     private Button back;
     /**
-     *
+     * logout to login page
      */
     @FXML
     private Button logout;
     /**
-     *
+     * search field for photos search
      */
     @FXML
     private TextField searchField;
     /**
-     *
+     * search button
      */
     @FXML
     private Button search;
     /**
-     *
+     * search warning error messages
      */
     @FXML
     private Text searchWarning;
     /**
-     *
+     * new album name field
      */
     @FXML
     private TextField newAlbumName;
     /**
-     *
+     * warning error messages
      */
     @FXML
     private Text warning;
     /**
-     *
+     * create new album button containing search results
      */
     @FXML
     private Button createAlbum;
     /**
-     *
+     * caption field
      */
     @FXML
     private Text caption;
     /**
-     *
+     * date taken field
      */
     @FXML
     private Text dateTaken;
     /**
-     *
+     * display photo button
      */
     @FXML
     private Button display;
     /**
-     *
+     * search results
      */
     private ArrayList<Photo> searchResults;
     /**
-     *
+     * selected photo box with border
      */
     private VBox selectedPhotoBox;
     /**
-     *
+     * selected photo
      */
     private Photo selectedPhoto;
 
     /**
-     *
+     * initialize the search scene
      */
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
@@ -117,7 +118,7 @@ public class Controller {
     }
 
     /**
-     *
+     * create elements for photos thumbnails
      */
     public void createElements() {
         photosPane.getChildren().clear();
@@ -131,8 +132,8 @@ public class Controller {
 
     /**
      *
-     * @param p
-     * @return
+     * @param p photo
+     * @return component containing photo thumbnail
      */
     public VBox createElement(Photo p) {
         ImageView img = new ImageView();
@@ -158,7 +159,7 @@ public class Controller {
     }
 
     /**
-     *
+     * update detail display for selected photo
      */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -167,7 +168,7 @@ public class Controller {
     }
 
     /**
-     *
+     * add new album containing search results
      */
     public void addAlbum() {
         try {
@@ -184,7 +185,7 @@ public class Controller {
     }
 
     /**
-     *
+     * display photo
      */
     public void displayPhoto() {
         if (selectedPhoto == null) {
@@ -198,7 +199,7 @@ public class Controller {
     }
 
     /**
-     *
+     * search user's unique photos
      */
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
@@ -214,8 +215,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param searchQuery
+     * gets search results
+     * @param searchQuery the search query
      */
     public void getSearchedImages(String searchQuery) {
         if (searchQuery.isEmpty()) {

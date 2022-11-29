@@ -7,24 +7,43 @@ import model.Model;
 import photos.Photos;
 
 /**
+ * controller for main scene
  * @author Parth Patel, Yash Patel
  */
 public class Controller {
+    /**
+     * logo
+     */
     @FXML
     private ImageView logo;
+    /**
+     * name of user
+     */
     @FXML
     private TextField username;
+    /**
+     * continue button
+     */
     @FXML
     private Button proceed;
+    /**
+     * warning error message
+     */
     @FXML
     private Text warning;
 
+    /**
+     * initialize main login scene
+     */
     public void initialize() {
         Model.logOut();
         this.logo.setImage(Photos.getLogo());
         this.proceed.setOnAction(actionEvent -> continueAction());
     }
 
+    /**
+     * continue with the username
+     */
     public void continueAction() {
         try {
             Model.setCurrentUser(username.getText());

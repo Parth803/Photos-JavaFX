@@ -17,106 +17,110 @@ import photos.Photos;
 import java.text.SimpleDateFormat;
 
 /**
+ * controller for the albums scene
  * @author Parth Patel, Yash Patel
  */
 public class Controller {
     /**
-     *
+     * rename an album
      */
     @FXML
     private Button rename;
     /**
-     *
+     * tilepane for the albums
      */
     @FXML
     private TilePane albumsPane;
     /**
-     *
+     * back to go previous scene
      */
     @FXML
     private Button back;
     /**
-     *
+     * logout to login scene
      */
     @FXML
     private Button logout;
     /**
-     *
+     * search field for photos
      */
     @FXML
     private TextField searchField;
     /**
-     *
+     * search button to search photos
      */
     @FXML
     private Button search;
     /**
-     *
+     * warning incorrect format for search
      */
     @FXML
     private Text searchWarning;
     /**
-     *
+     * delete an album
      */
     @FXML
     private Button delete;
     /**
-     *
+     * show add album components
      */
     @FXML
     private Button promptAdd;
     /**
-     *
+     * name of album label
      */
     @FXML
     private Text nameOfAlbum;
     /**
-     *
+     * number of photos label
      */
     @FXML
     private Text numPhotos;
     /**
-     *
+     * dateRange label
      */
     @FXML
     private Text dateRange;
     /**
-     *
+     * open the album button
      */
     @FXML
     private Button openAlbum;
     /**
-     *
+     * new album label
      */
     @FXML
     private Text newAlbumLabel;
     /**
-     *
+     * album name field
      */
     @FXML
     private TextField albumName;
     /**
-     *
+     * warning for error
      */
     @FXML
     private Text warning;
     /**
-     *
+     * add new album button
      */
     @FXML
     private Button sendAdd;
     /**
-     *
+     * selected album box that has border
      */
     private VBox selectedAlbumBox;
     /**
-     *
+     * selected Album
      */
     private Album selectedAlbum;
+    /**
+     * whether rename button is allowed (true if and only if an album is selected)
+     */
     private boolean renameAllowed;
 
     /**
-     *
+     * initialize albums scene
      */
     public void initialize() {
         if (!Model.dataTransfer.isEmpty()) {
@@ -141,7 +145,7 @@ public class Controller {
     }
 
     /**
-     *
+     * create the albums thumbnails
      */
     public void createElements() {
         albumsPane.getChildren().clear();
@@ -155,8 +159,8 @@ public class Controller {
 
     /**
      *
-     * @param a
-     * @return
+     * @param a the album
+     * @return component containing the album thumbnail
      */
     public VBox createElement(Album a) {
         ImageView img = new ImageView();
@@ -206,7 +210,7 @@ public class Controller {
     }
 
     /**
-     *
+     * update the details of the selected album
      */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -216,7 +220,7 @@ public class Controller {
     }
 
     /**
-     *
+     * search all the unique photos of the user
      */
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
@@ -230,7 +234,7 @@ public class Controller {
     }
 
     /**
-     *
+     * delete album
      */
     public void deleteAlbum() {
         if (selectedAlbum == null) {
@@ -248,7 +252,7 @@ public class Controller {
     }
 
     /**
-     *
+     * show add album components
      */
     public void promptAdd() {
         if (promptAdd.getText().equals("Edit")) {
@@ -279,7 +283,7 @@ public class Controller {
     }
 
     /**
-     *
+     * go to the photoslist scene
      */
     public void openAlbum() {
         if (selectedAlbum == null) {
@@ -291,7 +295,7 @@ public class Controller {
     }
 
     /**
-     *
+     * add album
      */
     public void addAlbum() {
         try {
@@ -309,7 +313,7 @@ public class Controller {
     }
 
     /**
-     *
+     * rename the album
      */
     public void renameAlbum() {
         if (selectedAlbum == null) {
