@@ -6,34 +6,35 @@ import java.util.Calendar;
 import java.util.Collections;
 
 /**
+ * Class for albums
  * @author Parth Patel, Yash Patel
  */
 public final class Album implements java.io.Serializable, Comparable<Album> {
     /**
-     *
+     * unique ID for serialization
      */
     @Serial
     private static final long serialVersionUID = -2523531824640650719L;
     /**
-     *
+     * name of album
      */
     public String name;
     /**
-     *
+     * list of photos in album
      */
     public ArrayList<Photo> photos;
     /**
-     *
+     * start time of the earliest photo in album
      */
     public Calendar start;
     /**
-     *
+     * start time of the latest photo in album
      */
     public Calendar end;
 
     /**
-     *
-     * @param name
+     * constructor to create empty album
+     * @param name name of empty album
      */
     public Album(String name) {
         this.name = name;
@@ -44,9 +45,9 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
-     * @param name
-     * @param photos
+     * constructor to create album with photos
+     * @param name name of album
+     * @param photos photos to store in album
      */
     public Album(String name, ArrayList<Photo> photos) {
         this.name = name;
@@ -62,9 +63,9 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
-     * @param obj
-     * @return
+     * checks if two albums are equal
+     * @param obj object to compare album with
+     * @return if albums are equal
      */
     @Override
     public boolean equals(Object obj) {
@@ -75,9 +76,9 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
+     * compares one album with another
      * @param other the object to be compared.
-     * @return
+     * @return value to represent order of albums
      */
     public int compareTo(Album other) {
         if (this.equals(other)) {
@@ -91,9 +92,9 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
-     * @param path
-     * @throws Exception
+     * adds a photo to an album
+     * @param path path of the photo to be added
+     * @throws Exception if album already has that photo
      */
     public void addPhoto(String path) throws Exception {
         if (this.photos.contains(new Photo(path))) {
@@ -113,10 +114,10 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
-     * @param path
-     * @param caption
-     * @throws Exception
+     * adds a photo with a caption to an album
+     * @param path path of the photo to be added
+     * @param caption caption of the photo to be added
+     * @throws Exception if photo already exists in album
      */
     public void addPhoto(String path, String caption) throws Exception {
         if (this.photos.contains(new Photo(path))) {
@@ -134,9 +135,9 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
     }
 
     /**
-     *
-     * @param path
-     * @throws Exception
+     * removes photo from album
+     * @param path path of the photo to be removed
+     * @throws Exception if photo is not in album
      */
     public void removePhoto(String path) throws Exception {
         if (!this.photos.contains(new Photo(path))) {
