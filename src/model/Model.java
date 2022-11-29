@@ -6,14 +6,35 @@ import java.io.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public final class Model {
+    /**
+     *
+     */
     public static ArrayList<User> users;
+    /**
+     *
+     */
     public static User currentUser;
+    /**
+     *
+     */
     public static ArrayList<Object> dataTransfer;
+    /**
+     *
+     */
     private static ArrayDeque<Object> dataSnapshots;
 
+    /**
+     *
+     */
     private Model() {}
 
+    /**
+     *
+     */
     @SuppressWarnings("unchecked casting")
     public static void init() {
         dataTransfer = new ArrayList<>();
@@ -59,6 +80,9 @@ public final class Model {
         }
     }
 
+    /**
+     *
+     */
     public static void persist() {
         try {
             FileOutputStream file = new FileOutputStream("data/admin/users.txt");
@@ -71,6 +95,11 @@ public final class Model {
         }
     }
 
+    /**
+     *
+     * @param username
+     * @throws Exception
+     */
     public static void setCurrentUser(String username) throws Exception {
         for (User user : Model.users) {
             if (user.username.equals(username)) {
@@ -81,6 +110,11 @@ public final class Model {
         throw new Exception("username does not exist");
     }
 
+    /**
+     *
+     * @param username
+     * @throws Exception
+     */
     public static void addUser(String username) throws Exception {
         if (users.contains(new User(username))) {
             throw new Exception("User Already Exists");
@@ -88,6 +122,11 @@ public final class Model {
         users.add(new User(username));
     }
 
+    /**
+     *
+     * @param username
+     * @throws Exception
+     */
     public static void deleteUser(String username) throws Exception {
         if (!users.contains(new User(username))) {
             throw new Exception("User Does Not Exist");
@@ -120,11 +159,12 @@ public final class Model {
         dataTransfer.clear();
     }
 
+    /**
+     *
+     */
     public static void logOut() {
         dataSnapshots.clear();
         dataTransfer.clear();
         Photos.closeViewPhotoStage();
     }
 }
-
-

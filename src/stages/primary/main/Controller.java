@@ -6,7 +6,9 @@ import javafx.scene.text.Text;
 import model.Model;
 import photos.Photos;
 
-
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
     @FXML
     private ImageView logo;

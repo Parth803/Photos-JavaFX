@@ -11,21 +11,49 @@ import photos.Photos;
 
 import java.util.stream.Collectors;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private Button back;
+    /**
+     *
+     */
     @FXML
     private Button logout;
+    /**
+     *
+     */
     @FXML
     private Text warning;
+    /**
+     *
+     */
     @FXML
     private TextField username;
+    /**
+     *
+     */
     @FXML
     private Button addUser;
+    /**
+     *
+     */
     @FXML
     private Button deleteUser;
+    /**
+     *
+     */
     @FXML
     private ListView<String> usersList;
+
+    /**
+     *
+     */
     public void initialize() {
         this.back.setOnAction(actionEvent -> {
             Model.initPreviousScene();
@@ -37,10 +65,16 @@ public class Controller {
         updateUsersList();
     }
 
+    /**
+     *
+     */
     public void updateUsersList() {
         this.usersList.setItems(FXCollections.observableList(Model.users.stream().map(u -> u.username).collect(Collectors.toList())));
     }
 
+    /**
+     *
+     */
     public void addUser() {
         try {
             if (username.getText().isEmpty()) {
@@ -60,6 +94,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void deleteUser() {
         if (this.usersList.getSelectionModel().isEmpty()) {
             return;

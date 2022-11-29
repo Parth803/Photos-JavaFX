@@ -14,22 +14,52 @@ import model.Photo;
 import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private Text caption;
+    /**
+     *
+     */
     @FXML
     private Text dateTaken;
+    /**
+     *
+     */
     @FXML
     private ImageView displayImage;
+    /**
+     *
+     */
     @FXML
     private Button previous;
+    /**
+     *
+     */
     @FXML
     private Button next;
+    /**
+     *
+     */
     @FXML
     private ListView<String> tagsList;
+    /**
+     *
+     */
     private Album currentAlbum;
+    /**
+     *
+     */
     private Photo currentPhoto;
 
+    /**
+     *
+     */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         currentPhoto = (Photo) Model.dataTransfer.get(1);
@@ -40,15 +70,24 @@ public class Controller {
         this.next.setOnAction(actionEvent -> nextPhoto());
     }
 
+    /**
+     *
+     */
     public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(currentPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
+    /**
+     *
+     */
     public void updatePrevNext() {
         this.previous.setDisable((currentAlbum.photos.indexOf(currentPhoto)) == 0);
         this.next.setDisable(currentAlbum.photos.indexOf(currentPhoto) == (currentAlbum.photos.size() - 1));
     }
 
+    /**
+     *
+     */
     public void updateDisplay() {
         if (!currentPhoto.path.isEmpty()) displayImage.setImage(new Image("file:" + currentPhoto.path));
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -56,6 +95,9 @@ public class Controller {
         this.dateTaken.setText(formatter.format(currentPhoto.dateTaken.getTime()));
     }
 
+    /**
+     *
+     */
     public void previousPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) - 1;
         currentPhoto = currentAlbum.photos.get(index);
@@ -64,6 +106,9 @@ public class Controller {
         updateTagsList();
     }
 
+    /**
+     *
+     */
     public void nextPhoto() {
         int index = currentAlbum.photos.indexOf(currentPhoto) + 1;
         currentPhoto = currentAlbum.photos.get(index);

@@ -16,44 +16,107 @@ import photos.Photos;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private Button rename;
+    /**
+     *
+     */
     @FXML
     private TilePane albumsPane;
+    /**
+     *
+     */
     @FXML
     private Button back;
+    /**
+     *
+     */
     @FXML
     private Button logout;
+    /**
+     *
+     */
     @FXML
     private TextField searchField;
+    /**
+     *
+     */
     @FXML
     private Button search;
+    /**
+     *
+     */
     @FXML
     private Text searchWarning;
+    /**
+     *
+     */
     @FXML
     private Button delete;
+    /**
+     *
+     */
     @FXML
     private Button promptAdd;
+    /**
+     *
+     */
     @FXML
     private Text nameOfAlbum;
+    /**
+     *
+     */
     @FXML
     private Text numPhotos;
+    /**
+     *
+     */
     @FXML
     private Text dateRange;
+    /**
+     *
+     */
     @FXML
     private Button openAlbum;
+    /**
+     *
+     */
     @FXML
     private Text newAlbumLabel;
+    /**
+     *
+     */
     @FXML
     private TextField albumName;
+    /**
+     *
+     */
     @FXML
     private Text warning;
+    /**
+     *
+     */
     @FXML
     private Button sendAdd;
+    /**
+     *
+     */
     private VBox selectedAlbumBox;
+    /**
+     *
+     */
     private Album selectedAlbum;
 
+    /**
+     *
+     */
     public void initialize() {
         if (!Model.dataTransfer.isEmpty()) {
             selectedAlbum = (Album) Model.dataTransfer.get(0);
@@ -76,6 +139,9 @@ public class Controller {
         this.rename.setOnAction(actionEvent -> renameAlbum());
     }
 
+    /**
+     *
+     */
     public void createElements() {
         albumsPane.getChildren().clear();
         albumsPane.setPrefColumns(3);
@@ -86,6 +152,11 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public VBox createElement(Album a) {
         ImageView img = new ImageView();
         if (a.photos.size() == 0) {
@@ -133,6 +204,9 @@ public class Controller {
         return element;
     }
 
+    /**
+     *
+     */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.nameOfAlbum.setText(selectedAlbum.name);
@@ -140,6 +214,9 @@ public class Controller {
         this.dateRange.setText(formatter.format(selectedAlbum.start.getTime()) + " TO " + formatter.format(selectedAlbum.end.getTime()));
     }
 
+    /**
+     *
+     */
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
             searchWarning.setOpacity(0);
@@ -151,6 +228,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void deleteAlbum() {
         if (selectedAlbum == null) {
             return;
@@ -166,6 +246,9 @@ public class Controller {
         } catch (Exception ignored) {}
     }
 
+    /**
+     *
+     */
     public void promptAdd() {
         if (promptAdd.getText().equals("Edit")) {
             promptAdd.setText("Close");
@@ -191,6 +274,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void openAlbum() {
         if (selectedAlbum == null) {
             return;
@@ -200,6 +286,9 @@ public class Controller {
         Photos.changeScene("primary", "/stages/primary/photoslist/photoslist.fxml");
     }
 
+    /**
+     *
+     */
     public void addAlbum() {
         try {
             if (albumName.getText().isEmpty()) {
@@ -224,6 +313,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void renameAlbum() {
         if (selectedAlbum == null) {
             return;

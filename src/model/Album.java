@@ -5,14 +5,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public final class Album implements java.io.Serializable, Comparable<Album> {
+    /**
+     *
+     */
     @Serial
     private static final long serialVersionUID = -2523531824640650719L;
+    /**
+     *
+     */
     public String name;
+    /**
+     *
+     */
     public ArrayList<Photo> photos;
+    /**
+     *
+     */
     public Calendar start;
+    /**
+     *
+     */
     public Calendar end;
 
+    /**
+     *
+     * @param name
+     */
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<>();
@@ -21,6 +43,11 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         this.end = this.start;
     }
 
+    /**
+     *
+     * @param name
+     * @param photos
+     */
     public Album(String name, ArrayList<Photo> photos) {
         this.name = name;
         this.photos = photos;
@@ -34,6 +61,11 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         this.end = Collections.max(photos).dateTaken;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Album other)) {
@@ -42,6 +74,11 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         return this.name.equals(other.name);
     }
 
+    /**
+     *
+     * @param other the object to be compared.
+     * @return
+     */
     public int compareTo(Album other) {
         if (this.equals(other)) {
             return 0;
@@ -53,6 +90,11 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         }
     }
 
+    /**
+     *
+     * @param path
+     * @throws Exception
+     */
     public void addPhoto(String path) throws Exception {
         if (this.photos.contains(new Photo(path))) {
             throw new Exception("Photo is already in album");
@@ -70,6 +112,12 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         if (newPhoto.dateTaken.compareTo(this.end) > 0) this.end = newPhoto.dateTaken;
     }
 
+    /**
+     *
+     * @param path
+     * @param caption
+     * @throws Exception
+     */
     public void addPhoto(String path, String caption) throws Exception {
         if (this.photos.contains(new Photo(path))) {
             throw new Exception("Photo is already in album");
@@ -85,6 +133,11 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         if (newPhoto.dateTaken.compareTo(this.end) > 0) this.end = newPhoto.dateTaken;
     }
 
+    /**
+     *
+     * @param path
+     * @throws Exception
+     */
     public void removePhoto(String path) throws Exception {
         if (!this.photos.contains(new Photo(path))) {
             throw new Exception("Photo not in album");
@@ -101,6 +154,3 @@ public final class Album implements java.io.Serializable, Comparable<Album> {
         if (photo.dateTaken.compareTo(this.end) == 0) this.end = Collections.max(this.photos).dateTaken;
     }
 }
-
-
-

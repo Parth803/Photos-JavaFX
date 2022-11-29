@@ -15,39 +15,96 @@ import photos.Photos;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private TilePane photosPane;
+    /**
+     *
+     */
     @FXML
     private Button back;
+    /**
+     *
+     */
     @FXML
     private Button logout;
+    /**
+     *
+     */
     @FXML
     private Text albumName;
+    /**
+     *
+     */
     @FXML
     private Button delete;
+    /**
+     *
+     */
     @FXML
     private Button promptAdd;
+    /**
+     *
+     */
     @FXML
     private Text caption;
+    /**
+     *
+     */
     @FXML
     private Text dateTaken;
+    /**
+     *
+     */
     @FXML
     private Button edit;
+    /**
+     *
+     */
     @FXML
     private Button display;
+    /**
+     *
+     */
     @FXML
     private Text photoPathLabel;
+    /**
+     *
+     */
     @FXML
     private TextField photoPath;
+    /**
+     *
+     */
     @FXML
     private Text warning;
+    /**
+     *
+     */
     @FXML
     private Button sendAdd;
+    /**
+     *
+     */
     private Album currentAlbum;
+    /**
+     *
+     */
     private VBox selectedPhotoBox;
+    /**
+     *
+     */
     private Photo selectedPhoto;
 
+    /**
+     *
+     */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         if (Model.dataTransfer.size() == 2) {
@@ -71,6 +128,9 @@ public class Controller {
         this.sendAdd.setOnAction(actionEvent -> addPhoto());
     }
 
+    /**
+     *
+     */
     public void createElements() {
         photosPane.getChildren().clear();
         photosPane.setPrefColumns(3);
@@ -81,6 +141,11 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public VBox createElement(Photo p) {
         ImageView img = new ImageView();
         img.setImage(new Image("file:" + p.path));
@@ -113,12 +178,18 @@ public class Controller {
         return element;
     }
 
+    /**
+     *
+     */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.caption.setText(selectedPhoto.caption);
         this.dateTaken.setText(formatter.format(selectedPhoto.dateTaken.getTime()));
     }
 
+    /**
+     *
+     */
     public void deletePhoto() {
         if (selectedPhoto == null) {
             return;
@@ -133,6 +204,9 @@ public class Controller {
         } catch (Exception ignored) {}
     }
 
+    /**
+     *
+     */
     public void promptAdd() {
         if (promptAdd.getText().equals("Add")) {
             promptAdd.setText("Close");
@@ -152,6 +226,9 @@ public class Controller {
         warning.setOpacity(0);
     }
 
+    /**
+     *
+     */
     public void editPhoto() {
         if (selectedPhoto == null) {
             return;
@@ -162,6 +239,9 @@ public class Controller {
         Photos.changeScene("primary", "/stages/primary/edit/edit.fxml");
     }
 
+    /**
+     *
+     */
     public void displayPhoto() {
         if (selectedPhoto == null) {
             return;
@@ -172,6 +252,9 @@ public class Controller {
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
+    /**
+     *
+     */
     public void addPhoto() {
         try {
             if (photoPath.getText().isEmpty()) {
@@ -201,4 +284,3 @@ public class Controller {
         }
     }
 }
-

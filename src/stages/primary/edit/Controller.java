@@ -14,46 +14,112 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private Button back;
+    /**
+     *
+     */
     @FXML
     private Button logout;
+    /**
+     *
+     */
     @FXML
     private TextField caption;
+    /**
+     *
+     */
     @FXML
     private Button updateCaption;
+    /**
+     *
+     */
     @FXML
     private Button deleteTag;
+    /**
+     *
+     */
     @FXML
     private ListView<String> tagsList;
+    /**
+     *
+     */
     @FXML
     private ChoiceBox<String> presets;
+    /**
+     *
+     */
     @FXML
     private Text tagTypeLabel;
+    /**
+     *
+     */
     @FXML
     private TextField tagType;
+    /**
+     *
+     */
     @FXML
     private Text tagPropertyLabel;
+    /**
+     *
+     */
     @FXML
     private ChoiceBox<String> tagProperty;
+    /**
+     *
+     */
     @FXML
     private TextField tagValue;
+    /**
+     *
+     */
     @FXML
     private Text tagWarning;
+    /**
+     *
+     */
     @FXML
     private Button addTag;
+    /**
+     *
+     */
     @FXML
     private TextField destinationAlbum;
+    /**
+     *
+     */
     @FXML
     private Text warning;
+    /**
+     *
+     */
     @FXML
     private Button copyTo;
+    /**
+     *
+     */
     @FXML
     private Button moveTo;
+    /**
+     *
+     */
     private Album currentAlbum;
+    /**
+     *
+     */
     private Photo selectedPhoto;
 
+    /**
+     *
+     */
     public void initialize() {
         currentAlbum = (Album) Model.dataTransfer.get(0);
         selectedPhoto = (Photo) Model.dataTransfer.get(1);
@@ -76,14 +142,23 @@ public class Controller {
         this.moveTo.setOnAction(actionEvent -> moveTo());
     }
 
+    /**
+     *
+     */
     public void updatePresets() {
         this.presets.setItems(FXCollections.observableList(Model.currentUser.tagPreset.stream().map(p -> p.getKey()+" - "+p.getValue()).collect(Collectors.toList())));
     }
 
+    /**
+     *
+     */
     public void updateTagsList() {
         this.tagsList.setItems(FXCollections.observableList(selectedPhoto.tags.stream().map(t -> t.type+"="+t.value).collect(Collectors.toList())));
     }
 
+    /**
+     *
+     */
     public void deleteTag() {
         if (this.tagsList.getSelectionModel().isEmpty()) {
             return;
@@ -101,12 +176,19 @@ public class Controller {
         Model.persist();
     }
 
+    /**
+     *
+     */
     public void updateCaption() {
         selectedPhoto.caption = caption.getText();
         this.caption.setText(selectedPhoto.caption);
         Model.persist();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void selectTagType(Event event) {
         tagPropertyLabel.setOpacity(0);
         tagProperty.setOpacity(0);
@@ -128,6 +210,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void addTag() {
         if (presets.getValue() == null || presets.getValue().isEmpty() || (!tagType.isDisabled() && tagType.getText().isEmpty()) || (!tagProperty.isDisabled() && tagProperty.getValue() == null) || (!tagProperty.isDisabled() && tagProperty.getValue().isEmpty()) || tagValue.getText().isEmpty()) {
             tagWarning.setText("Fill in all the details to add a tag.");
@@ -165,6 +250,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void copyTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
@@ -179,6 +267,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void moveTo() {
         try {
             Model.currentUser.albums.get(Model.currentUser.albums.indexOf(new Album(destinationAlbum.getText()))).addPhoto(selectedPhoto.path, selectedPhoto.caption);
@@ -194,6 +285,3 @@ public class Controller {
         }
     }
 }
-
-
-

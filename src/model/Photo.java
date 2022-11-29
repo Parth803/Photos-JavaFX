@@ -7,14 +7,36 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public final class Photo implements java.io.Serializable, Comparable<Photo> {
+    /**
+     *
+     */
     @Serial
     private static final long serialVersionUID = -1207060131086150206L;
+    /**
+     *
+     */
     public String path;
+    /**
+     *
+     */
     public String caption;
+    /**
+     *
+     */
     public Calendar dateTaken;
+    /**
+     *
+     */
     public ArrayList<Tag> tags;
 
+    /**
+     *
+     * @param path
+     */
     public Photo(String path) {
         this.path = path;
         this.caption = "";
@@ -25,6 +47,11 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         this.tags = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param path
+     * @param caption
+     */
     public Photo(String path, String caption) {
         this.path = path;
         this.caption = caption;
@@ -35,6 +62,11 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         this.tags = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Photo other)) {
@@ -43,6 +75,11 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         return this.path.equals(other.path);
     }
 
+    /**
+     *
+     * @param other the object to be compared.
+     * @return
+     */
     public int compareTo(Photo other) {
         if (this.equals(other)) {
             return 0;
@@ -54,6 +91,12 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         }
     }
 
+    /**
+     *
+     * @param type
+     * @param value
+     * @throws Exception
+     */
     public void addTag(String type, String value) throws Exception {
         boolean isSingle;
         try {
@@ -82,6 +125,13 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         this.tags.add(new Tag(type, value));
     }
 
+    /**
+     *
+     * @param type
+     * @param value
+     * @param isSingle
+     * @throws Exception
+     */
     public void addTag(String type, String value, boolean isSingle) throws Exception {
         String property = isSingle ? "single" : "multiple";
         if (Model.currentUser.tagPreset.contains(new Pair<>(type, property))) {
@@ -96,6 +146,12 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         }
     }
 
+    /**
+     *
+     * @param type
+     * @param value
+     * @throws Exception
+     */
     public void removeTag(String type, String value) throws Exception {
         if (!this.tags.contains(new Tag(type, value))) {
             throw new Exception("Photo Does Not Have This Tag");
@@ -103,6 +159,3 @@ public final class Photo implements java.io.Serializable, Comparable<Photo> {
         this.tags.remove(new Tag(type, value));
     }
 }
-
-
-

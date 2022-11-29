@@ -19,35 +19,86 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Parth Patel, Yash Patel
+ */
 public class Controller {
+    /**
+     *
+     */
     @FXML
     private TilePane photosPane;
+    /**
+     *
+     */
     @FXML
     private Button back;
+    /**
+     *
+     */
     @FXML
     private Button logout;
+    /**
+     *
+     */
     @FXML
     private TextField searchField;
+    /**
+     *
+     */
     @FXML
     private Button search;
+    /**
+     *
+     */
     @FXML
     private Text searchWarning;
+    /**
+     *
+     */
     @FXML
     private TextField newAlbumName;
+    /**
+     *
+     */
     @FXML
     private Text warning;
+    /**
+     *
+     */
     @FXML
     private Button createAlbum;
+    /**
+     *
+     */
     @FXML
     private Text caption;
+    /**
+     *
+     */
     @FXML
     private Text dateTaken;
+    /**
+     *
+     */
     @FXML
     private Button display;
+    /**
+     *
+     */
     private ArrayList<Photo> searchResults;
+    /**
+     *
+     */
     private VBox selectedPhotoBox;
+    /**
+     *
+     */
     private Photo selectedPhoto;
 
+    /**
+     *
+     */
     public void initialize() {
         String searchQuery = (String) Model.dataTransfer.get(0);
         searchField.setText(searchQuery);
@@ -65,6 +116,9 @@ public class Controller {
         this.display.setOnAction(actionEvent -> displayPhoto());
     }
 
+    /**
+     *
+     */
     public void createElements() {
         photosPane.getChildren().clear();
         photosPane.setPrefColumns(3);
@@ -75,6 +129,11 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public VBox createElement(Photo p) {
         ImageView img = new ImageView();
         img.setImage(new Image("file:" + p.path));
@@ -98,12 +157,18 @@ public class Controller {
         return element;
     }
 
+    /**
+     *
+     */
     public void updateDetailDisplay() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         this.caption.setText(selectedPhoto.caption);
         this.dateTaken.setText(formatter.format(selectedPhoto.dateTaken.getTime()));
     }
 
+    /**
+     *
+     */
     public void addAlbum() {
         try {
             if (newAlbumName.getText().isEmpty()) {
@@ -118,6 +183,9 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     public void displayPhoto() {
         if (selectedPhoto == null) {
             return;
@@ -129,6 +197,9 @@ public class Controller {
         Photos.changeScene("viewphoto", "/stages/viewphoto/main/main.fxml");
     }
 
+    /**
+     *
+     */
     public void searchPhotos() {
         if (searchField.getText().isEmpty() || searchField.getText().matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} TO \\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2}") || searchField.getText().matches("\\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ AND \\S+=\\S+") || searchField.getText().matches("\\S+=\\S+ OR \\S+=\\S+")) {
             searchWarning.setOpacity(0);
@@ -141,6 +212,11 @@ public class Controller {
             searchWarning.setOpacity(0.69);
         }
     }
+
+    /**
+     *
+     * @param searchQuery
+     */
     public void getSearchedImages(String searchQuery) {
         if (searchQuery.isEmpty()) {
             searchResults = Model.currentUser.getAllPhotos();
@@ -192,5 +268,3 @@ public class Controller {
         }
     }
 }
-
-
