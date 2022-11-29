@@ -159,7 +159,7 @@ public final class Model {
      * @param comeBack Whether the next scene can directly come back to the current scene in a linear transition
      *                 (usually only valid for scenes on the same stage because otherwise, the user can go back in multiple
      *                 stages at the same time)
-     *                 (Valid: A <-> B <-> C, linear transition) (Invalid: A <- C, C can not jump over B)
+     *                 (Valid: A to B to C, linear transition) (Invalid: C to A, C can not jump over B)
      */
     public static void initNextScene(boolean comeBack) {
         if (comeBack) {
