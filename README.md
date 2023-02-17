@@ -1,6 +1,5 @@
 ## Getting Started
 
-
 Welcome to the IntelliJ Java world. Here is a guideline to help you get started to write Java code in IntelliJ IDEA.
 
 @authors: Yash Patel, Parth Patel
